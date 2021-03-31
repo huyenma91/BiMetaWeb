@@ -1,0 +1,108 @@
+.body_background {
+    background-color: #73a536;
+}
+
+.body_title {
+    color: white;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 100px;
+}
+
+.body_section2 {
+    position: initial;
+    background-color: white;
+    border-radius: 2em;
+}
+
+.body_section2_title {
+    color: #73a536;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.area2 {
+    padding: 0.2em;
+}
+
+.body_section3 {
+    position: initial;
+    background-color: white;
+    border-radius: 2em;
+    padding: 1em;
+    display: grid;
+}
+
+.body_section3_title {
+    color: #73a536;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+}
+
+.area3 {
+    text-align: center;
+    padding: 0.2em;
+}
+
+.area3_1 {
+    padding: 0.2em;
+}
+
+.body_section4 {
+    position: initial;
+    background-color: white;
+    border-radius: 2em;
+    padding: 1em;
+    display: grid;
+}
+
+.body_section4_title {
+    color: #73a536;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+}
+
+.area4 {
+    text-align: center;
+    padding: 0.2em;
+}
+
+.area4_1 {
+    padding: 0.2em;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.submit_button {
+    background-color: white;
+    border-radius: 2em;
+    color: #73a536;
+    padding: 1em;
+    width: 200px;
+}
+
+.stop_button {
+    background-color: red;
+    border-radius: 2em;
+    color: white;
+    padding: 0.5em;
+    width: 200px;
+}
+
+.button_area {
+    text-align: center;
+}
+
+input {
+    text-align: center;
+    border-radius: 2em;
+}
+
+select {
+    text-align: center;
+    border-radius: 2em;
+}
