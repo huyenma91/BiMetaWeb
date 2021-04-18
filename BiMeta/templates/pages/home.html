@@ -1,117 +1,513 @@
-{% extends "pages/base.html" %} {% block title%}BiMeta{% endblock %} {% block content %}
+{% extends "pages/base.html" %} {% block title%}BiMeta{% endblock %} {% block content %} {% comment %}
 <h1 class="body_title">
     BIMETA-CLUSTERING
-</h1>
-<div>
-    <div class="container">
-        <form method="post" enctype="multipart/form-data">
-            <div class="body_section2">
-                <div class="area2 row">
-                    {% csrf_token %} {{ form.as_p }}
-                    <p class="body_section2_title col bold">Input dataset file</p>
-                    <input type="file" name="file" id="file" class="col">
+</h1> {% endcomment %}
 
-                    <div id="progress-div" style="display:none">
-                        <div class="progress">
-                            <div class="progress-bar" id="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+<div class="site-content">
+    <header class="site-header collapsed-nav" data-bg-image="">
+        <div class="container">
+            <div class="header-bar">
+                <a href="index.html" class="branding">
+                    <img src="static/images/logo.png" alt="" class="logo">
+                    <div class="logo-type">
+                        <h1 class="site-title">The Small Company</h1>
+                        <small class="site-description">Tagline goes here</small>
+                    </div>
+                </a>
+
+                <nav class="main-navigation">
+                    <button class="menu-toggle"><i class="fa fa-bars"></i></button>
+                    <ul class="menu">
+                        <li class="home menu-item current-menu-item">
+                            <a href="index.html"><img src="static/images/home-icon.png" alt="Home"></a>
+                        </li>
+                        <li class="menu-item"><a href="#system">System</a></li>
+                        <li class="menu-item"><a href="#aboutUs">About</a></li>
+                        <li class="menu-item"><a href="projects.html">Your projects</a></li>
+                        <li class="menu-item"><a href="contact.html">Login</a></li>
+                    </ul>
+                </nav>
+
+                <div class="mobile-navigation"></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="hero">
+        <ul class="slides">
+            <li data-bg-image="static/images/slider-1.jpg">
+                <div class="container">
+                    <div class="slide-content">
+                        <h2 class="slide-title">BIMETA-CLUSTERING</h2>
+                        <p>The best clustering system for large dataset of genomic</p>
+                        <a href="#system" class="button" style="font-weight: bold;">Start system</a>
+                    </div>
+                </div>
+            </li>
+            <li data-bg-image="static/images/slider-2.jpg">
+                <div class="container">
+                    <div class="slide-content">
+                        <h2 class="slide-title">BIMETA-CLUSTERING</h2>
+                        <p>Based on BiMeta method</p>
+                        <a href="#system" class="button" style="font-weight: bold;">Start system</a>
+                    </div>
+                </div>
+            </li>
+            <li data-bg-image="static/images/slider-3.jpg">
+                <div class="container">
+                    <div class="slide-content">
+                        <h2 class="slide-title">BIMETA-CLUSTERING</h2>
+                        <p>Applying Hadoop MapReduce distribute system</p>
+                        <a href="#system" class="button" style="font-weight: bold;">Start system</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <main class="main-content">
+        <div class="fullwidth-block">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="feature">
+                            <img src="static/images/icon-research-small.png" alt="" class="feature-image">
+                            <h2 class="feature-title">BiMeta</h2>
+                            <p> An unsupervised algorithm, called BiMeta, for binning of reads from different species in a metagenomic dataset...</p>
+                            <a href="" class="button">Learn more</a>
                         </div>
                     </div>
-                    <p id="progress-text"></p>
-                    <div class="button_area" id="stop-div" style="display:none">
-                        <button class="stop_button bold" type="button" id="stop_button">Stop</button>
+                    {% comment %}
+                    <div class="col-md-3 col-sm-6">
+                        <div class="feature">
+                            <img src="static/images/icon-medicine-small.png" alt="" class="feature-image">
+                            <h2 class="feature-title">Medicice</h2>
+                            <p>Laborum et dolorum fuga harum quidem rerum facilis et expedita distinctio nam libero tempore.</p>
+                            <a href="" class="button">Learn more</a>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="feature">
+                            <img src="static/images/icon-genetics-small.png" alt="" class="feature-image">
+                            <h2 class="feature-title">Genetics</h2>
+                            <p>Laborum et dolorum fuga harum quidem rerum facilis et expedita distinctio nam libero tempore.</p>
+                            <a href="" class="button">Learn more</a>
+                        </div>
+                    </div> {% endcomment %}
+                    <div class="col-md-6 col-sm-12">
+                        <div class="feature">
+                            <img src="static/images/icon-energy-small.png" alt="" class="feature-image">
+                            <h2 class="feature-title">Hadoop</h2>
+                            <p>Laborum et dolorum fuga harum quidem rerum facilis et expedita distinctio nam libero tempore.</p>
+                            <a href="" class="button">Learn more</a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <br><br>
-            <div class="body_section3">
-                <div class="area3">
-                    <p class="body_section3_title bold">Parameters</p>
+        </div>
+        <div class="page-head" data-bg-image="static/images/page-head-2.jpg" id="system">
+            <div class="container">
+                <h2 class="page-title">System</h2>
+                <small>The left column below is the place for dataset uploading and running Hadoop system and the right column for parameters explanation. </small>
+            </div>
+        </div>
+
+        <div style="font-family: Helvetica, sans-serif;">
+            <div>
+                <table id="neatdata" cellpadding="0" cellspacing="0" > 
+                    <tr>
+                        <td>Your files:</td>
+                        <td colspan="2">Options:</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <form method="post" enctype="multipart/form-data" data-bg-color="#edf2f4" style="padding: 2em;" class="col-md-6 col-sm-12">
+                <div class="body_section2">
+                    <div class="area2">
+                        <p class="body_section2_title bold">Input dataset file</p>
+                    </div>
+                    <div class="area2 row">
+                        {% csrf_token %} {{ form.as_p }}
+                        <label class="custom-file-upload">
+                        <i class="fa fa-upload"></i><input type="file" name="file" id="file">
+                        Upload New File
+                    </label>
+                        <span id="file-selected"></span>
+
+
+                        <div id="progress-div" style="display:none">
+                            <div class="progress">
+                                <div class="progress-bar" id="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                            </div>
+                        </div>
+                        <p id="progress-text"></p>
+                        <div class="button_area" id="stop-div" style="display:none">
+                            <button class="stop_button bold" type="button" id="stop_button">Stop</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="area3_1 row">
-                    <p class="body_section3_title col bold">Kmer size:</p>
-                    <input class="col" type="number" min="1" id="kmer">
-                </div>
-                <div class="area3_1 row">
-                    <p class="body_section3_title col bold" min="1">Length of qmers:</p>
-                    <input class="col" type="number" id="lofqmer">
-                </div>
-                <div class="area3_1 row">
-                    <p class="body_section3_title col bold" min="1">Number of share reads:</p>
-                    <input class="col" type="number" id="sharereads">
-                </div>
-                <div class="area3_1 row">
-                    <p class="body_section3_title col bold" min="1">Maximum component size:</p>
-                    <input class="col" type="number" id="maxcomp">
-                </div>
-                <div class="area3_1 row">
+                <br><br>
+                <div class="body_section3">
+                    <div class="area3">
+                        <p class="body_section3_title bold">Parameters</p>
+                    </div>
+                    <div class="area3_1 row">
+                        <p class="body_section3_title col bold">K-mer size:</p>
+                        <input class="col" type="number" min="1" id="kmer">
+                    </div>
+                    <div class="area3_1 row">
+                        <p class="body_section3_title col bold">Length of Q-mer:</p>
+                        <input class="col" type="number" min="1" id="lofqmer">
+                    </div>
+                    <div class="area3_1 row">
+                        <p class="body_section3_title col bold">Number of share reads:</p>
+                        <input class="col" type="number" min="1" id="sharereads">
+                    </div>
+                    <div class="area3_1 row">
+                        <p class="body_section3_title col bold" >Maximum component size:</p>
+                        <input class="col" type="number" min="1" id="maxcomp">
+                    </div>
+                    <!-- <div class="area3_1 row">
                     <p class="body_section3_title col bold" min="1">Number of tasks(reducers):</p>
                     <input class="col" type="number" id="numtasks">
+                </div> -->
                 </div>
-            </div>
-            <br><br>
-            <div class="body_section4">
-                <div class="area4">
-                    <p class="body_section3_title bold">Output</p>
-                </div>
-                <div class="area4_1 row">
-                    <p class="body_section4_title col bold">Export graph visualize:</p>
-                    <select class="col" id="exGraph">
+                <br><br>
+                <div class="body_section4">
+                    <div class="area4">
+                        <p class="body_section3_title bold">Output</p>
+                    </div>
+                    <div class="area4_1 row">
+                        <p class="body_section4_title col bold">Export graph visualize:</p>
+                        <select class="col" id="exGraph">
                         <option>Yes</option>
                         <option>No</option>
                     </select>
-                </div>
-                <div class="area4_1 row">
-                    <p class="body_section4_title col bold" min="1">Export cluster group files:</p>
-                    <select class="col" id="exFile">
+                    </div>
+                    <div class="area4_1 row">
+                        <p class="body_section4_title col bold" min="1">Export cluster group files:</p>
+                        <select class="col" id="exFile">
                         <option>Yes</option>
                         <option>No</option>
                     </select>
+                    </div>
+                </div>
+                <br><br>
+                <div class="button_area">
+                    <button class="submit_button bold" id="startButton" type="button" onclick="getValue(event)">Start</button>
+                </div>
+                <br>
+                <center><div class="loader" id="loader" style="display: none;"></div></center>
+                <div style="font-family: Helvetica, sans-serif;">
+                    <div id="outputData">
+                    
+                    </div>
+                </div>
+                
+            </form>
+            <div class="col-md-6 col-sm-12">
+                <div class="fullwidth-block" style="padding: 1.5em 0 0 0">
+
+                    <div class="boxed-icon">
+                        <img src="static/images/kmer.png" style="width: 50px;height: 50px;" alt="" class="icon">
+                        <h3>K-mer size</h3>
+                        <p>Using for <b>extracting compositional features</b> of the read groups. Instead of extracting the features from all reads of each group, we compute <b>k-mer frequency distribution</b> of their <b>subgroups</b> which only consists
+                            of <b>non-overlapping reads</b>. k-mers are composed of nucleotides (i.e. A, T, G, and C). Usually, the term k-mer refers to all of a sequence's subsequences of length <b>k</b>, such that the sequence AGAT would have four monomers
+                            (A, G, A, and T).
+                        </p>
+                    </div>
+
+                    <div class="boxed-icon">
+                        <img src="static/images/qmer.png" style="width: 60px;height: 60px;" alt="" class="icon">
+                        <h3>Length of Q-mer</h3>
+                        <p>One of two parameters for creating overlap graph. Adjust the length number of shared q-mers. Most of q-mer repeats in a metagenomic dataset are caused by overlaps of reads. Thus, there is a great probability that the reads sharing
+                            q-mers with each other (with a sufficient value of q) are overlapping reads.</p>
+                    </div>
+
+                    <div class="boxed-icon">
+                        <img src="static/images/shareread.png" style="width: 60px;height: 60px;" alt="" class="icon">
+                        <h3>Number of shared reads</h3>
+                        <p>One of two parameters for creating overlap graph. Adjust the number of shared reads to between reads to define overlap reads.</p>
+                    </div>
+
+                    <div class="boxed-icon">
+                        <img src="static/images/maxcom.png" style="width: 50px;height: 50px;" alt="" class="icon">
+                        <h3>Maximum component size</h3>
+                        <p>Define the number of overlaped nodes in a group which allow a balance system.</p>
+                    </div>
+
                 </div>
             </div>
-            <br><br>
-            <div class="button_area">
-                <button class="submit_button bold" type="submit" onclick="getValue(event)">Start</button>
-            </div>
-        </form>
+        </div>
+
+</div>
+
+
+<div class="page-head" data-bg-image="static/images/page-head-1.jpg" id="aboutUs">
+    <div class="container">
+        <h2 class="page-title">About us</h2>
+        <small>Let's take a review of our wonderful team members and our purpose! </small>
     </div>
 </div>
 
+<div class="fullwidth-block">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h2 class="section-title">Why choose us?</h2>
+                <ol class="circle">
+                    <li>
+                        <h3>Dignissimos ducimus blanditiis</h3>
+                        <p>Molestias excepturi sint occaecati cupiditate provident similique sunt culpa. omnis iste natus voluptatem.</p>
+                    </li>
+                    <li>
+                        <h3>Accusantium doloremque totam</h3>
+                        <p>Molestias excepturi sint occaecati cupiditate provident similique sunt culpa. omnis iste natus voluptatem.</p>
+                    </li>
+                    <li>
+                        <h3>Cusamus dignissimos ducimus</h3>
+                        <p>Molestias excepturi sint occaecati cupiditate provident similique sunt culpa. omnis iste natus voluptatem.</p>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-md-4">
+                <h2 class="section-title">Usefull links</h2>
+                <p>Nemo mollitia iste quis sed iure tempora dolore incidunt praesentium aspernatur! Praesentium impedit aperiam, commodi magnam accusamus nobis. Quia, velit sunt asperiores?</p>
+                <ul class="arrow-list has-border">
+                    <li>Praesentium voluptatum deleniti atque dolores </li>
+                    <li>Corrupti quos et quas molestias excepturi</li>
+                    <li>Occaecati cupiditate non provident similique</li>
+                    <li>Nam libero tempore, cum soluta nobis eligendi</li>
+                    <li>Iditate non provident, similique sunt in culpa</li>
+                    <li>Officia deserunt mollitia animi distinctio laborum</li>
+                    <li>Dolorum fuga harum quidem rerum facilis</li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h2 class="section-title">Testimonials</h2>
+                <ul class="testimonial-list">
+                    <li>
+                        <blockquote>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam, quis</p>
+                            <cite>Anthony Rubbens</cite>
+                        </blockquote>
+                    </li>
+                    <li>
+                        <blockquote>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam, quis</p>
+                            <cite>Anthony Rubbens</cite>
+                        </blockquote>
+                    </li>
+                    <li>
+                        <blockquote>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam, quis</p>
+                            <cite>Anthony Rubbens</cite>
+                        </blockquote>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- .row -->
+    </div>
+    <!-- .container -->
+</div>
+<!-- .fullwidth-block -->
+<div class="fullwidth-block" data-bg-color="#edf2f4">
+    <div class="container">
+        <h2 class="section-title">Our team</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="team">
+                    <img src="static/images/person-1.jpg" alt="" class="team-image">
+                    <h3 class="team-name">Trần Dương Huy</h3>
+                    <p>Praesentium deleniti atque corrupti quos dolores molestias excepturi.</p>
+                    <div class="social-links">
+                        <a href=""><i class="fa fa-facebook"></i></a>
+                        <a href=""><i class="fa fa-twitter"></i></a>
+                        <a href=""><i class="fa fa-google-plus"></i></a>
+                        <a href=""><i class="fa fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="team">
+                    <img src="static/images/person-2.jpg" alt="" class="team-image">
+                    <h3 class="team-name">Nguyễn Hữu Trung Nhân</h3>
+                    <p>Praesentium deleniti atque corrupti quos dolores molestias excepturi.</p>
+                    <div class="social-links">
+                        <a href=""><i class="fa fa-facebook"></i></a>
+                        <a href=""><i class="fa fa-twitter"></i></a>
+                        <a href=""><i class="fa fa-google-plus"></i></a>
+                        <a href=""><i class="fa fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="team">
+                    <img src="static/images/person-3.jpg" alt="" class="team-image">
+                    <h3 class="team-name">Phạm Nhật Phương</h3>
+                    <p>Praesentium deleniti atque corrupti quos dolores molestias excepturi.</p>
+                    <div class="social-links">
+                        <a href=""><i class="fa fa-facebook"></i></a>
+                        <a href=""><i class="fa fa-twitter"></i></a>
+                        <a href=""><i class="fa fa-google-plus"></i></a>
+                        <a href=""><i class="fa fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- .row -->
+    </div>
+    <!-- .container -->
+</div>
+
+<div class="fullwidth-block" data-bg-color="#edf2f4">
+    <div class="container">
+        <div class="subscribe-form">
+            <h2>Join our newsletter</h2>
+            <form action="#">
+                <input type="text" placeholder="Enter your email">
+                <input type="submit" value="Subscribe">
+            </form>
+        </div>
+    </div>
+</div>
+
+</main>
+<!-- .main-content -->
+
+<footer class="site-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="widget">
+                    <h3 class="widget-title">Our address</h3>
+                    <strong>Company name INC</strong>
+                    <address>592 Avenue Street, Los Angeles, CA 90012</address>
+                    <a href="tel:+1 800 931 812">+1 800 931 812</a> <br>
+                    <a href="mailto:office@companyname.com">office@companyname.com</a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="widget">
+                    <h3 class="widget-title">Press room</h3>
+                    <ul class="arrow-list">
+                        <li><a href="#">Accusantium doloremque</a></li>
+                        <li><a href="#">Laudantium totam aperiam</a></li>
+                        <li><a href="#">Eaque ipsa quae illo inventore</a></li>
+                        <li><a href="#">Veritatis et quasi architecto</a></li>
+                        <li><a href="#">Vitae dicta sunt explicabo</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="widget">
+                    <h3 class="widget-title">Research summary</h3>
+                    <ul class="arrow-list">
+                        <li><a href="#">Accusantium doloremque</a></li>
+                        <li><a href="#">Laudantium totam aperiam</a></li>
+                        <li><a href="#">Eaque ipsa quae illo inventore</a></li>
+                        <li><a href="#">Veritatis et quasi architecto</a></li>
+                        <li><a href="#">Vitae dicta sunt explicabo</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="widget">
+                    <h3 class="widget-title">Social media</h3>
+                    <p>Deserunt mollitia animi id est laborum dolorum fuga harum quidem rerum facilis.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                        <a href="#"><i class="fa fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- .row -->
+        <p class="colophon">copyright 2014 Company name. Designed by <a href="http://www.vandelaydesign.com/" title="Designed by VandelayDesign.com" target="_blank">VandelayDesign.com</a>. All rights reserved</p>
+    </div>
+    <!-- .container -->
+    <!-- <a href="/download/outputFile" >AAAA </a> -->
+</footer>
+</div>
+<script src="../../static/jsCode/jquery-1.11.1.min.js"></script>
+<script src="../../static/jsCode/plugins.js"></script>
+<script src="../../static/jsCode/app.js"></script>
+<!-- <script src="../../static/jsMainCode.js"></script> -->
 <script>
-    var kmer, lofqmer, sharereads, maxcomp, numtasks = null;
+    var data = JSON.parse("{{data|escapejs}}");
+    console.log(data);
+    let table = $("#neatdata");
+    dataNode = document.getElementById('neatdata');
+    for (var x in data) {
+        dataNode.innerHTML +='<tr><td>'+ x + ' : ' + data[x] + '</td><td><input type="button" id="'+data[x]+'" value="Delete" onclick="removeFiles(id)"></td><td><input type="button" value="Choose" choosefile="'+ data[x] +'" onclick="chooseFileForProcess(this.getAttribute('+"'choosefile'"+'))"></td></tr>';
+        console.log(data[x])
+    }
+
+    function listFiles(dataFiles) {
+        dataNode.innerHTML = '<tr><td>Your files:</td><td colspan="2">Options:</td><td></td></tr>';
+        for (var x in dataFiles) {
+            dataNode.innerHTML +='<tr><td>'+ x + ' : ' + dataFiles[x] + '</td><td><input type="button" id="'+dataFiles[x]+'" value="Delete" onclick="removeFiles(id)"></td><td><input type="button" value="Choose" choosefile="'+ dataFiles[x] +'" onclick="chooseFileForProcess(this.getAttribute('+"'choosefile'"+'))"></td></tr>';
+        }
+    }
+   
+    function listOutputFiles(ouputDataFiles) {
+        outputdataNode = document.getElementById('outputData');
+        outputdataNode.innerHTML = "";
+        for (var x in ouputDataFiles) {
+            outputdataNode.innerHTML +='<a href="/download/'+ouputDataFiles[x]+'">'+ouputDataFiles[x]+'</a>';
+        }
+    }
+    document.getElementById("loader").style.display="none";
+
+    $('#file').bind('change', function() {
+        var fileName = '';
+        fileName = $(this)[0].files[0].name;
+        $('#file-selected').html(fileName);
+    })
+    var kmer, lofqmer, sharereads, maxcomp, numtasks, getFile = null;
     var exGraph, exFile;
     var getFileFlag = false;
+    var outputFlag = false;
+
 
     function getValue(event) {
-        event.preventDefault();
+        console.log("event ne: "+ event);
         kmer = document.getElementById("kmer").value;
         lofqmer = document.getElementById("lofqmer").value;
         sharereads = document.getElementById("sharereads").value;
         maxcomp = document.getElementById("maxcomp").value;
-        numtasks = document.getElementById("numtasks").value;
         exGraph = document.getElementById("exGraph").value;
         exFile = document.getElementById("exFile").value;
         var getFile = document.getElementById("file").files[0];
-        console.log(getFile)
-        if (kmer && lofqmer && sharereads && maxcomp && numtasks && getFile != undefined) {
+        if ((kmer!= undefined && kmer!="") && ((lofqmer!= undefined &&lofqmer!="")) && ((sharereads!= undefined &&sharereads!="")) && ((maxcomp!= undefined && maxcomp!="")) && (getFile!=undefined||getFileFlag==true)) {
             onFormSubmit(event);
+            document.getElementById("startButton").disabled=true;
+            $('#startButton').addClass("submit_disable");
+            document.getElementById("loader").style.display="block";
+            getFileFlag = false;
+           
         } else if (!kmer) {
             alert('Fill kmer');
         } else if (!lofqmer) {
-            alert('Fill lofqmer');
+            alert('Fill length of Q-mer');
         } else if (!sharereads) {
             alert('Fill sharereads');
         } else if (!maxcomp) {
             alert('Fill maxcomp');
-        } else if (!numtasks) {
-            alert('Fill numtasks');
-        } else if (!getFile) {
+        } else if (!getFile && getFileFlag==false) {
             alert("Please upload a file");
         } else {
             console.log(kmer)
             console.log(lofqmer)
             console.log(sharereads)
             console.log(maxcomp)
-            console.log(numtasks)
             console.log(exGraph)
             console.log(exFile)
         }
@@ -119,9 +515,9 @@
     document.getElementById("progress-text").innerHTML = "Uploaded : " + 0 / 1000000 + "/" + 0 / 1000000 + " MB";
 
     function onFormSubmit(event) {
-
         var formData = new FormData();
         var getFile1 = document.getElementById("file").files[0];
+        console.log(getFile1);
         formData.append("file", getFile1);
         console.log(formData);
 
@@ -147,25 +543,128 @@
             }
 
         });
+        console.log(http.readyState)
+        http.onreadystatechange = function() { //Call a function when the state changes.
+            if (http.readyState == 4 && http.status == 200) {
+                console.log('return ne`' + http.response);
+                if(http.response != null ){
+                    console.log('cua upload file')
+                    document.getElementById("startButton").disabled=false;
+                    $('#startButton').removeClass("submit_disable");
+                    document.getElementById("loader").style.display="none";
+                    document.getElementById("file-selected").innerHTML=""
+                }
+                $.ajax({
+                    url: "/",
+                    type: "POST",
+                    data: {
+                        data: ""
+                    },
+                    success: function(result) {
+                        listFiles(result);
+                        console.log(result);
+                        console.log('cua hien file folder');
+                    }
+                })
+            }
+        }
 
-        var params = 'kmer=' + kmer + '&lofqmer=' + lofqmer + '&sharereads=' + sharereads + '&maxcomp=' + maxcomp + '&numtasks=' + numtasks + '&exGraph=' + exGraph + '&exFile=' + exFile;
+        var params = 'kmer=' + kmer + '&lofqmer=' + lofqmer + '&sharereads=' + sharereads + '&maxcomp=' + maxcomp + '&exGraph=' + exGraph + '&exFile=' + exFile ;
         var xhr = new XMLHttpRequest()
         xhr.open('POST', "", true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.onreadystatechange = function() { //Call a function when the state changes.
             if (xhr.readyState == 4 && xhr.status == 200) {
                 // alert(xhr.responseText);
+                
             }
         }
         xhr.send(params);
-        http.send(formData);
+        if (getFile1 != undefined&& getFile1!="") {
+            http.send(formData);
+            document.getElementById("file").value="";
+            var testBug = document.getElementById("file").value;
+            console.log("testBug :",testBug)
+        }   
+        else{
+            var fileChoose = null;
+            fileChoose = document.getElementById('file-selected');
+            if ( fileChoose!=null){
+                console.log("ten file: ",fileChoose.textContent)
+                $.ajax({
+                    url: "/",
+                    type: "POST",
+                    data: {
+                        fileChoose: fileChoose.textContent
+                    },
+                    success: function(result) {
+                        console.log('cua choose file');
+                        document.getElementById("startButton").disabled=false;
+                        $('#startButton').removeClass("submit_disable");
+                        document.getElementById("loader").style.display="none";
+                        document.getElementById("file-selected").innerHTML="";
+                        console.log("outputFlag : ",outputFlag)
+                    $.ajax({
+                        url: "/",
+                        type: "POST",
+                        data: {
+                        outputdata: ""
+                        },
+                        success: function(result) {
+                            listOutputFiles(result);
+                            console.log(result);
+                            console.log('cua hien output file trong folder');
+                            }
+                        })
+                    },
+                })
+            }
+        }
         document.getElementById("stop_button").addEventListener("click", function() {
             xhr.abort();
             http.abort();
             document.getElementById("stop-div").style["display"] = "none";
             document.getElementById("progress-div").style["display"] = "none";
             document.getElementById("progress-text").innerHTML = "Uploaded : " + 0 / 1000000 + "/" + 0 / 1000000 + " MB";
+            document.getElementById("startButton").disabled=false;
+            $('#startButton').removeClass("submit_disable");
+            document.getElementById("loader").style.display="none";
+            document.getElementById("file-selected").innerHTML=""
+
         });
+    }
+
+
+    function removeFiles(id){
+        console.log(id);
+        $.ajax({
+            url: "/",
+            type: "POST",
+            data: {
+                removeFilename: id
+            },
+            success: function(result) {
+                listFiles(result);
+                console.log(result);
+                console.log('asdasdsa');
+            }
+        })
+        
+    }
+
+    function chooseFileForProcess(filename){
+        document.getElementById('file-selected').innerHTML = "";
+        document.getElementById('file-selected').innerHTML = '<p>' + filename + '<p>' + document.getElementById('file-selected').innerHTML ;      
+        getFileFlag = true; 
+    }
+
+    function downloadFileForProcess(filename){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function(){
+            if (http.readyState == 4 && http.status == 200){
+
+            }
+        }
     }
 </script>
 {% endblock %}
