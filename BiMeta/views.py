@@ -32,20 +32,23 @@ def index(request):
             # print(request.POST.get('exFile'))
             # c = subprocess.call("python3 /home/phuong/testtesttest.py "+kmer,shell=True)
             return HttpResponse('yeah')
-        elif 'data' in request.POST:
-            return HttpResponse( dumps(getFiles()), content_type='application/json')
-        elif 'outputdata' in request.POST:
-            print(getOutputFiles())
-            return HttpResponse( dumps(getOutputFiles()), content_type='application/json')
+        elif 'data' in request.POST or 'outputdata' in request.POST:
+            resultObject = {}
+            resultObject['listOfInputFile'] = getFiles()
+            resultObject['listOfOutputFile'] = getOutputFiles()
+            return HttpResponse( dumps(resultObject), content_type='application/json')
+        # elif 'outputdata' in request.POST:
+        #     print(getOutputFiles())
+        #     return HttpResponse( dumps(getOutputFiles()), content_type='application/json')
         elif 'removeFilename' in request.POST:
             removeFiles(request.POST.get('removeFilename'))
             return HttpResponse( dumps(getFiles()) , content_type='application/json')    
         elif 'fileChoose' in request.POST:
             fileChoose= request.POST.get('fileChoose')
             print(fileChoose)
-            #rc = subprocess.call("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True)
+            rc = subprocess.call("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True)
             print(get_download_path())
-            return HttpResponse('hehe')
+            return HttpResponse('haha')
         else:
             upload_file = request.FILES['file']
             fileName=upload_file.name
@@ -55,15 +58,9 @@ def index(request):
             fs_path = fs.save(upload_file.name,upload_file)
             print(fs_path)
             rc = subprocess.call("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileName,shell=True)
-            return HttpResponse(rc)
+            print('done')
+            return HttpResponse('asd')
     else:
-        # if 'download' in request.GET:
-        #     print('download')
-        #     response = HttpResponse(mimetype='application/force-download')
-        #     response['Content-Dispostion'] = 'attachment; filename=testesttest.py'
-        #     response['X-Sendfile'] = smart_str('$HOME/ServerWeb/Output/testtesttest.py')
-        #     return response
-        # else:
 
             return render(request, 'pages/home.html',{"data":dumps(getFiles()),"outputdata":dumps(getOutputFiles())})
     return

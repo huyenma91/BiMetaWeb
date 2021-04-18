@@ -114,12 +114,8 @@
 
         <div style="font-family: Helvetica, sans-serif;">
             <div>
+                <p id="nodata">No data file in system's folder</p>
                 <table id="neatdata" cellpadding="0" cellspacing="0" > 
-                    <tr>
-                        <td>Your files:</td>
-                        <td colspan="2">Options:</td>
-                        <td></td>
-                    </tr>
                 </table>
             </div>
         </div>
@@ -443,25 +439,41 @@
 <script>
     var data = JSON.parse("{{data|escapejs}}");
     console.log(data);
-    let table = $("#neatdata");
+    // let table = $("#neatdata");
     dataNode = document.getElementById('neatdata');
-    for (var x in data) {
-        dataNode.innerHTML +='<tr><td>'+ x + ' : ' + data[x] + '</td><td><input type="button" id="'+data[x]+'" value="Delete" onclick="removeFiles(id)"></td><td><input type="button" value="Choose" choosefile="'+ data[x] +'" onclick="chooseFileForProcess(this.getAttribute('+"'choosefile'"+'))"></td></tr>';
-        console.log(data[x])
-    }
+    noNode = document.getElementById('nodata');
+    // for (var x in data) {
+    //     dataNode.innerHTML +='<tr><td>'+ x + ' : ' + data[x] + '</td><td><input type="button" id="'+data[x]+'" value="Delete" onclick="removeFiles(id)"></td><td><input type="button" value="Choose" choosefile="'+ data[x] +'" onclick="chooseFileForProcess(this.getAttribute('+"'choosefile'"+'))"></td></tr>';
+    //     console.log(data[x])
+    // }
 
     function listFiles(dataFiles) {
-        dataNode.innerHTML = '<tr><td>Your files:</td><td colspan="2">Options:</td><td></td></tr>';
-        for (var x in dataFiles) {
-            dataNode.innerHTML +='<tr><td>'+ x + ' : ' + dataFiles[x] + '</td><td><input type="button" id="'+dataFiles[x]+'" value="Delete" onclick="removeFiles(id)"></td><td><input type="button" value="Choose" choosefile="'+ dataFiles[x] +'" onclick="chooseFileForProcess(this.getAttribute('+"'choosefile'"+'))"></td></tr>';
+        
+        console.log("Length of dataFiles :",dataFiles.length)
+        if (dataFiles.length == 0){
+            noNode.style.display="block";
+            console.log("ko co");
+            dataNode.style.display="none";
         }
+        else if(dataFiles.length > 0){
+            console.log("co");
+            noNode.style.display="none";
+            dataNode.style.display="table";
+            dataNode.innerHTML = '<tr><td>Your files:</td><td colspan="2">Options:</td><td></td></tr>';
+            for (var x in dataFiles) {
+            dataNode.innerHTML +='<tr><td>'+ x + ' : ' + dataFiles[x] + '</td><td><input type="button" id="'+dataFiles[x]+'" value="Delete" onclick="removeFiles(id)"></td><td><input type="button" value="Choose" choosefile="'+ dataFiles[x] +'" onclick="chooseFileForProcess(this.getAttribute('+"'choosefile'"+'))"></td></tr>';
+            }
+        }
+        // console.log(dataFiles.leng)
+        
     }
+    listFiles(data);
    
     function listOutputFiles(ouputDataFiles) {
         outputdataNode = document.getElementById('outputData');
         outputdataNode.innerHTML = "";
         for (var x in ouputDataFiles) {
-            outputdataNode.innerHTML +='<a href="/download/'+ouputDataFiles[x]+'">'+ouputDataFiles[x]+'</a>';
+            outputdataNode.innerHTML +='<a href="/download/'+ouputDataFiles[x]+'">'+ouputDataFiles[x]+'</a><br>';
         }
     }
     document.getElementById("loader").style.display="none";
@@ -545,6 +557,9 @@
         });
         console.log(http.readyState)
         http.onreadystatechange = function() { //Call a function when the state changes.
+            console.log("state",http.readyState)
+            console.log("http.status",http.status)
+            console.log(http.response)
             if (http.readyState == 4 && http.status == 200) {
                 console.log('return ne`' + http.response);
                 if(http.response != null ){
@@ -558,14 +573,29 @@
                     url: "/",
                     type: "POST",
                     data: {
-                        data: ""
+                        data: "",
+                        // outputdata: ""
                     },
                     success: function(result) {
-                        listFiles(result);
-                        console.log(result);
-                        console.log('cua hien file folder');
+                        console.log(result)
+                        listFiles(result.listOfInputFile);
+                        listOutputFiles(result.listOfOutputFile);
+                        // console.log(result);
+                        // console.log('cua hien file folder');
                     }
                 })
+                // $.ajax({
+                //         url: "/",
+                //         type: "POST",
+                //         data: {
+                //         outputdata: ""
+                //         },
+                //         success: function(result) {
+                //             listOutputFiles(result);
+                //             console.log(result);
+                //             console.log('cua hien output file trong folder');
+                //             }
+                //         })
             }
         }
 
@@ -585,11 +615,12 @@
             document.getElementById("file").value="";
             var testBug = document.getElementById("file").value;
             console.log("testBug :",testBug)
+
         }   
         else{
             var fileChoose = null;
             fileChoose = document.getElementById('file-selected');
-            if ( fileChoose!=null){
+            if (fileChoose!=null){
                 console.log("ten file: ",fileChoose.textContent)
                 $.ajax({
                     url: "/",
@@ -611,7 +642,7 @@
                         outputdata: ""
                         },
                         success: function(result) {
-                            listOutputFiles(result);
+                            listOutputFiles(result.listOfOutputFile);
                             console.log(result);
                             console.log('cua hien output file trong folder');
                             }
@@ -654,7 +685,8 @@
 
     function chooseFileForProcess(filename){
         document.getElementById('file-selected').innerHTML = "";
-        document.getElementById('file-selected').innerHTML = '<p>' + filename + '<p>' + document.getElementById('file-selected').innerHTML ;      
+        // document.getElementById('file-selected').innerHTML = '<p>' + filename + '<p>' + document.getElementById('file-selected').innerHTML ;     
+        document.getElementById('file-selected').innerHTML =filename ;       
         getFileFlag = true; 
     }
 

@@ -9,7 +9,9 @@ from os import listdir
 from os.path import isfile, join
 import os
 def getFiles():
-     return [f for f in listdir("./media/t") if isfile(join("./media/t", f))]
+     list_file = [f for f in listdir("./media/t") if isfile(join("./media/t", f))]
+     print("File co trong folder",list_file)
+     return list_file
 
 
 def removeFiles(filename):
