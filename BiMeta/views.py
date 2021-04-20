@@ -20,9 +20,9 @@ def index(request):
     # print("File trong folder: ",onlyfiles)
     # data = 
     # print(data)
-    if request.method == 'POST':
+    if request.method == 'POST' and 'method' in request.POST:
         print(request.POST)
-        if 'kmer' in request.POST:
+        if request.POST.get('method') == 'passParamters':
             # testtesttest.PhuongOcku('Phuong7 ocku qua')
             # kmer = request.POST.get('kmer')
             # print(request.POST.get('lofqmer'))
@@ -32,7 +32,7 @@ def index(request):
             # print(request.POST.get('exFile'))
             # c = subprocess.call("python3 /home/phuong/testtesttest.py "+kmer,shell=True)
             return HttpResponse('yeah')
-        elif 'data' in request.POST or 'outputdata' in request.POST:
+        elif request.POST.get('method') == 'showdata':
             resultObject = {}
             resultObject['listOfInputFile'] = getFiles()
             resultObject['listOfOutputFile'] = getOutputFiles()
@@ -40,26 +40,28 @@ def index(request):
         # elif 'outputdata' in request.POST:
         #     print(getOutputFiles())
         #     return HttpResponse( dumps(getOutputFiles()), content_type='application/json')
-        elif 'removeFilename' in request.POST:
+        elif request.POST.get('method') == 'removeFilename':
             removeFiles(request.POST.get('removeFilename'))
             return HttpResponse( dumps(getFiles()) , content_type='application/json')    
-        elif 'fileChoose' in request.POST:
+        elif request.POST.get('method') == 'removeFileOutput':
+            removeOutputFiles()
+            return HttpResponse('asdasd')       
+        elif request.POST.get('method') == 'chooseFile':
             fileChoose= request.POST.get('fileChoose')
             print(fileChoose)
             rc = subprocess.call("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True)
-            # print(get_download_path())
             return HttpResponse('haha')
-        else:
-            upload_file = request.FILES['file']
-            fileName=upload_file.name
-            print(fileName)
-            print(upload_file.size)
-            fs = FileSystemStorage()
-            fs_path = fs.save(upload_file.name,upload_file)
-            print(fs_path)
-            rc = subprocess.call("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileName,shell=True)
-            print('done')
-            return HttpResponse('asd')
+    elif request.method == 'POST':
+        upload_file = request.FILES['file']
+        fileName=upload_file.name
+        print(fileName)
+        print(upload_file.size)
+        fs = FileSystemStorage()
+        fs_path = fs.save(upload_file.name,upload_file)
+        print(fs_path)
+        rc = subprocess.call("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileName,shell=True)
+        print('done')
+        return HttpResponse('asd')
     else:
 
             return render(request, 'pages/home.html',{"data":dumps(getFiles()),"outputdata":dumps(getOutputFiles())})

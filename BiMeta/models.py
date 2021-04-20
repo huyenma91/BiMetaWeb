@@ -25,6 +25,13 @@ def removeFiles(filename):
 def getOutputFiles():
      return [k for k in listdir("./Output") if isfile(join("./Output", k))]
 
+def removeOutputFiles():
+     dir ="./Output"
+     for f in os.listdir(dir):
+          os.remove(os.path.join(dir,f))
+
+        
+
 # def get_download_path():
 #     """Returns the default downloads path for linux or windows"""
 #     if os.name == 'nt':

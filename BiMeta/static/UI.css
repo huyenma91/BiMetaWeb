@@ -185,6 +185,7 @@ td{
     color: black;
     border-radius: 20px;
     padding: 10px;
+    max-width: none !important;
 }
 
 .tippy-content{

@@ -509,7 +509,15 @@
             $('#startButton').addClass("submit_disable");
             document.getElementById("loader").style.display="block";
             getFileFlag = false;
-           
+            $.ajax({
+                        url: "/",
+                        type: "POST",
+                        data: {
+                            method:'removeFileOutput'
+                        },
+                        success: function(result) {
+                        }
+                    })
         } else if (!kmer) {
             alert('Fill kmer');
         } else if (!lofqmer) {
@@ -578,15 +586,12 @@
                     url: "/",
                     type: "POST",
                     data: {
-                        data: "",
-                        // outputdata: ""
+                        method:'showdata'
                     },
                     success: function(result) {
                         console.log(result)
                         listFiles(result.listOfInputFile);
                         listOutputFiles(result.listOfOutputFile);
-                        // console.log(result);
-                        // console.log('cua hien file folder');
                     }
                 })
                 // $.ajax({
@@ -604,7 +609,7 @@
             }
         }
 
-        var params = 'kmer=' + kmer + '&lofqmer=' + lofqmer + '&sharereads=' + sharereads + '&maxcomp=' + maxcomp + '&exGraph=' + exGraph + '&exFile=' + exFile ;
+        var params = 'method=passParamters'+'&kmer=' + kmer + '&lofqmer=' + lofqmer + '&sharereads=' + sharereads + '&maxcomp=' + maxcomp + '&exGraph=' + exGraph + '&exFile=' + exFile ;
         var xhr = new XMLHttpRequest()
         xhr.open('POST', "", true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -618,9 +623,6 @@
         if (getFile1 != undefined&& getFile1!="") {
             http.send(formData);
             document.getElementById("file").value="";
-            var testBug = document.getElementById("file").value;
-            console.log("testBug :",testBug)
-
         }   
         else{
             var fileChoose = null;
@@ -631,6 +633,7 @@
                     url: "/",
                     type: "POST",
                     data: {
+                        method:'chooseFile',
                         fileChoose: fileChoose.textContent
                     },
                     success: function(result) {
@@ -644,7 +647,7 @@
                         url: "/",
                         type: "POST",
                         data: {
-                        outputdata: ""
+                        method:'showdata',
                         },
                         success: function(result) {
                             listOutputFiles(result.listOfOutputFile);
@@ -677,6 +680,7 @@
             url: "/",
             type: "POST",
             data: {
+                method:'removeFilename',
                 removeFilename: id
             },
             success: function(result) {
@@ -690,7 +694,6 @@
 
     function chooseFileForProcess(filename){
         document.getElementById('file-selected').innerHTML = "";
-        // document.getElementById('file-selected').innerHTML = '<p>' + filename + '<p>' + document.getElementById('file-selected').innerHTML ;     
         document.getElementById('file-selected').innerHTML =filename ;       
         getFileFlag = true; 
     }
@@ -705,13 +708,11 @@
     }
 </script>
 <script>
-    // const instances1 = tippy(document.getElementById('myButton'));
     const ref = document.getElementById('np_ga');
     tippy('#myButton', {
     content: ref,
     trigger: 'click',
     interactive: 'true',
 });
-
 </script>
 {% endblock %}
