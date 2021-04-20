@@ -112,12 +112,12 @@
             </div>
         </div>
 
-        <div style="font-family: Helvetica, sans-serif;">
-            <div>
+        <div id="np_ga" style="font-family: Helvetica, sans-serif;">
+            <form>
                 <p id="nodata">No data file in system's folder</p>
                 <table id="neatdata" cellpadding="0" cellspacing="0" > 
                 </table>
-            </div>
+            </form>
         </div>
 
         <div class="row">
@@ -128,10 +128,14 @@
                     </div>
                     <div class="area2 row">
                         {% csrf_token %} {{ form.as_p }}
-                        <label class="custom-file-upload">
-                        <i class="fa fa-upload"></i><input type="file" name="file" id="file">
-                        Upload New File
-                    </label>
+                        <div class="upload-file">
+                            <label class="custom-file-upload">
+                                <i class="fa fa-upload"></i><input type="file" name="file" id="file">
+                                Upload New File
+                            </label>
+                            <button id="myButton" class="show-file-upload" type="button"><i class="fa-2x fa fa-file"></i></i></button>
+                        </div>
+                      
                         <span id="file-selected"></span>
 
 
@@ -443,7 +447,7 @@
     dataNode = document.getElementById('neatdata');
     noNode = document.getElementById('nodata');
     // for (var x in data) {
-    //     dataNode.innerHTML +='<tr><td>'+ x + ' : ' + data[x] + '</td><td><input type="button" id="'+data[x]+'" value="Delete" onclick="removeFiles(id)"></td><td><input type="button" value="Choose" choosefile="'+ data[x] +'" onclick="chooseFileForProcess(this.getAttribute('+"'choosefile'"+'))"></td></tr>';
+    //     dataNode.innerHTML +='<tr><td>'+ x + ': ' + data[x] + '</td><td><input type="button" id="'+data[x]+'" value="Delete" onclick="removeFiles(id)"></td><td><input type="button" value="Choose" choosefile="'+ data[x] +'" onclick="chooseFileForProcess(this.getAttribute('+"'choosefile'"+'))"></td></tr>';
     //     console.log(data[x])
     // }
 
@@ -459,9 +463,10 @@
             console.log("co");
             noNode.style.display="none";
             dataNode.style.display="table";
-            dataNode.innerHTML = '<tr><td>Your files:</td><td colspan="2">Options:</td><td></td></tr>';
+            dataNode.innerHTML = '<tr><td>No.</td><td>Your files</td><td colspan="2">Options</td></tr>';
             for (var x in dataFiles) {
-            dataNode.innerHTML +='<tr><td>'+ x + ' : ' + dataFiles[x] + '</td><td><input type="button" id="'+dataFiles[x]+'" value="Delete" onclick="removeFiles(id)"></td><td><input type="button" value="Choose" choosefile="'+ dataFiles[x] +'" onclick="chooseFileForProcess(this.getAttribute('+"'choosefile'"+'))"></td></tr>';
+            var stt = parseInt(x) +1;
+            dataNode.innerHTML +='<tr><td>'+stt+': '+'</td><td>'+ dataFiles[x] + '</td><td><button type="button" class="showFileButton" id="'+dataFiles[x]+'"  onclick="removeFiles(id)">Delete</button</td><td><button type="button" class="showFileButton" choosefile="'+ dataFiles[x] +'" onclick="chooseFileForProcess(this.getAttribute('+"'choosefile'"+'))">Choose</button></td></tr>';
             }
         }
         // console.log(dataFiles.leng)
@@ -698,5 +703,15 @@
             }
         }
     }
+</script>
+<script>
+    // const instances1 = tippy(document.getElementById('myButton'));
+    const ref = document.getElementById('np_ga');
+    tippy('#myButton', {
+    content: ref,
+    trigger: 'click',
+    interactive: 'true',
+});
+
 </script>
 {% endblock %}

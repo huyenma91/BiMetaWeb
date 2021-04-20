@@ -47,7 +47,7 @@ def index(request):
             fileChoose= request.POST.get('fileChoose')
             print(fileChoose)
             rc = subprocess.call("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True)
-            print(get_download_path())
+            # print(get_download_path())
             return HttpResponse('haha')
         else:
             upload_file = request.FILES['file']
