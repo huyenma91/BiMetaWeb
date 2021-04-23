@@ -3,8 +3,8 @@
 {% include 'pages/header.html' %}
 <div class="page-head" data-bg-image="{% static 'images/page-head-2.jpg' %}" id="system">
     <div class="container">
-        <h2 class="page-title">System</h2>
-        <small>The left column below is the place for dataset uploading and running Hadoop system and the right column for parameters explanation. </small>
+        <!-- <h2 class="page-title">System</h2>
+        <small>The left column below is the place for dataset uploading and running Hadoop system and the right column for parameters explanation. </small> -->
     </div>
 </div>
 
@@ -52,22 +52,22 @@
                 <p class="body_section3_title bold">Parameters</p>
             </div>
             <div class="area3_1 row">
-                <button id="infoButton" class="show-info" type="button"><i class="fa fa-info"></i></button>
+                <button id="button_kmer" class="show-info" type="button"><i class="fa fa-info"></i></button>
                 <p class="body_section3_title col bold">K-mer size:</p>
                 <input class="col" type="number" min="1" id="kmer">
             </div>
             <div class="area3_1 row">
-                <button id="infoButton" class="show-info" type="button"><i class="fa fa-info"></i></button>
+                <button id="button_lofqmer" class="show-info" type="button"><i class="fa fa-info"></i></button>
                 <p class="body_section3_title col bold">Length of Q-mer:</p>
                 <input class="col" type="number" min="1" id="lofqmer">
             </div>
             <div class="area3_1 row">
-                <button id="infoButton" class="show-info" type="button"><i class="fa fa-info"></i></button>
+                <button id="button_sharereads" class="show-info" type="button"><i class="fa fa-info"></i></button>
                 <p class="body_section3_title col bold">Number of share reads:</p>
                 <input class="col" type="number" min="1" id="sharereads">
             </div>
             <div class="area3_1 row">
-                <button id="infoButton" class="show-info" type="button"><i class="fa fa-info"></i></button>
+                <button id="button_maxcomp" class="show-info" type="button"><i class="fa fa-info"></i></button>
                 <p class="body_section3_title col bold" >Maximum component size:</p>
                 <input class="col" type="number" min="1" id="maxcomp">
             </div>
@@ -99,6 +99,7 @@
         <br><br>
         <div class="button_area">
             <button class="submit_button bold" id="startButton" type="button" onclick="getValue(event)">Start</button>
+            <button class="clear_button bold" id="clearButton" type="button" onclick="clearValue()">Clear</button>
         </div>
         <br>
         <center><div class="loader" id="loader" style="display: none;"></div></center>
@@ -111,30 +112,35 @@
     </form>
     <div class="col-md-6 col-sm-12">
         <div class="fullwidth-block" style="padding: 1.5em 0 0 0">
-
-            <div class="boxed-icon">
+            <div id="info_kmer" class="boxed-icon">
                 <img src="{% static 'images/kmer.png' %}" style="width: 50px;height: 50px;" alt="" class="icon">
                 <h3>K-mer size</h3>
-                <p>Using for <b>extracting compositional features</b> of the read groups. Instead of extracting the features from all reads of each group, we compute <b>k-mer frequency distribution</b> of their <b>subgroups</b> which only consists
-                    of <b>non-overlapping reads</b>. k-mers are composed of nucleotides (i.e. A, T, G, and C). Usually, the term k-mer refers to all of a sequence's subsequences of length <b>k</b>, such that the sequence AGAT would have four monomers
-                    (A, G, A, and T).
+                <p>Using for <b>extracting compositional features</b> of the read groups.<br> 
+                    Instead of extracting the features from all reads of each group, we compute <br>
+                    k-mer frequency distribution</b> of their <b>subgroups</b> which only consists<br>
+                    of <b>non-overlapping reads</b>. k-mers are composed of nucleotides (i.e. A, T, G, and C).<br> 
+                    Usually, the term k-mer refers to all of a sequence's subsequences of length <b>k</b>,<br>
+                    such that the sequence AGAT would have four monomers (A, G, A, and T).
                 </p>
             </div>
 
-            <div class="boxed-icon">
+            <div id="info_lofqmer" class="boxed-icon">
                 <img src="{% static 'images/qmer.png' %}" style="width: 60px;height: 60px;" alt="" class="icon">
                 <h3>Length of Q-mer</h3>
-                <p>One of two parameters for creating overlap graph. Adjust the length number of shared q-mers. Most of q-mer repeats in a metagenomic dataset are caused by overlaps of reads. Thus, there is a great probability that the reads sharing
-                    q-mers with each other (with a sufficient value of q) are overlapping reads.</p>
+                <p>One of two parameters for creating overlap graph. Adjust the length number of shared q-mers.<br> 
+                    Most of q-mer repeats in a metagenomic dataset are caused by overlaps of reads.<br>
+                    Thus, there is a great probability that the reads sharing q-mers with each other<br> 
+                    (with a sufficient value of q) are overlapping reads.</p>
             </div>
 
-            <div class="boxed-icon">
+            <div id="info_sharereads" class="boxed-icon">
                 <img src="{% static 'images/shareread.png' %}" style="width: 60px;height: 60px;" alt="" class="icon">
                 <h3>Number of shared reads</h3>
-                <p>One of two parameters for creating overlap graph. Adjust the number of shared reads to between reads to define overlap reads.</p>
+                <p>One of two parameters for creating overlap graph. Adjust the number of shared reads<br>
+                    between reads to define overlap reads.</p>
             </div>
 
-            <div class="boxed-icon">
+            <div id="info_maxcomp" class="boxed-icon">
                 <img src="{% static 'images/maxcom.png' %}" style="width: 50px;height: 50px;" alt="" class="icon">
                 <h3>Maximum component size</h3>
                 <p>Define the number of overlaped nodes in a group which allow a balance system.</p>
@@ -175,7 +181,6 @@
             dataNode.innerHTML +='<tr><td>'+stt+': '+'</td><td>'+ dataFiles[x] + '</td><td><button type="button" class="showFileButton" id="'+dataFiles[x]+'"  onclick="removeFiles(id)">Delete</button</td><td><button type="button" class="showFileButton" choosefile="'+ dataFiles[x] +'" onclick="chooseFileForProcess(this.getAttribute('+"'choosefile'"+'))">Choose</button></td></tr>';
             }
         }
-        // console.log(dataFiles.leng)
         
     }
     listFiles(data);
@@ -332,8 +337,10 @@
         }   
         else{
             var fileChoose = null;
-            fileChoose = document.getElementById('file-selected');
-            if (fileChoose!=null){
+            fileChoose = document.getElementById("file-selected");
+            console.log('fileChoose :',fileChoose);
+            console.log('asbsaxhasxas');
+            if (fileChoose!=null && fileChoose!=''){
                 console.log("ten file: ",fileChoose.textContent)
                 $.ajax({
                     url: "",
@@ -378,6 +385,16 @@
 
         });
     }
+    function clearValue(){
+        document.getElementById("kmer").value="";
+        document.getElementById("lofqmer").value="";
+        document.getElementById("sharereads").value="";
+        document.getElementById("maxcomp").value="";
+        document.getElementById("file").value="";
+        document.getElementById("file-selected").innerHTML= "";
+        getFileFlag = false; 
+
+    }
 
 
     function removeFiles(id){
@@ -399,8 +416,8 @@
     }
 
     function chooseFileForProcess(filename){
-        document.getElementById('file-selected').innerHTML = "";
-        document.getElementById('file-selected').innerHTML =filename ;       
+        document.getElementById("file-selected").innerHTML = "";
+        document.getElementById("file-selected").innerHTML =filename ;       
         getFileFlag = true; 
     }
 
@@ -419,6 +436,27 @@
     content: ref,
     trigger: 'click',
     interactive: 'true',
+});
+
+    const info_kmer = document.getElementById('info_kmer');
+    tippy('#button_kmer', {
+    content: info_kmer,
+    trigger: 'click',
+});
+    const info_lofqmer = document.getElementById('info_lofqmer');
+    tippy('#button_lofqmer', {
+    content: info_lofqmer,
+    trigger: 'click',
+});
+    const info_sharereads = document.getElementById('info_sharereads');
+    tippy('#button_sharereads', {
+    content: info_sharereads,
+    trigger: 'click',
+});
+    const info_maxcomp = document.getElementById('info_maxcomp');
+    tippy('#button_maxcomp', {
+    content: info_maxcomp,
+    trigger: 'click',
 });
 </script>
 
