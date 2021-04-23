@@ -1,0 +1,425 @@
+{% extends "pages/base.html" %} {% load static %}
+{% block title%}BiMeta System{% endblock %} {% block content %} 
+{% include 'pages/header.html' %}
+<div class="page-head" data-bg-image="{% static 'images/page-head-2.jpg' %}" id="system">
+    <div class="container">
+        <h2 class="page-title">System</h2>
+        <small>The left column below is the place for dataset uploading and running Hadoop system and the right column for parameters explanation. </small>
+    </div>
+</div>
+
+<div id="np_ga" style="font-family: Helvetica, sans-serif;">
+    <form>
+        <p id="nodata">No data file in system's folder</p>
+        <table id="neatdata" cellpadding="0" cellspacing="0" > 
+        </table>
+    </form>
+</div>
+
+<div class="row">
+    <form method="post" enctype="multipart/form-data" data-bg-color="#edf2f4" style="padding: 2em;" class="col-md-6 col-sm-12">
+        <div class="body_section2">
+            <div class="area2">
+                <p class="body_section2_title bold">Input dataset file</p>
+            </div>
+            <div class="area2 row">
+                {% csrf_token %} {{ form.as_p }}
+                <div class="upload-file">
+                    <label class="custom-file-upload">
+                        <i class="fa fa-upload"></i><input type="file" name="file" id="file">
+                        Upload New File
+                    </label>
+                    <button id="myButton" class="show-file-upload" type="button"><i class="fa-2x fa fa-file"></i></i></button>
+                </div>
+              
+                <span id="file-selected"></span>
+
+
+                <div id="progress-div" style="display:none">
+                    <div class="progress">
+                        <div class="progress-bar" id="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                    </div>
+                </div>
+                <p id="progress-text"></p>
+                <div class="button_area" id="stop-div" style="display:none">
+                    <button class="stop_button bold" type="button" id="stop_button">Stop</button>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <div class="body_section3">
+            <div class="area3">
+                <p class="body_section3_title bold">Parameters</p>
+            </div>
+            <div class="area3_1 row">
+                <button id="infoButton" class="show-info" type="button"><i class="fa fa-info"></i></button>
+                <p class="body_section3_title col bold">K-mer size:</p>
+                <input class="col" type="number" min="1" id="kmer">
+            </div>
+            <div class="area3_1 row">
+                <button id="infoButton" class="show-info" type="button"><i class="fa fa-info"></i></button>
+                <p class="body_section3_title col bold">Length of Q-mer:</p>
+                <input class="col" type="number" min="1" id="lofqmer">
+            </div>
+            <div class="area3_1 row">
+                <button id="infoButton" class="show-info" type="button"><i class="fa fa-info"></i></button>
+                <p class="body_section3_title col bold">Number of share reads:</p>
+                <input class="col" type="number" min="1" id="sharereads">
+            </div>
+            <div class="area3_1 row">
+                <button id="infoButton" class="show-info" type="button"><i class="fa fa-info"></i></button>
+                <p class="body_section3_title col bold" >Maximum component size:</p>
+                <input class="col" type="number" min="1" id="maxcomp">
+            </div>
+            <!-- <div class="area3_1 row">
+            <p class="body_section3_title col bold" min="1">Number of tasks(reducers):</p>
+            <input class="col" type="number" id="numtasks">
+        </div> -->
+        </div>
+        <br><br>
+        <div class="body_section4">
+            <div class="area4">
+                <p class="body_section3_title bold">Output</p>
+            </div>
+            <div class="area4_1 row">
+                <p class="body_section4_title col bold">Export graph visualize:</p>
+                <select class="col" id="exGraph">
+                <option>Yes</option>
+                <option>No</option>
+            </select>
+            </div>
+            <div class="area4_1 row">
+                <p class="body_section4_title col bold" min="1">Export cluster group files:</p>
+                <select class="col" id="exFile">
+                <option>Yes</option>
+                <option>No</option>
+            </select>
+            </div>
+        </div>
+        <br><br>
+        <div class="button_area">
+            <button class="submit_button bold" id="startButton" type="button" onclick="getValue(event)">Start</button>
+        </div>
+        <br>
+        <center><div class="loader" id="loader" style="display: none;"></div></center>
+        <div style="font-family: Helvetica, sans-serif;">
+            <div id="outputData">
+            
+            </div>
+        </div>
+        
+    </form>
+    <div class="col-md-6 col-sm-12">
+        <div class="fullwidth-block" style="padding: 1.5em 0 0 0">
+
+            <div class="boxed-icon">
+                <img src="{% static 'images/kmer.png' %}" style="width: 50px;height: 50px;" alt="" class="icon">
+                <h3>K-mer size</h3>
+                <p>Using for <b>extracting compositional features</b> of the read groups. Instead of extracting the features from all reads of each group, we compute <b>k-mer frequency distribution</b> of their <b>subgroups</b> which only consists
+                    of <b>non-overlapping reads</b>. k-mers are composed of nucleotides (i.e. A, T, G, and C). Usually, the term k-mer refers to all of a sequence's subsequences of length <b>k</b>, such that the sequence AGAT would have four monomers
+                    (A, G, A, and T).
+                </p>
+            </div>
+
+            <div class="boxed-icon">
+                <img src="{% static 'images/qmer.png' %}" style="width: 60px;height: 60px;" alt="" class="icon">
+                <h3>Length of Q-mer</h3>
+                <p>One of two parameters for creating overlap graph. Adjust the length number of shared q-mers. Most of q-mer repeats in a metagenomic dataset are caused by overlaps of reads. Thus, there is a great probability that the reads sharing
+                    q-mers with each other (with a sufficient value of q) are overlapping reads.</p>
+            </div>
+
+            <div class="boxed-icon">
+                <img src="{% static 'images/shareread.png' %}" style="width: 60px;height: 60px;" alt="" class="icon">
+                <h3>Number of shared reads</h3>
+                <p>One of two parameters for creating overlap graph. Adjust the number of shared reads to between reads to define overlap reads.</p>
+            </div>
+
+            <div class="boxed-icon">
+                <img src="{% static 'images/maxcom.png' %}" style="width: 50px;height: 50px;" alt="" class="icon">
+                <h3>Maximum component size</h3>
+                <p>Define the number of overlaped nodes in a group which allow a balance system.</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="../../static/jsCode/jquery-1.11.1.min.js"></script>
+<script src="../../static/jsCode/plugins.js"></script>
+<script src="../../static/jsCode/app.js"></script>
+<script>
+    var data = JSON.parse("{{data|escapejs}}");
+    console.log(data);
+    // let table = $("#neatdata");
+    dataNode = document.getElementById('neatdata');
+    noNode = document.getElementById('nodata');
+    // for (var x in data) {
+    //     dataNode.innerHTML +='<tr><td>'+ x + ': ' + data[x] + '</td><td><input type="button" id="'+data[x]+'" value="Delete" onclick="removeFiles(id)"></td><td><input type="button" value="Choose" choosefile="'+ data[x] +'" onclick="chooseFileForProcess(this.getAttribute('+"'choosefile'"+'))"></td></tr>';
+    //     console.log(data[x])
+    // }
+
+    function listFiles(dataFiles) {
+        
+        console.log("Length of dataFiles :",dataFiles.length)
+        if (dataFiles.length == 0){
+            noNode.style.display="block";
+            console.log("ko co");
+            dataNode.style.display="none";
+        }
+        else if(dataFiles.length > 0){
+            console.log("co");
+            noNode.style.display="none";
+            dataNode.style.display="table";
+            dataNode.innerHTML = '<tr><td>No.</td><td>Your files</td><td colspan="2">Options</td></tr>';
+            for (var x in dataFiles) {
+            var stt = parseInt(x) +1;
+            dataNode.innerHTML +='<tr><td>'+stt+': '+'</td><td>'+ dataFiles[x] + '</td><td><button type="button" class="showFileButton" id="'+dataFiles[x]+'"  onclick="removeFiles(id)">Delete</button</td><td><button type="button" class="showFileButton" choosefile="'+ dataFiles[x] +'" onclick="chooseFileForProcess(this.getAttribute('+"'choosefile'"+'))">Choose</button></td></tr>';
+            }
+        }
+        // console.log(dataFiles.leng)
+        
+    }
+    listFiles(data);
+   
+    function listOutputFiles(ouputDataFiles) {
+        outputdataNode = document.getElementById('outputData');
+        outputdataNode.innerHTML = "";
+        for (var x in ouputDataFiles) {
+            outputdataNode.innerHTML +='<a href="/download/'+ouputDataFiles[x]+'">'+ouputDataFiles[x]+'</a><br>';
+        }
+    }
+    document.getElementById("loader").style.display="none";
+
+    $('#file').bind('change', function() {
+        var fileName = '';
+        fileName = $(this)[0].files[0].name;
+        $('#file-selected').html(fileName);
+    })
+    var kmer, lofqmer, sharereads, maxcomp, numtasks, getFile = null;
+    var exGraph, exFile;
+    var getFileFlag = false;
+    var outputFlag = false;
+
+
+    function getValue(event) {
+        console.log("event ne: "+ event);
+        kmer = document.getElementById("kmer").value;
+        lofqmer = document.getElementById("lofqmer").value;
+        sharereads = document.getElementById("sharereads").value;
+        maxcomp = document.getElementById("maxcomp").value;
+        exGraph = document.getElementById("exGraph").value;
+        exFile = document.getElementById("exFile").value;
+        var getFile = document.getElementById("file").files[0];
+        if ((kmer!= undefined && kmer!="") && ((lofqmer!= undefined &&lofqmer!="")) && ((sharereads!= undefined &&sharereads!="")) && ((maxcomp!= undefined && maxcomp!="")) && (getFile!=undefined||getFileFlag==true)) {
+            onFormSubmit(event);
+            document.getElementById("startButton").disabled=true;
+            $('#startButton').addClass("submit_disable");
+            document.getElementById("loader").style.display="block";
+            getFileFlag = false;
+            $.ajax({
+                        url: "",
+                        type: "POST",
+                        data: {
+                            method:'removeFileOutput'
+                        },
+                        success: function(result) {
+                        }
+                    })
+        } else if (!kmer) {
+            alert('Fill kmer');
+        } else if (!lofqmer) {
+            alert('Fill length of Q-mer');
+        } else if (!sharereads) {
+            alert('Fill sharereads');
+        } else if (!maxcomp) {
+            alert('Fill maxcomp');
+        } else if (!getFile && getFileFlag==false) {
+            alert("Please upload a file");
+        } else {
+            console.log(kmer)
+            console.log(lofqmer)
+            console.log(sharereads)
+            console.log(maxcomp)
+            console.log(exGraph)
+            console.log(exFile)
+        }
+    }
+    document.getElementById("progress-text").innerHTML = "Uploaded : " + 0 / 1000000 + "/" + 0 / 1000000 + " MB";
+
+    function onFormSubmit(event) {
+        var formData = new FormData();
+        var getFile1 = document.getElementById("file").files[0];
+        console.log(getFile1);
+        formData.append("file", getFile1);
+        console.log(formData);
+
+        var http = new XMLHttpRequest()
+        http.open("POST", "", true)
+        http.upload.addEventListener("progress", function(ev) {
+            if (ev.lengthComputable) {
+                var percentage = (ev.loaded / ev.total * 100 | 0);
+                console.log("Uploaded : " + ev.loaded);
+                console.log("Total : " + ev.total);
+                console.log(percentage);
+                if (percentage == 100) {
+                    document.getElementById("stop-div").style["display"] = "none";
+                    document.getElementById("progress-div").style["display"] = "none";
+                    document.getElementById("progress-text").innerHTML = "Uploaded : " + ev.loaded / 1000000 + "/" + ev.total / 1000000 + " MB";
+                } else {
+                    document.getElementById("stop-div").style["display"] = "block";
+                    document.getElementById("progress-div").style["display"] = "block";
+                    document.getElementById("progress-bar").style["width"] = "" + percentage + "%";
+                    document.getElementById("progress-bar").innerHTML = "" + percentage + "%";
+                    document.getElementById("progress-text").innerHTML = "Uploaded : " + ev.loaded / 1000000 + "/" + ev.total / 1000000 + " MB";
+                }
+            }
+
+        });
+        console.log(http.readyState)
+        http.onreadystatechange = function() { //Call a function when the state changes.
+            console.log("state",http.readyState)
+            console.log("http.status",http.status)
+            console.log(http.response)
+            if (http.readyState == 4 && http.status == 200) {
+                console.log('return ne`' + http.response);
+                if(http.response != null ){
+                    console.log('cua upload file')
+                    document.getElementById("startButton").disabled=false;
+                    $('#startButton').removeClass("submit_disable");
+                    document.getElementById("loader").style.display="none";
+                    document.getElementById("file-selected").innerHTML=""
+                }
+                $.ajax({
+                    url: "",
+                    type: "POST",
+                    data: {
+                        method:'showdata'
+                    },
+                    success: function(result) {
+                        console.log(result)
+                        listFiles(result.listOfInputFile);
+                        listOutputFiles(result.listOfOutputFile);
+                    }
+                })
+                // $.ajax({
+                //         url: "/",
+                //         type: "POST",
+                //         data: {
+                //         outputdata: ""
+                //         },
+                //         success: function(result) {
+                //             listOutputFiles(result);
+                //             console.log(result);
+                //             console.log('cua hien output file trong folder');
+                //             }
+                //         })
+            }
+        }
+
+        var params = 'method=passParamters'+'&kmer=' + kmer + '&lofqmer=' + lofqmer + '&sharereads=' + sharereads + '&maxcomp=' + maxcomp + '&exGraph=' + exGraph + '&exFile=' + exFile ;
+        var xhr = new XMLHttpRequest()
+        xhr.open('POST', "", true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function() { //Call a function when the state changes.
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // alert(xhr.responseText);
+                
+            }
+        }
+        xhr.send(params);
+        if (getFile1 != undefined&& getFile1!="") {
+            http.send(formData);
+            document.getElementById("file").value="";
+        }   
+        else{
+            var fileChoose = null;
+            fileChoose = document.getElementById('file-selected');
+            if (fileChoose!=null){
+                console.log("ten file: ",fileChoose.textContent)
+                $.ajax({
+                    url: "",
+                    type: "POST",
+                    data: {
+                        method:'chooseFile',
+                        fileChoose: fileChoose.textContent
+                    },
+                    success: function(result) {
+                        console.log('cua choose file');
+                        document.getElementById("startButton").disabled=false;
+                        $('#startButton').removeClass("submit_disable");
+                        document.getElementById("loader").style.display="none";
+                        document.getElementById("file-selected").innerHTML="";
+                        console.log("outputFlag : ",outputFlag)
+                    $.ajax({
+                        url: "",
+                        type: "POST",
+                        data: {
+                        method:'showdata',
+                        },
+                        success: function(result) {
+                            listOutputFiles(result.listOfOutputFile);
+                            console.log(result);
+                            console.log('cua hien output file trong folder');
+                            }
+                        })
+                    },
+                })
+            }
+        }
+        document.getElementById("stop_button").addEventListener("click", function() {
+            xhr.abort();
+            http.abort();
+            document.getElementById("stop-div").style["display"] = "none";
+            document.getElementById("progress-div").style["display"] = "none";
+            document.getElementById("progress-text").innerHTML = "Uploaded : " + 0 / 1000000 + "/" + 0 / 1000000 + " MB";
+            document.getElementById("startButton").disabled=false;
+            $('#startButton').removeClass("submit_disable");
+            document.getElementById("loader").style.display="none";
+            document.getElementById("file-selected").innerHTML=""
+
+        });
+    }
+
+
+    function removeFiles(id){
+        console.log(id);
+        $.ajax({
+            url: "",
+            type: "POST",
+            data: {
+                method:'removeFilename',
+                removeFilename: id
+            },
+            success: function(result) {
+                listFiles(result);
+                console.log(result);
+                console.log('asdasdsa');
+            }
+        })
+        
+    }
+
+    function chooseFileForProcess(filename){
+        document.getElementById('file-selected').innerHTML = "";
+        document.getElementById('file-selected').innerHTML =filename ;       
+        getFileFlag = true; 
+    }
+
+    function downloadFileForProcess(filename){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function(){
+            if (http.readyState == 4 && http.status == 200){
+
+            }
+        }
+    }
+</script>
+<script>
+    const ref = document.getElementById('np_ga');
+    tippy('#myButton', {
+    content: ref,
+    trigger: 'click',
+    interactive: 'true',
+});
+</script>
+
+{% endblock %}

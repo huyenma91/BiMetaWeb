@@ -17,6 +17,9 @@ import testtesttest
 
 @csrf_exempt
 def index(request):
+    return render(request,'pages/home.html')
+@csrf_exempt
+def system(request):
     # print("File trong folder: ",onlyfiles)
     # data = 
     # print(data)
@@ -64,9 +67,12 @@ def index(request):
         return HttpResponse('asd')
     else:
 
-            return render(request, 'pages/home.html',{"data":dumps(getFiles()),"outputdata":dumps(getOutputFiles())})
+            return render(request, 'pages/system.html',{"data":dumps(getFiles()),"outputdata":dumps(getOutputFiles())})
     return
-    
+
+def aboutUs(request):
+    return render(request,'pages/aboutUs.html')
+
 def download_file(request, filename=''):
     if filename != '':
         # Define Django project base directory
