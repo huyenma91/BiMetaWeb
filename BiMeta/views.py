@@ -12,8 +12,8 @@ import subprocess
 import sys
 import mimetypes
 from django.utils.encoding import smart_str
-sys.path.append("/home/phuong")
-import testtesttest
+# sys.path.append("/home/phuong")
+# import testtesttest
 
 @csrf_exempt
 def index(request):
