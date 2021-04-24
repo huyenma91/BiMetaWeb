@@ -8,7 +8,7 @@
     </div>
 </div>
 
-<div id="np_ga" style="font-family: Helvetica, sans-serif;">
+<div id="display_files" style="font-family: Helvetica, sans-serif;">
     <form>
         <p id="nodata">No data file in system's folder</p>
         <table id="neatdata" cellpadding="0" cellspacing="0" > 
@@ -29,7 +29,7 @@
                         <i class="fa fa-upload"></i><input type="file" name="file" id="file">
                         Upload New File
                     </label>
-                    <button id="myButton" class="show-file-upload" type="button"><i class="fa-2x fa fa-file"></i></i></button>
+                    <button id="myButton" class="show-file-upload" type="button"><i class="fa-2x fa fa-file"></i></button>
                 </div>
               
                 <span id="file-selected"></span>
@@ -52,29 +52,33 @@
                 <p class="body_section3_title bold">Parameters</p>
             </div>
             <div class="area3_1 row">
-                <button id="button_kmer" class="show-info" type="button"><i class="fa fa-info"></i></button>
-                <p class="body_section3_title col bold">K-mer size:</p>
+                <div class="col" style="display: flex;">
+                    <p class="body_section3_title bold">K-mer size:</p>
+                    <button id="button_kmer" class="show-info" type="button"><i class="fa fa-info"></i></button>
+                </div>
                 <input class="col" type="number" min="1" id="kmer">
             </div>
             <div class="area3_1 row">
-                <button id="button_lofqmer" class="show-info" type="button"><i class="fa fa-info"></i></button>
-                <p class="body_section3_title col bold">Length of Q-mer:</p>
+                <div class="col" style="display: flex;">
+                    <p class="body_section3_title bold">Length of Q-mer:</p>
+                    <button id="button_lofqmer" class="show-info" type="button"><i class="fa fa-info"></i></button>
+                </div>
                 <input class="col" type="number" min="1" id="lofqmer">
             </div>
             <div class="area3_1 row">
+                <div class="col" style="display: flex;">
+                    <p class="body_section3_title bold">Number of share reads:</p>
                 <button id="button_sharereads" class="show-info" type="button"><i class="fa fa-info"></i></button>
-                <p class="body_section3_title col bold">Number of share reads:</p>
+                </div>
                 <input class="col" type="number" min="1" id="sharereads">
             </div>
             <div class="area3_1 row">
-                <button id="button_maxcomp" class="show-info" type="button"><i class="fa fa-info"></i></button>
-                <p class="body_section3_title col bold" >Maximum component size:</p>
+                <div class="col" style="display: flex;">
+                    <p class="body_section3_title bold" >Maximum component size:</p>
+                    <button id="button_maxcomp" class="show-info" type="button"><i class="fa fa-info"></i></button> 
+                </div>
                 <input class="col" type="number" min="1" id="maxcomp">
             </div>
-            <!-- <div class="area3_1 row">
-            <p class="body_section3_title col bold" min="1">Number of tasks(reducers):</p>
-            <input class="col" type="number" id="numtasks">
-        </div> -->
         </div>
         <br><br>
         <div class="body_section4">
@@ -155,13 +159,8 @@
 <script>
     var data = JSON.parse("{{data|escapejs}}");
     console.log(data);
-    // let table = $("#neatdata");
     dataNode = document.getElementById('neatdata');
     noNode = document.getElementById('nodata');
-    // for (var x in data) {
-    //     dataNode.innerHTML +='<tr><td>'+ x + ': ' + data[x] + '</td><td><input type="button" id="'+data[x]+'" value="Delete" onclick="removeFiles(id)"></td><td><input type="button" value="Choose" choosefile="'+ data[x] +'" onclick="chooseFileForProcess(this.getAttribute('+"'choosefile'"+'))"></td></tr>';
-    //     console.log(data[x])
-    // }
 
     function listFiles(dataFiles) {
         
@@ -431,7 +430,7 @@
     }
 </script>
 <script>
-    const ref = document.getElementById('np_ga');
+    const ref = document.getElementById('display_files');
     tippy('#myButton', {
     content: ref,
     trigger: 'click',

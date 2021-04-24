@@ -52,7 +52,7 @@ def system(request):
         elif request.POST.get('method') == 'chooseFile':
             fileChoose= request.POST.get('fileChoose')
             print(fileChoose)
-            rc = subprocess.call("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True)
+            #rc = subprocess.call("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True)
             return HttpResponse('haha')
     elif request.method == 'POST':
         upload_file = request.FILES['file']
@@ -62,7 +62,7 @@ def system(request):
         fs = FileSystemStorage()
         fs_path = fs.save(upload_file.name,upload_file)
         print(fs_path)
-        rc = subprocess.call("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileName,shell=True)
+        #rc = subprocess.call("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileName,shell=True)
         print('done')
         return HttpResponse('asd')
     else:
