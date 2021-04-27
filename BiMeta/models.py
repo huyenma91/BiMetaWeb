@@ -10,14 +10,13 @@ from os.path import isfile, join
 import os
 def getFiles():
      list_file = [f for f in listdir("./media/t") if isfile(join("./media/t", f))]
-     print("File co trong folder",list_file)
+     # print("File co trong folder",list_file)
      return list_file
 
 
 def removeFiles(filename):
      myfile="./media/t/" + filename
      if os.path.isfile(myfile):
-          print("Co file")
           os.remove(myfile)
      else:
           print('Error, file not found')

@@ -11,20 +11,21 @@ from json import dumps
 import subprocess
 import sys
 import mimetypes
+import time
 from django.utils.encoding import smart_str
+import signal
+from .jsonData import *
+# import psutil
 # sys.path.append("/home/phuong")
 # import testtesttest
+
 
 @csrf_exempt
 def index(request):
     return render(request,'pages/home.html')
 @csrf_exempt
 def system(request):
-    # print("File trong folder: ",onlyfiles)
-    # data = 
-    # print(data)
     if request.method == 'POST' and 'method' in request.POST:
-        print(request.POST)
         if request.POST.get('method') == 'passParamters':
             # testtesttest.PhuongOcku('Phuong7 ocku qua')
             # kmer = request.POST.get('kmer')
@@ -39,6 +40,9 @@ def system(request):
             resultObject = {}
             resultObject['listOfInputFile'] = getFiles()
             resultObject['listOfOutputFile'] = getOutputFiles()
+            resultObject['barGraphData'] = dataBar
+            resultObject['overviewData'] = dataOverview
+            # print('Day la graph data :',resultObject['barGraphData'])
             return HttpResponse( dumps(resultObject), content_type='application/json')
         # elif 'outputdata' in request.POST:
         #     print(getOutputFiles())
@@ -52,23 +56,31 @@ def system(request):
         elif request.POST.get('method') == 'chooseFile':
             fileChoose= request.POST.get('fileChoose')
             print(fileChoose)
-            #rc = subprocess.call("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True)
-            return HttpResponse('haha')
-    elif request.method == 'POST':
+            # rc = subprocess.call("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True)
+            # rc = subprocess.Popen("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True)
+            # rc.communicate()[0] 
+            # A = rc.returncode
+            print('done')
+            return HttpResponse('tin hieu')
+    elif request.method == 'POST' and 'file' in request.FILES:
         upload_file = request.FILES['file']
         fileName=upload_file.name
-        print(fileName)
-        print(upload_file.size)
         fs = FileSystemStorage()
         fs_path = fs.save(upload_file.name,upload_file)
-        print(fs_path)
-        #rc = subprocess.call("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileName,shell=True)
+        rc = subprocess.Popen("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileName,shell=True)
+        rc.communicate()[0] 
+        A = rc.returncode
         print('done')
-        return HttpResponse('asd')
-    else:
+        print(A)
+        return HttpResponse(A)
+        
 
-            return render(request, 'pages/system.html',{"data":dumps(getFiles()),"outputdata":dumps(getOutputFiles())})
+    else:
+        # return render(request, 'pages/system.html',{"data":dumps(getFiles()),"outputdata":dumps(getOutputFiles())})
+        return render(request, 'pages/system.html')
     return
+
+
 
 def aboutUs(request):
     return render(request,'pages/aboutUs.html')
