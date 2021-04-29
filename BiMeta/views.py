@@ -8,13 +8,15 @@ import requests
 from .forms import RegistrationForm
 from .models import *
 from json import dumps
+import json
 import subprocess
 import sys
 import mimetypes
 import time
 from django.utils.encoding import smart_str
 import signal
-from .jsonData import *
+from .BimetaCode.read_file import load_meta_reads, convert2json
+import base64
 # import psutil
 # sys.path.append("/home/phuong")
 # import testtesttest
@@ -38,15 +40,28 @@ def system(request):
             return HttpResponse('yeah')
         elif request.POST.get('method') == 'showdata':
             resultObject = {}
+            with open('/home/phuong/ServerWeb/BiMeta/jsonData/reads_summary.json') as json_file:
+                dataBar = json.load(json_file)
             resultObject['listOfInputFile'] = getFiles()
             resultObject['listOfOutputFile'] = getOutputFiles()
             resultObject['barGraphData'] = dataBar
+            dataOverview = [{
+            "Fmeasure": "32.0",
+            "Recall": "32.3", 
+            "Precision": "12.1",
+            "Time":"21-01-1999",
+            "Training":"00:00:00"
+            },
+            ]
             resultObject['overviewData'] = dataOverview
+            try:
+                with open("BiMeta/static/graphExport/node_graph_test.png", "rb") as img_file:
+                    resultObject['graphImage'] =  base64.b64encode(img_file.read()).decode('utf-8')
+            except Exception as e:
+                print(e)
+            
             # print('Day la graph data :',resultObject['barGraphData'])
-            return HttpResponse( dumps(resultObject), content_type='application/json')
-        # elif 'outputdata' in request.POST:
-        #     print(getOutputFiles())
-        #     return HttpResponse( dumps(getOutputFiles()), content_type='application/json')
+            return HttpResponse( dumps(resultObject, indent=2), content_type='application/json')
         elif request.POST.get('method') == 'removeFilename':
             removeFiles(request.POST.get('removeFilename'))
             return HttpResponse( dumps(getFiles()) , content_type='application/json')    
@@ -56,6 +71,8 @@ def system(request):
         elif request.POST.get('method') == 'chooseFile':
             fileChoose= request.POST.get('fileChoose')
             print(fileChoose)
+            data = load_meta_reads('/home/phuong/ServerWeb/media/t/'+fileChoose)
+            convert2json(data,'/home/phuong/ServerWeb/BiMeta/jsonData/')
             # rc = subprocess.call("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True)
             # rc = subprocess.Popen("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True)
             # rc.communicate()[0] 
@@ -67,12 +84,13 @@ def system(request):
         fileName=upload_file.name
         fs = FileSystemStorage()
         fs_path = fs.save(upload_file.name,upload_file)
-        rc = subprocess.Popen("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileName,shell=True)
-        rc.communicate()[0] 
-        A = rc.returncode
+        data = load_meta_reads('/home/phuong/ServerWeb/media/t/'+fileName)
+        convert2json(data,'/home/phuong/ServerWeb/BiMeta/jsonData/')
+        # rc = subprocess.Popen("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileName,shell=True)
+        # rc.communicate()[0] 
+        # A = rc.returncode
         print('done')
-        print(A)
-        return HttpResponse(A)
+        return HttpResponse('haha')
         
 
     else:

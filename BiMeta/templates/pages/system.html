@@ -16,7 +16,7 @@
     </form>
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid" style="height: 1000px;">
     <div class="row">
         <form method="post" enctype="multipart/form-data" data-bg-color="#edf2f4" style="padding: 2em;" class="col-md-6 col-sm-12">
             <div class="body_section2">
@@ -113,45 +113,52 @@
        
       
         <div class="col-md-6 col-sm-12">
-            <div class="row" style="height: 10vh">
-                <div id="display_output" class="box col-md-6 col-sm-6" style="font-family: Helvetica, sans-serif">
-                    <h2 style="text-align: center;">Output files </h3>
-                    <div id="outputData">
+            <div style="height: 1000px;">
+                <div class="row" style="height: 20%;">
+                    <div id="popupOutput" class="box col-md-6 col-sm-6" style="height: 100%;font-family: Helvetica, sans-serif" >
+                        <div id="display_output" >
+                            <h2 class="title_box">Output files </h2>
+                            <div id="outputData">
+                            </div>
+                        </div>
                     </div>
+                   
+                    <div id="popupOverview" class="box col-md-6 col-sm-6" style="height: 100%;font-family: Helvetica, sans-serif" >
+                        <div id="display_overview" class="overviewdiv">
+                            <h2 class="title_box">Overview information</h2>
+                            <div id="overview">
+                            </div>
+                        </div>
+                    </div>  
                 </div>
-                <div class="box col-md-6 col-sm-6" style="font-family: Helvetica, sans-serif">
-                    <h2 style="text-align: center;">Overview info</h3>
-                    <div id="overview">
+                <div  class=" row box" style="height: 50%;">
+                    <div style="height:15%">
+                        <h2 class="title_box">Node graph</h2>
                     </div>
-                </div>
-            </div>
-            <div class="row" style="height: 60vh">
-                <div  class="box col-md-12 col-sm-12">
-                    <h2 style="text-align: center;">Node graph</h2>
-                    <center><img src="{% static 'images/node_graph.jpeg' %}" style="width: 500px;height: 500px;" alt="node_graph"></center>
-                    
-                </div>
-               
-                <!-- <div class="box col-md-6 col-sm-6" style="font-family: Helvetica, sans-serif;">
-                    <div>
-                    </div>
-                </div> -->
-            </div>
-            <div class="row" style="height: 30vh">
-                <div  id="popupGraph" class="box col-md-6 col-sm-6 ">
-                    <h2 style="text-align: center;">Major reads of species</h2>
-                    <div id="chartdiv" class="chartdiv"></div>
-                </div>
-                <div class="box col-md-6 col-sm-6" style="font-family: Helvetica, sans-serif">
-                    <div >
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="chart" style="display: none;">
-            <!-- <div id="chartdiv"></div> -->
+                        
+                        <img id="nodeGraph" style="height: 85%;object-fit: contain;" alt="node_graph">
 
+                </div>
+                <div class="row" style="height: 30%;">
+                    <div  id="popupBar" class="box col-md-6 col-sm-6 ">
+                        <div id="display_bar">
+                            <h2 class="title_box">Major reads of species</h2>
+                            <div id="bardiv" class="bardiv"></div>
+                        </div>            
+                    </div>
+                    <div id="popupPie" class="box col-md-6 col-sm-6">
+                        <div id="display_pie">
+                            <h2 class="title_box">Species ratio</h2>
+                            <div id="piediv" class="piediv"></div>    
+                        </div>
+                          
+                    </div>
+                </div>
+            </div>
+           
         </div>
+        <!-- <div id="chart" style="display: none;">
+        </div> -->
         <div class="fullwidth-block" style="padding: 1.5em 0 0 0">
             <div id="info_kmer" class="boxed-icon">
                 <img src="{% static 'images/kmer.png' %}" style="width: 50px;height: 50px;" alt="" class="icon">
@@ -196,8 +203,10 @@
 <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
 <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
 <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/dataviz.js"></script>
 <script type="text/javascript" src="../../static/overview.js"></script>
 <script type="text/javascript" src="../../static/barChart.js"></script>
+<script type="text/javascript" src="../../static/pieChart.js"></script>
 <script type="text/javascript" src="../../static/main.js">
 </script>
 <script>

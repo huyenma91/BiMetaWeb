@@ -152,7 +152,11 @@
                       listFiles(result.listOfInputFile);
                       listOutputFiles(result.listOfOutputFile);
                       readyChart(result.barGraphData);
+                      pieChart(result.barGraphData);
                       readyOverview(result.overviewData);
+                      $("#nodeGraph").attr("src", "data:image/png;base64,"+result.graphImage);
+                    //   $('#nodeGraph').attr('src',`{% static 'graphExport/node_graph_test.png' %}`)
+                    //   $('#nodeGraphBox').html('<img src="{% static "graphExport/node_graph_test.png" %}">')
                   }
               })
           }
@@ -200,7 +204,10 @@
                       success: function(result) {
                           listOutputFiles(result.listOfOutputFile);
                           readyChart(result.barGraphData);
+                          pieChart(result.barGraphData);
                           readyOverview(result.overviewData);
+                        //   $('#nodeGraph').attr('src',`{% static 'graphExport/node_graph_test.png' %}`)
+                          $("#nodeGraph").attr("src", "data:image/png;base64,"+result.graphImage);
                           }
                       })
                   },
@@ -263,11 +270,32 @@
       }
   }
 
-var dataGlobal;
-$("#popupGraph").click(function() {
-    $('#chartdiv').css('z-index', '-99999');
-    $("#chartdiv").toggleClass("chartdiv toggleClass");
-    console.log($("#chartdiv:animated").length)
-    setTimeout(function(){console.log('asdasdas');$('#chartdiv').css('z-index', '1000');}, 100)
+$("#popupBar").click(function() {
+    $('#display_bar').css('z-index', '-99999');
+    $("#display_bar").toggleClass("bardiv toggleClass");
+    console.log($("#display_bar:animated").length)
+    setTimeout(function(){
+        $('#display_bar').css('z-index', '1000');
+    }, 100)
 })
+
+$("#popupPie").click(function() {
+    $('#display_pie').css('z-index', '-99999');
+    $("#display_pie").toggleClass("piediv toggleClass");
+    console.log($("#piediv:animated").length)
+    setTimeout(function(){
+        $('#display_pie').css('z-index', '1000');
+    }, 100)
+})
+
+$("#popupOverview").click(function() {
+    console.log('click click');
+    $('#display_overview').css('z-index', '-99999');
+    $("#display_overview").toggleClass("overviewdiv toggleClass");
+    console.log($("#display_overview:animated").length)
+    setTimeout(function(){
+        $('#display_overview').css('z-index', '1000');
+    }, 100)
+})
+  
   
