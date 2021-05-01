@@ -75,6 +75,12 @@ def system(request):
             convert2json(data,'/home/phuong/ServerWeb/BiMeta/jsonData/')
             # rc = subprocess.call("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True)
             # rc = subprocess.Popen("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True)
+            # rc = subprocess.Popen("python3 $HOME/ServerWeb/systemHadoop/cWord.py hdfs://localhost:9000/user/fileIn -r hadoop",shell=True,stdout = subprocess.PIPE)
+            # output = rc.stdout.read()
+            # print(output)
+            # for line in rc:
+            #     print('day la line :',line)
+            # rc.close()
             # rc.communicate()[0] 
             # A = rc.returncode
             print('done')
@@ -86,11 +92,11 @@ def system(request):
         fs_path = fs.save(upload_file.name,upload_file)
         data = load_meta_reads('/home/phuong/ServerWeb/media/t/'+fileName)
         convert2json(data,'/home/phuong/ServerWeb/BiMeta/jsonData/')
-        # rc = subprocess.Popen("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileName,shell=True)
-        # rc.communicate()[0] 
-        # A = rc.returncode
+        rc = subprocess.Popen("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileName,shell=True)
+        rc.communicate()[0] 
+        A = rc.returncode
         print('done')
-        return HttpResponse('haha')
+        return HttpResponse(A)
         
 
     else:

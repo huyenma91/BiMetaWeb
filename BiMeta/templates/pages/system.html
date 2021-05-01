@@ -16,7 +16,7 @@
     </form>
 </div>
 
-<div class="container-fluid" style="height: 1000px;">
+<div class="container-fluid" style="height: 100%;">
     <div class="row">
         <form method="post" enctype="multipart/form-data" data-bg-color="#edf2f4" style="padding: 2em;" class="col-md-6 col-sm-12">
             <div class="body_section2">
@@ -57,28 +57,40 @@
                         <p class="body_section3_title bold">K-mer size:</p>
                         <button id="button_kmer" class="show-info" type="button"><i class="fa fa-info"></i></button>
                     </div>
-                    <input class="col" type="number" min="1" id="kmer">
+                    <div class="col" style="display: grid;">
+                        <input class="kmer" type="number" min="1" id="kmer">
+                    </div>
+                    
                 </div>
                 <div class="area3_1 row">
                     <div class="col" style="display: flex;">
                         <p class="body_section3_title bold">Length of Q-mer:</p>
                         <button id="button_lofqmer" class="show-info" type="button"><i class="fa fa-info"></i></button>
                     </div>
-                    <input class="col" type="number" min="1" id="lofqmer">
+                    <div class="col" style="display: grid;">
+                        <input class="lofqmer" type="number" min="1" id="lofqmer">
+                    </div>
+                   
                 </div>
                 <div class="area3_1 row">
                     <div class="col" style="display: flex;">
                         <p class="body_section3_title bold">Number of share reads:</p>
                     <button id="button_sharereads" class="show-info" type="button"><i class="fa fa-info"></i></button>
                     </div>
-                    <input class="col" type="number" min="1" id="sharereads">
+                    <div class="col" style="display: grid;">
+                        <input class="sharereads" type="number" min="1" id="sharereads">
+                    </div>
+                   
                 </div>
                 <div class="area3_1 row">
                     <div class="col" style="display: flex;">
                         <p class="body_section3_title bold" >Maximum component size:</p>
                         <button id="button_maxcomp" class="show-info" type="button"><i class="fa fa-info"></i></button> 
                     </div>
-                    <input class="col" type="number" min="1" id="maxcomp">
+                    <div class="col" style="display: grid;">
+                        <input class="maxcomp" type="number" min="1" id="maxcomp">
+                    </div>
+                    
                 </div>
             </div>
             <br><br>
@@ -115,40 +127,63 @@
         <div class="col-md-6 col-sm-12">
             <div style="height: 1000px;">
                 <div class="row" style="height: 20%;">
-                    <div id="popupOutput" class="box col-md-6 col-sm-6" style="height: 100%;font-family: Helvetica, sans-serif" >
+                    <div  class="box col-md-6 col-sm-6" style="height: 100%;font-family: Helvetica, sans-serif" >
                         <div id="display_output" >
-                            <h2 class="title_box">Output files </h2>
+                            <span class="title_box" style="display: block ruby">
+                                <h2>Output Files</h2>
+                                <button id="popupOutput" class="zoom_button" type="button" onclick=""><i class="fa fa-search"></i></button>
+                            </span>
+                          
                             <div id="outputData">
                             </div>
                         </div>
                     </div>
                    
-                    <div id="popupOverview" class="box col-md-6 col-sm-6" style="height: 100%;font-family: Helvetica, sans-serif" >
+                    <div class="box col-md-6 col-sm-6" style="height: 100%;font-family: Helvetica, sans-serif" >
                         <div id="display_overview" class="overviewdiv">
-                            <h2 class="title_box">Overview information</h2>
+                            <span class="title_box" style="display: block ruby">
+                                <h2>Overview Information</h2>
+                                <button id="popupOverview" class="zoom_button" type="button" onclick=""><i class="fa fa-search"></i></button>
+                            </span>
+                           
                             <div id="overview">
+                                <p>This is where you can see the overview information of the input dataset which included file name, F-measure, Recall, Precision, Date Start, Time,... </p>
                             </div>
                         </div>
                     </div>  
                 </div>
-                <div  class=" row box" style="height: 50%;">
-                    <div style="height:15%">
-                        <h2 class="title_box">Node graph</h2>
+                <div  class="row box" style="height: 50%;">
+                    <div>
+                    <div id="display_graph">
+                        <div class="title_box" style="display: block ruby;height:15%">
+                            <h2>Node Graph</h2>
+                            <button id="popupGraph" class="zoom_button" type="button" onclick=""><i class="fa fa-search"></i></button>
+                        </div>
+                        <div style="height: 85%;object-fit: contain;">
+                            <img id="nodeGraph" style="height: 100%;margin-left: auto;margin-right: auto;display: block;">
+                        </div>
                     </div>
-                        
-                        <img id="nodeGraph" style="height: 85%;object-fit: contain;" alt="node_graph">
-
+                    </div>
                 </div>
                 <div class="row" style="height: 30%;">
-                    <div  id="popupBar" class="box col-md-6 col-sm-6 ">
+                    
+                    <div  class="box col-md-6 col-sm-6 ">
                         <div id="display_bar">
-                            <h2 class="title_box">Major reads of species</h2>
+                            <span style="display: block ruby; text-align: center;">
+                                <h2 class="title_box">Reads of Species</h2>
+                                <button id="popupBar" class="zoom_button" type="button" onclick=""><i class="fa fa-search"></i></button>
+                            </span>
+                          
                             <div id="bardiv" class="bardiv"></div>
                         </div>            
                     </div>
-                    <div id="popupPie" class="box col-md-6 col-sm-6">
+
+                    <div class="box col-md-6 col-sm-6">
                         <div id="display_pie">
-                            <h2 class="title_box">Species ratio</h2>
+                            <span style="display: block ruby; text-align: center;">
+                                <h2 class="title_box">Species Ratio</h2>
+                                <button id="popupPie" class="zoom_button" type="button" onclick=""><i class="fa fa-search"></i></button>
+                            </span>
                             <div id="piediv" class="piediv"></div>    
                         </div>
                           
@@ -204,11 +239,11 @@
 <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
 <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
 <script src="https://cdn.amcharts.com/lib/4/themes/dataviz.js"></script>
-<script type="text/javascript" src="../../static/overview.js"></script>
-<script type="text/javascript" src="../../static/barChart.js"></script>
-<script type="text/javascript" src="../../static/pieChart.js"></script>
-<script type="text/javascript" src="../../static/main.js">
-</script>
+<script type="text/javascript" src="../../static/WebUI.js/overview.js"></script>
+<script type="text/javascript" src="../../static/WebUI.js/barChart.js"></script>
+<script type="text/javascript" src="../../static/WebUI.js/pieChart.js"></script>
+<script type="text/javascript" src="../../static/WebUI.js/main.js"></script>
+<script type="text/javascript" src="../../static/WebUI.js/regex.js"></script>
 <script>
     const ref = document.getElementById('display_files');
     tippy('#myButton', {

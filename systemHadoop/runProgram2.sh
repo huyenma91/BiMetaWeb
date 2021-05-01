@@ -1,5 +1,4 @@
 #!/bin/bash
-
 FNAME=$1
 
 $HADOOP_HOME/bin/hdfs dfs -put $HOME/ServerWeb/media/t/$FNAME /user

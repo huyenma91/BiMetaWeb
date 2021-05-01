@@ -95,6 +95,10 @@
     width: 200px;
 }
 
+.zoom_button{
+    border-radius: 2em;
+}
+
 .button_area {
     text-align: center;
 }
@@ -226,9 +230,12 @@ td{
     overflow: auto;
 }
 
-
 #display_overview{
     overflow: auto;
+}
+
+#display_graph{
+    height: 80%;
 }
 
 #display_bar{
@@ -241,9 +248,9 @@ td{
 .box{
     border: black 1px solid;
 }
-.box:hover{
+/* .box:hover{
     cursor: pointer;
-}
+} */
 
 .title_box{
     text-align: center;
@@ -271,6 +278,11 @@ td{
     height: 100%;
 }
 
+.overviewgraph {
+    /* width: 80% !important;
+    height: 80% !important; */
+}
+
 .toggleClass{
     background-color: white;
     position: fixed;
@@ -281,4 +293,31 @@ td{
     left: 15vw;
 }
 
+.kmer.invalid+.error-message{
+    display: initial !important;
+}
+
+.lofqmer.invalid+.error-message{
+    display: initial !important;
+}
+
+.sharereads.invalid+.error-message{
+    display: initial !important;
+}
+
+.maxcomp.invalid+.error-message{
+    display: initial !important;
+}
+
+.error-message{
+    /* position: absolute; */
+    color: red;
+    display: none;
+    font-size: 13px;
+}
+
+.disableBtn{
+    background-color: gray;
+    cursor: unset;
+}
 
