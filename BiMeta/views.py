@@ -17,7 +17,6 @@ from django.utils.encoding import smart_str
 import signal
 from .BimetaCode.read_file import load_meta_reads, convert2json
 import base64
-# import psutil
 # sys.path.append("/home/phuong")
 # import testtesttest
 
@@ -51,8 +50,7 @@ def system(request):
             "Precision": "12.1",
             "Time":"21-01-1999",
             "Training":"00:00:00"
-            },
-            ]
+            },]
             resultObject['overviewData'] = dataOverview
             try:
                 with open("BiMeta/static/graphExport/node_graph_test.png", "rb") as img_file:
@@ -74,12 +72,12 @@ def system(request):
             data = load_meta_reads('/home/phuong/ServerWeb/media/t/'+fileChoose)
             convert2json(data,'/home/phuong/ServerWeb/BiMeta/jsonData/')
             # rc = subprocess.call("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True)
-            # rc = subprocess.Popen("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True)
-            # rc = subprocess.Popen("python3 $HOME/ServerWeb/systemHadoop/cWord.py hdfs://localhost:9000/user/fileIn -r hadoop",shell=True,stdout = subprocess.PIPE)
-            # output = rc.stdout.read()
-            # print(output)
-            # for line in rc:
-            #     print('day la line :',line)
+            rc = subprocess.Popen("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True, stderr = subprocess.PIPE)
+            # subprocess.check_output("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True)
+            # output = rc.stderr.read()
+            for line in rc.stderr:
+                myString = line.decode("utf-8") 
+                print(myString)
             # rc.close()
             # rc.communicate()[0] 
             # A = rc.returncode
