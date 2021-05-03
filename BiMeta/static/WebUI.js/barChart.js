@@ -10,7 +10,30 @@ function readyChart(barGraphData) {
 chart.width = am4core.percent(100);
 chart.height = am4core.percent(100);
 
-chart.data = barGraphData;
+chart.data = [
+  {
+      "species": 1,
+      "number": 500,
+      "code": "15668172",
+      "name": "\"Methanocaldococcus jannaschii DSM 2661 chromosome\" (392b1054a4bf536ea1cc349545ace50120973c3a)",
+      "color": "#ED1C24"
+  },
+  {
+      "species": 2,
+      "number": 781,
+      "code": "134045046",
+      "name": "\"Methanococcus maripaludis C5 chromosome\" (6c8ee4fd8ba70ca081406766eff61a612fc74b49)",
+      "color":"#F1D302"
+  }
+];
+chart.colors.list = [
+  am4core.color("#845EC2"),
+  am4core.color("#D65DB1"),
+  am4core.color("#FF6F91"),
+  am4core.color("#FF9671"),
+  am4core.color("#FFC75F"),
+  am4core.color("#F9F871")
+];
 
 // chart.padding(40, 40, 40, 40);
 
@@ -39,6 +62,7 @@ series.dataFields.valueY = "number";
 series.columns.template.strokeOpacity = 0;
 series.columns.template.column.cornerRadiusTopRight = 10;
 series.columns.template.column.cornerRadiusTopLeft = 10;
+series.columns.template.propertyFields.fill = 'color'
 //series.interpolationDuration = 1500;
 //series.interpolationEasing = am4core.ease.linear;
 
@@ -51,9 +75,9 @@ chart.zoomOutButton.disabled = true;
 // chart.responsive.enabled = true;
 
 // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
-series.columns.template.adapter.add("fill", function (fill, target) {
-  return chart.colors.getIndex(target.dataItem.index);
-});
+// series.columns.template.adapter.add("fill", function (fill, target) {
+//   return chart.colors.getIndex(target.dataItem.index);
+// });
 
 // setInterval(function () {
 //  am4core.array.each(chart.data, function (item) {

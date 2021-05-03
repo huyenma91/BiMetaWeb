@@ -157,11 +157,11 @@ select {
 }
 
 .loader {
-    border: 16px solid #f3f3f3; /* Light grey */
-    border-top: 16px solid #3498db; /* Blue */
+    border: 4px solid #f3f3f3; /* Light grey */
+    border-top: 4px solid #3498db; /* Blue */
     border-radius: 50%;
-    width: 60px;
-    height: 60px;
+    width: 20px;
+    height: 20px;
     animation: spin 2s linear infinite;
 }
   
@@ -186,7 +186,7 @@ td{
 }
 .tippy-box{
     background-color: #69acc7;
-    color: black;
+    /* color: black; */
     border-radius: 20px;
     padding: 10px;
     max-width: none !important;
@@ -259,6 +259,14 @@ td{
     background-color: rgb(255 255 255 / 80%);
     padding-top: 15px;
 }
+
+
+.title_box_graph{
+    text-align: center;
+    top: 0;
+    background-color: rgb(255 255 255 / 80%);
+    padding-top: 15px;
+}
 .boxed-icon{
     background-color: white; 
     border-radius: 20px;
@@ -321,3 +329,16 @@ td{
     cursor: unset;
 }
 
+#streamDivLog{
+    height: 200px;
+    background-color: black;
+    color: white;
+    padding: 15px;
+    font-size: 15px;
+    font-weight: bold;
+    overflow: auto;
+}
+
+#pie_note,#bar_note,#graph_note,#overview_note,#output_note{
+    padding: 20px;
+}

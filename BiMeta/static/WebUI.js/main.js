@@ -69,7 +69,8 @@
           processedFile = document.getElementById("file-selected").innerHTML;
           document.getElementById("startButton").disabled=true;
           $('#startButton').addClass("submit_disable");
-          document.getElementById("loader").style.display="block";
+          document.getElementById("loader").style.display="inherit";
+          document.getElementById("labelStart").style.display="none";
           getFileFlag = false;
           request1 = $.ajax({
                       url: "",
@@ -108,6 +109,8 @@
       // console.log(getFile1);
       formData.append("file", getFile1);
       console.log(formData);
+    //   document.getElementById("streamDivLog").innerHTML="Start processing ...";
+      appendStreamLog('Start processing ...');
 
       var http = new XMLHttpRequest()
       http.open("POST", "", true)
@@ -138,10 +141,11 @@
         //   console.log("http.status",http.status)
         //   console.log(http.response)
           if (streamDataUpload != http.response) {
-            let commingData = http.response
-            let newData = commingData.replace(streamDataUpload, '')
-            streamDataUpload = commingData
-            console.log(newData)
+            let commingData = http.response;
+            let newData = commingData.replace(streamDataUpload, '');
+            streamDataUpload = commingData;
+            console.log(newData);
+            appendStreamLog(newData);
             }
           if (http.readyState == 4 && http.status == 200) {
               console.log('return ne`' + http.response);
@@ -149,7 +153,11 @@
                   document.getElementById("startButton").disabled=false;
                   $('#startButton').removeClass("submit_disable");
                   document.getElementById("loader").style.display="none";
-                  document.getElementById("file-selected").innerHTML=""
+                  document.getElementById("labelStart").style.display="block";
+                  document.getElementById("file-selected").innerHTML="";
+                //document.getElementById("streamDivLog").innerHTML="";
+                appendStreamLog('File "'+processedFile+ '" is completely processed');
+                 
               }
                   request2 = $.ajax({
                   url: "",
@@ -165,6 +173,7 @@
                       pieChart(result.barGraphData);
                       readyOverview(result.overviewData);
                       $("#nodeGraph").attr("src", "data:image/png;base64,"+result.graphImage);
+                      document.getElementById("graph_note").style.display="none"
                     //   $('#nodeGraph').attr('src',`{% static 'graphExport/node_graph_test.png' %}`)
                     //   $('#nodeGraphBox').html('<img src="{% static "graphExport/node_graph_test.png" %}">')
                   },
@@ -207,16 +216,21 @@
             //   }
               request.onreadystatechange = function() { //Call a function when the state changes.
                 if (streamData != request.response) {
-                    let commingData = request.response
-                    let newData = commingData.replace(streamData, '')
-                    streamData = commingData
-                    console.log(newData)
+                    let commingData = request.response;
+                    let newData = commingData.replace(streamData, '');
+                    streamData = commingData;
+                    console.log(newData);
+                    appendStreamLog(newData);
                 }
                 if (request.readyState == 4 && request.status == 200) {
                     document.getElementById("startButton").disabled=false;
                     $('#startButton').removeClass("submit_disable");
                     document.getElementById("loader").style.display="none";
+                    document.getElementById("labelStart").style.display="block";
                     document.getElementById("file-selected").innerHTML="";
+                    // document.getElementById("streamDivLog").innerHTML="";
+                    appendStreamLog('File "'+processedFile+ '" is completely processed');
+
                     request4 = $.ajax({
                     url: "",
                     type: "POST",
@@ -229,6 +243,7 @@
                         pieChart(result.barGraphData);
                         readyOverview(result.overviewData);
                         $("#nodeGraph").attr("src", "data:image/png;base64,"+result.graphImage);
+                        document.getElementById("graph_note").style.display="none"
                         }
                     })
                 }
@@ -323,6 +338,13 @@
       }
   }
 
+  function appendStreamLog(appendDataLog){
+    let newData = "<pre>" + appendDataLog +"</pre>";
+    document.getElementById("streamDivLog").innerHTML+= newData;
+    var messageBody = document.querySelector('#streamDivLog');
+    messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
+  }
+
 //   function 
 
 $("#popupBar").click(function() {
@@ -352,14 +374,20 @@ $("#popupOverview").click(function() {
     }, 100)
 })
 
+$("#popupOutput").click(function() {
+    $('#display_output').css('z-index', '-99999');
+    $("#display_output").toggleClass("overviewdiv toggleClass");
+    console.log($("#display_output:animated").length)
+    setTimeout(function(){
+        $('#display_output').css('z-index', '1000');
+    }, 100)
+})
+
 $("#popupGraph").click(function() {
     $('#display_graph').css('z-index', '-99999');
     $("#display_graph").toggleClass("overviewgraph toggleClass");
     console.log($("#display_graph:animated").length)
     setTimeout(function(){
-        // if ($("#display_graph") has class (toggleClass)) {
-        //     $('#display_graph').css('z-index', '1000');
-        // }
         $('#display_graph').css('z-index', '1000');
     }, 100)
 })

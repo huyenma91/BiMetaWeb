@@ -10,13 +10,13 @@
 
 <div id="display_files" style="font-family: Helvetica, sans-serif;">
     <form>
-        <p id="nodata">No data file in system's folder</p>
+        <p id="nodata" >No data file in system's folder</p>
         <table id="neatdata" cellpadding="0" cellspacing="0" > 
         </table>
     </form>
 </div>
 
-<div class="container-fluid" style="height: 100%;">
+<div class="container-fluid" style="height: 100%; padding-right:0">
     <div class="row">
         <form method="post" enctype="multipart/form-data" data-bg-color="#edf2f4" style="padding: 2em;" class="col-md-6 col-sm-12">
             <div class="body_section2">
@@ -115,17 +115,17 @@
             </div>
             <br><br>
             <div class="button_area">
-                <button class="submit_button bold" id="startButton" type="button" onclick="getValue(event)">Start</button>
+                <button class="submit_button bold" id="startButton" type="button" onclick="getValue(event)"><span id="labelStart">Start</span><div class="loader" id="loader" style="display: none;"></div></button>
                 <button class="clear_button bold" id="clearButton" type="button" onclick="clearValue()">Clear</button>
             </div>
             <br>
-            <center><div class="loader" id="loader" style="display: none;"></div></center>
+           
+            <div id="streamDivLog">
+            </div>
         </form>
     
-       
-      
-        <div class="col-md-6 col-sm-12">
-            <div style="height: 1000px;">
+        <div class="col-md-6 col-sm-12" style="padding-right:0;">
+            <div style="height: 100%">
                 <div class="row" style="height: 20%;">
                     <div  class="box col-md-6 col-sm-6" style="height: 100%;font-family: Helvetica, sans-serif" >
                         <div id="display_output" >
@@ -135,6 +135,10 @@
                             </span>
                           
                             <div id="outputData">
+                                <div id="output_note">
+                                    <p>This is where you can see and download the cluster files which includes reads of each cluster group species.</p>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -147,18 +151,25 @@
                             </span>
                            
                             <div id="overview">
-                                <p>This is where you can see the overview information of the input dataset which included file name, F-measure, Recall, Precision, Date Start, Time,... </p>
+                                <div id="overview_note">
+                                    <p>This is where you can see the overview information of the input dataset which included file name, F-measure, Recall, Precision, Date Start, Time,... </p>
+                                </div>
+                               
                             </div>
                         </div>
                     </div>  
                 </div>
-                <div  class="row box" style="height: 50%;">
+                <div  class="row box" style="height: 50%;font-family: Helvetica, sans-serif">
                     <div>
                     <div id="display_graph">
-                        <div class="title_box" style="display: block ruby;height:15%">
+                        <div class="title_box_graph" style="display: block ruby;height:15%;">
                             <h2>Node Graph</h2>
                             <button id="popupGraph" class="zoom_button" type="button" onclick=""><i class="fa fa-search"></i></button>
                         </div>
+                        <div id="graph_note">
+                            <p>This is where you can get the overview graph of you dataset files. The graph contains the nodes(reads) and the edges (overlap atribute) between two nodes.</p>
+                        </div>
+                       
                         <div style="height: 85%;object-fit: contain;">
                             <img id="nodeGraph" style="height: 100%;margin-left: auto;margin-right: auto;display: block;">
                         </div>
@@ -167,24 +178,32 @@
                 </div>
                 <div class="row" style="height: 30%;">
                     
-                    <div  class="box col-md-6 col-sm-6 ">
+                    <div  class="box col-md-6 col-sm-6" style="font-family: Helvetica, sans-serif">
                         <div id="display_bar">
                             <span style="display: block ruby; text-align: center;">
                                 <h2 class="title_box">Reads of Species</h2>
                                 <button id="popupBar" class="zoom_button" type="button" onclick=""><i class="fa fa-search"></i></button>
                             </span>
                           
-                            <div id="bardiv" class="bardiv"></div>
+                            <div id="bardiv" class="bardiv">
+                                <div id="bar_note">
+                                    <p>This is where you can get the overview graph of you dataset files. The graph contains the nodes(reads) and the edges (overlap atribute) between two nodes.</p>
+                                </div>
+                            </div>
                         </div>            
                     </div>
 
-                    <div class="box col-md-6 col-sm-6">
+                    <div class="box col-md-6 col-sm-6" style="font-family: Helvetica, sans-serif">
                         <div id="display_pie">
                             <span style="display: block ruby; text-align: center;">
                                 <h2 class="title_box">Species Ratio</h2>
                                 <button id="popupPie" class="zoom_button" type="button" onclick=""><i class="fa fa-search"></i></button>
                             </span>
-                            <div id="piediv" class="piediv"></div>    
+                            <div id="piediv" class="piediv">
+                                <div id="pie_note">
+                                    <p>This is where you can get the overview graph of you dataset files. The graph contains the nodes(reads) and the edges (overlap atribute) between two nodes.</p>
+                                </div>
+                            </div>    
                         </div>
                           
                     </div>

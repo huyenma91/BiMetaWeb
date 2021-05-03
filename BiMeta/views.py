@@ -78,7 +78,8 @@ def system(request):
             convert2json(data,'/home/phuong/ServerWeb/BiMeta/jsonData/')
             # rc = subprocess.call("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True)
             # rc = subprocess.Popen("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True, stderr = subprocess.PIPE)
-            rc = subprocess.Popen("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True, stderr = subprocess.PIPE,stdout = subprocess.PIPE)
+            # rc = subprocess.Popen("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True, stderr = subprocess.PIPE,stdout = subprocess.PIPE)
+            rc = None
             # subprocess.check_output("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True)
             # output = rc.stderr.read()
             # for line in rc.stderr:
@@ -101,8 +102,9 @@ def system(request):
         fs_path = fs.save(upload_file.name,upload_file)
         data = load_meta_reads('/home/phuong/ServerWeb/media/t/'+fileName)
         convert2json(data,'/home/phuong/ServerWeb/BiMeta/jsonData/')
-        rc = subprocess.Popen("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileName,shell=True, stderr = subprocess.PIPE,stdout = subprocess.PIPE)
+        # rc = subprocess.Popen("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileName,shell=True, stderr = subprocess.PIPE,stdout = subprocess.PIPE)
         # rc = subprocess.Popen("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileName,shell=True)
+        rc = None
         stream = generateStreamingLog(rc)
         # rc.communicate()[0] 
         # A = rc.returncode
@@ -141,10 +143,13 @@ def download_file(request, filename=''):
         return response
 
 def generateStreamingLog(rc):
-    for line in rc.stderr:
-        data =  line.decode("utf-8")
-        yield data
-    return 'dead'    
+    # for line in rc.stderr:
+    #     data =  line.decode("utf-8")
+    #     yield data
+    # return 'dead'    
+    for x in range(6):
+        time.sleep(0.5)
+        yield x
 # def register(request):
 #     form = RegistrationForm()
 #     if request.method == 'POST':
