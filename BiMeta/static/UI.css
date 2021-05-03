@@ -296,9 +296,19 @@ td{
     position: fixed;
     top: 10vh;
     height: 80vh;
-    /* z-index: 1000; */
     width: 70vw;
     left: 15vw;
+    border-radius: 10%;
+}
+
+.toggleOutput_Overview{
+    background-color: white;
+    position: fixed;
+    top: 25vh;
+    height: 50vh;
+    width: 40vw;
+    left: 30vw;
+    border-radius: 10%;
 }
 
 .kmer.invalid+.error-message{
@@ -331,6 +341,7 @@ td{
 
 #streamDivLog{
     height: 200px;
+    min-width: 40vw;
     background-color: black;
     color: white;
     padding: 15px;
@@ -339,6 +350,15 @@ td{
     overflow: auto;
 }
 
+/* #streamDivLog pre{
+    width: 40vw;
+    overflow: auto;
+} */
+
 #pie_note,#bar_note,#graph_note,#overview_note,#output_note{
     padding: 20px;
 }
+
+/* .styleBox{
+    padding: 20px;
+} */

@@ -1,7 +1,14 @@
   dataNode = document.getElementById('neatdata');
   noNode = document.getElementById('nodata');
   var processedFile = '';
-  
+  document.getElementById('streamDivLog').innerHTML = "<center><pre>" + String.raw`
+  ____ _____ __  __ ______ _______       
+ |  _ \_   _|  \/  |  ____|__   __|/\    
+ | |_) || | | \  / | |__     | |  /  \   
+ |  _ < | | | |\/| |  __|    | | / /\ \  
+ | |_) || |_| |  | | |____   | |/ ____ \ 
+ |____/_____|_|  |_|______|  |_/_/    \_\
+                                        ` + "</pre></center>"
 
   function listFiles(dataFiles) {
       if (dataFiles.length == 0){
@@ -35,6 +42,7 @@
   // listFiles(data);
  
   function listOutputFiles(ouputDataFiles) {
+      document.getElementById('outputData').style.padding="20px"
       outputdataNode = document.getElementById('outputData');
       outputdataNode.innerHTML = "";
       for (var x in ouputDataFiles) {
@@ -367,7 +375,7 @@ $("#popupPie").click(function() {
 
 $("#popupOverview").click(function() {
     $('#display_overview').css('z-index', '-99999');
-    $("#display_overview").toggleClass("overviewdiv toggleClass");
+    $("#display_overview").toggleClass("overviewdiv toggleOutput_Overview");
     console.log($("#display_overview:animated").length)
     setTimeout(function(){
         $('#display_overview').css('z-index', '1000');
@@ -376,7 +384,7 @@ $("#popupOverview").click(function() {
 
 $("#popupOutput").click(function() {
     $('#display_output').css('z-index', '-99999');
-    $("#display_output").toggleClass("overviewdiv toggleClass");
+    $("#display_output").toggleClass("overviewdiv toggleOutput_Overview");
     console.log($("#display_output:animated").length)
     setTimeout(function(){
         $('#display_output').css('z-index', '1000');
