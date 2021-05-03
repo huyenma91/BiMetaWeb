@@ -132,10 +132,17 @@
 
       });
       console.log(http.readyState)
+      let streamDataUpload;
       http.onreadystatechange = function() { //Call a function when the state changes.
-          console.log("state",http.readyState)
-          console.log("http.status",http.status)
-          console.log(http.response)
+        //   console.log("state",http.readyState)
+        //   console.log("http.status",http.status)
+        //   console.log(http.response)
+          if (streamDataUpload != http.response) {
+            let commingData = http.response
+            let newData = commingData.replace(streamDataUpload, '')
+            streamDataUpload = commingData
+            console.log(newData)
+            }
           if (http.readyState == 4 && http.status == 200) {
               console.log('return ne`' + http.response);
               if(http.response != null ){
@@ -175,8 +182,7 @@
       xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
       xhr.onreadystatechange = function() { //Call a function when the state changes.
           if (xhr.readyState == 4 && xhr.status == 200) {
-              // alert(xhr.responseText);
-              
+              // alert(xhr.responseText);           
           }
       }
       xhr.send(params);
@@ -190,35 +196,75 @@
           console.log('fileChoose :',fileChoose);
           if (fileChoose!=null && fileChoose!=''){
               console.log("ten file: ",fileChoose.textContent)
-                  request3 = $.ajax({
-                  url: "",
-                  type: "POST",
-                  data: {
-                      method:'chooseFile',
-                      fileChoose: fileChoose.textContent
-                  },
-                  success: function(result) {
-                      document.getElementById("startButton").disabled=false;
-                      $('#startButton').removeClass("submit_disable");
-                      document.getElementById("loader").style.display="none";
-                      document.getElementById("file-selected").innerHTML="";
-                      request4 = $.ajax({
-                      url: "",
-                      type: "POST",
-                      data: {
-                      method:'showdata',
-                      },
-                      success: function(result) {
-                          listOutputFiles(result.listOfOutputFile);
-                          readyChart(result.barGraphData);
-                          pieChart(result.barGraphData);
-                          readyOverview(result.overviewData);
-                        //   $('#nodeGraph').attr('src',`{% static 'graphExport/node_graph_test.png' %}`)
-                          $("#nodeGraph").attr("src", "data:image/png;base64,"+result.graphImage);
-                          }
-                      })
-                  },
-              })
+              let streamData;
+              let request = new XMLHttpRequest();
+              request.open('POST', '', true);
+              request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+            //   request.onprogress = function(){
+            //       if (streamData === request.response) return;
+            //       streamData = request.response
+            //       console.log(streamData)
+            //   }
+              request.onreadystatechange = function() { //Call a function when the state changes.
+                if (streamData != request.response) {
+                    let commingData = request.response
+                    let newData = commingData.replace(streamData, '')
+                    streamData = commingData
+                    console.log(newData)
+                }
+                if (request.readyState == 4 && request.status == 200) {
+                    document.getElementById("startButton").disabled=false;
+                    $('#startButton').removeClass("submit_disable");
+                    document.getElementById("loader").style.display="none";
+                    document.getElementById("file-selected").innerHTML="";
+                    request4 = $.ajax({
+                    url: "",
+                    type: "POST",
+                    data: {
+                    method:'showdata',
+                    },
+                    success: function(result) {
+                        listOutputFiles(result.listOfOutputFile);
+                        readyChart(result.barGraphData);
+                        pieChart(result.barGraphData);
+                        readyOverview(result.overviewData);
+                        $("#nodeGraph").attr("src", "data:image/png;base64,"+result.graphImage);
+                        }
+                    })
+                }
+              }
+              var params = 'method=chooseFile&fileChoose=' + fileChoose.textContent
+              request.send(params)
+
+            //       request3 = $.ajax({
+            //       url: "",
+            //       type: "POST",
+            //       data: {
+            //           method:'chooseFile',
+            //           fileChoose: fileChoose.textContent
+            //       },
+            //       success: function(result) {
+            //           document.getElementById("startButton").disabled=false;
+            //           $('#startButton').removeClass("submit_disable");
+            //           document.getElementById("loader").style.display="none";
+            //           document.getElementById("file-selected").innerHTML="";
+            //           request4 = $.ajax({
+            //           url: "",
+            //           type: "POST",
+            //           data: {
+            //           method:'showdata',
+            //           },
+            //           success: function(result) {
+            //               listOutputFiles(result.listOfOutputFile);
+            //               readyChart(result.barGraphData);
+            //               pieChart(result.barGraphData);
+            //               readyOverview(result.overviewData);
+            //             //   $('#nodeGraph').attr('src',`{% static 'graphExport/node_graph_test.png' %}`)
+            //               $("#nodeGraph").attr("src", "data:image/png;base64,"+result.graphImage);
+            //               }
+            //           })
+            //       },
+            //   })
           }
       }
       document.getElementById("stop_button").addEventListener("click", function() {

@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView, ListView, CreateView
 from django.core.files.storage import FileSystemStorage
 from django.views.decorators.csrf import csrf_exempt
+from django.http.response import StreamingHttpResponse
 import requests
 from .forms import RegistrationForm
 from .models import *
@@ -14,9 +15,12 @@ import sys
 import mimetypes
 import time
 from django.utils.encoding import smart_str
-import signal
+# import signal
 from .BimetaCode.read_file import load_meta_reads, convert2json
 import base64
+from .serverSocket import server
+# sys.path.append("../PythonWeb")
+
 # sys.path.append("/home/phuong")
 # import testtesttest
 
@@ -26,6 +30,8 @@ def index(request):
     return render(request,'pages/home.html')
 @csrf_exempt
 def system(request):
+    if request.method == 'POST':
+        print(request.POST)
     if request.method == 'POST' and 'method' in request.POST:
         if request.POST.get('method') == 'passParamters':
             # testtesttest.PhuongOcku('Phuong7 ocku qua')
@@ -68,21 +74,26 @@ def system(request):
             return HttpResponse('asdasd')       
         elif request.POST.get('method') == 'chooseFile':
             fileChoose= request.POST.get('fileChoose')
-            print(fileChoose)
             data = load_meta_reads('/home/phuong/ServerWeb/media/t/'+fileChoose)
             convert2json(data,'/home/phuong/ServerWeb/BiMeta/jsonData/')
             # rc = subprocess.call("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True)
-            rc = subprocess.Popen("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True, stderr = subprocess.PIPE)
+            # rc = subprocess.Popen("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True, stderr = subprocess.PIPE)
+            rc = subprocess.Popen("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True, stderr = subprocess.PIPE,stdout = subprocess.PIPE)
             # subprocess.check_output("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True)
             # output = rc.stderr.read()
-            for line in rc.stderr:
-                myString = line.decode("utf-8") 
-                print(myString)
+            # for line in rc.stderr:
+            #     myString = line.decode("utf-8") 
+            #     print(myString + 'asdasdasd  s')
+            stream = generateStreamingLog(rc)
             # rc.close()
             # rc.communicate()[0] 
             # A = rc.returncode
             print('done')
-            return HttpResponse('tin hieu')
+            # return HttpResponse('tin hieu')
+            response = StreamingHttpResponse(stream, status=200, content_type='text/plain')
+            response['Cache-Control'] = 'no-cache'
+            return response
+
     elif request.method == 'POST' and 'file' in request.FILES:
         upload_file = request.FILES['file']
         fileName=upload_file.name
@@ -90,11 +101,16 @@ def system(request):
         fs_path = fs.save(upload_file.name,upload_file)
         data = load_meta_reads('/home/phuong/ServerWeb/media/t/'+fileName)
         convert2json(data,'/home/phuong/ServerWeb/BiMeta/jsonData/')
-        rc = subprocess.Popen("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileName,shell=True)
-        rc.communicate()[0] 
-        A = rc.returncode
-        print('done')
-        return HttpResponse(A)
+        rc = subprocess.Popen("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileName,shell=True, stderr = subprocess.PIPE,stdout = subprocess.PIPE)
+        # rc = subprocess.Popen("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileName,shell=True)
+        stream = generateStreamingLog(rc)
+        # rc.communicate()[0] 
+        # A = rc.returncode
+        # print('done')
+        # return HttpResponse(A)
+        response = StreamingHttpResponse(stream, status=200, content_type='text/plain')
+        response['Cache-Control'] = 'no-cache'
+        return response
         
 
     else:
@@ -124,6 +140,11 @@ def download_file(request, filename=''):
         response['Content-Disposition'] = "attachment; filename=%s" % filename
         return response
 
+def generateStreamingLog(rc):
+    for line in rc.stderr:
+        data =  line.decode("utf-8")
+        yield data
+    return 'dead'    
 # def register(request):
 #     form = RegistrationForm()
 #     if request.method == 'POST':
@@ -132,3 +153,4 @@ def download_file(request, filename=''):
 #             form.save()
 #             return HttpResponseRedirect('/')
 #     return render(request, 'pages/register.html',{'form': form})
+# from PythonWeb.wsgi import *
