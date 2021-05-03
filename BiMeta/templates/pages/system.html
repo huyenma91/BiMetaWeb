@@ -170,7 +170,15 @@
                             <button id="popupGraph" class="zoom_button" type="button" onclick=""><i class="fa fa-search"></i></button>
                         </div>
                         <div id="graph_note">
-                            <p>This is where you can get the overview graph of you dataset files. The graph contains the nodes(reads) and the edges (overlap atribute) between two nodes.</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <img id="nodeGraphExample" src="{% static 'images/node_graph_example.png' %}" style="width: 80%;">
+                                </div>
+                                <div class="col-md-6">
+                                    <p>This is where you can get the overview graph of you dataset files. The graph contains the nodes(reads) and the edges (overlap atribute) between two nodes.</p>
+                                </div>
+                            </div>
+                         
                         </div>
                        
                         <div style="height: 85%;object-fit: contain;">
@@ -216,7 +224,7 @@
         </div>
         <!-- <div id="chart" style="display: none;">
         </div> -->
-        <div class="fullwidth-block" style="padding: 1.5em 0 0 0">
+        <div class="fullwidth-block">
             <div id="info_kmer" class="boxed-icon">
                 <img src="{% static 'images/kmer.png' %}" style="width: 50px;height: 50px;" alt="" class="icon">
                 <h2 style="color: #8e9ca5;">K-mer size</h2>

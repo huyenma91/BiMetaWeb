@@ -264,7 +264,7 @@ td{
 .title_box_graph{
     text-align: center;
     top: 0;
-    background-color: rgb(255 255 255 / 80%);
+    /* background-color: rgb(255 255 255 / 80%); */
     padding-top: 15px;
 }
 .boxed-icon{
