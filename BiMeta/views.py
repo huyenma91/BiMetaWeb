@@ -18,7 +18,7 @@ from django.utils.encoding import smart_str
 # import signal
 from .BimetaCode.read_file import load_meta_reads, convert2json
 import base64
-from .serverSocket import server
+# from .serverSocket import server
 # sys.path.append("../PythonWeb")
 
 # sys.path.append("/home/phuong")
@@ -45,7 +45,7 @@ def system(request):
             return HttpResponse('yeah')
         elif request.POST.get('method') == 'showdata':
             resultObject = {}
-            with open('/home/phuong/ServerWeb/BiMeta/jsonData/reads_summary.json') as json_file:
+            with open('/home/tnhan/ServerWeb/BiMeta/jsonData/reads_summary.json') as json_file:
                 dataBar = json.load(json_file)
             resultObject['listOfInputFile'] = getFiles()
             resultObject['listOfOutputFile'] = getOutputFiles()
@@ -74,11 +74,11 @@ def system(request):
             return HttpResponse('asdasd')       
         elif request.POST.get('method') == 'chooseFile':
             fileChoose= request.POST.get('fileChoose')
-            data = load_meta_reads('/home/phuong/ServerWeb/media/t/'+fileChoose)
-            convert2json(data,'/home/phuong/ServerWeb/BiMeta/jsonData/')
+            data = load_meta_reads('/home/tnhan/ServerWeb/media/t/'+fileChoose)
+            convert2json(data,'/home/tnhan/ServerWeb/BiMeta/jsonData/')
             # rc = subprocess.call("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True)
             # rc = subprocess.Popen("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True, stderr = subprocess.PIPE)
-            rc = subprocess.Popen("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True, stderr = subprocess.PIPE,stdout = subprocess.PIPE)
+            rc = subprocess.Popen("cd $HOME/ServerWeb/BiMeta/BimetaCode && bash run.sh"+" "+fileChoose,shell=True, stderr = subprocess.PIPE,stdout = subprocess.PIPE)
             # rc = None
             # subprocess.check_output("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileChoose,shell=True)
             # output = rc.stderr.read()
@@ -100,9 +100,9 @@ def system(request):
         fileName=upload_file.name
         fs = FileSystemStorage()
         fs_path = fs.save(upload_file.name,upload_file)
-        data = load_meta_reads('/home/phuong/ServerWeb/media/t/'+fileName)
-        convert2json(data,'/home/phuong/ServerWeb/BiMeta/jsonData/')
-        rc = subprocess.Popen("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileName,shell=True, stderr = subprocess.PIPE,stdout = subprocess.PIPE)
+        data = load_meta_reads('/home/tnhan/ServerWeb/media/t/'+fileName)
+        convert2json(data,'/home/tnhan/ServerWeb/BiMeta/jsonData/')
+        rc = subprocess.Popen("cd $HOME/ServerWeb/BiMeta/BimetaCode && bash run.sh"+" "+fileName,shell=True, stderr = subprocess.PIPE,stdout = subprocess.PIPE)
         # rc = subprocess.Popen("$HOME/ServerWeb/systemHadoop/runProgram2.sh"+" "+fileName,shell=True)
         # rc = None
         stream = generateStreamingLog(rc)
@@ -149,7 +149,7 @@ def generateStreamingLog(rc):
         yield data
     time_process = (time.time() - start_time)
     # print("--- %s seconds ---" % time_process)
-    yield "Precessing time: "+  str(time_process) + " seconds."
+    yield "Processing time: "+  str(time_process) + " seconds."
     return 'dead'    
     # for x in range(6):
     #     time.sleep(0.5)
