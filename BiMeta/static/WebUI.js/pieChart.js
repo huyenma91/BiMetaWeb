@@ -10,22 +10,7 @@ function pieChart(pieGraphData) {
     chart.legend.scrollable = true;
     
     // Add data
-    chart.data = [
-        {
-            "species": 1,
-            "number": 500,
-            "code": "15668172",
-            "name": "\"Methanocaldococcus jannaschii DSM 2661 chromosome\" (392b1054a4bf536ea1cc349545ace50120973c3a)",
-            "color": "#ED1C24"
-        },
-        {
-            "species": 2,
-            "number": 781,
-            "code": "134045046",
-            "name": "\"Methanococcus maripaludis C5 chromosome\" (6c8ee4fd8ba70ca081406766eff61a612fc74b49)",
-            "color":"#F1D302"
-        }
-    ];
+    chart.data =pieGraphData;
     chart.colors.list = [
         am4core.color("#845EC2"),
         am4core.color("#D65DB1"),

@@ -2,9 +2,26 @@ from Bio import SeqIO
 from Bio.Seq import Seq
 import re
 import json
+import seaborn as sns
 
-DATA_PATH = "/home/phuong/Downloads/R4_medium.fna"
-SAVE_PATH = "/home/phuong/Downloads/R4_medium/"
+"""
+For getting the overview of the .fna file.
+Example of output file reads_summary.json
+[
+    {
+        "species": 1,
+        "number": 500,
+        "code": "15668172",
+        "name": "\"Methanocaldococcus jannaschii DSM 2661 chromosome\" (392b1054a4bf536ea1cc349545ace50120973c3a)",
+        "color: "#F1F1F1"
+    },
+    ...
+]
+"""
+
+# DATA_PATH = "/home/dhuy237/thesis/code/bimetaReduce/bimeta/data/R4_medium/R4_medium.fna"
+# SAVE_PATH = "/home/dhuy237/thesis/code/bimetaReduce/bimeta/data/R4_medium/"
+MAXIMUM_SPECIES = 20
 
 def format_read(read):
     z = re.split("[|={,]+", read.description)
@@ -24,6 +41,9 @@ def load_meta_reads(filename, type='fasta'):
     result = []
     label_index = 0
 
+    # Generate color for each species
+    palette = sns.color_palette(None, MAXIMUM_SPECIES).as_hex()
+    
     for i in range(0, len(seqs), 2 if is_paired_end else 1):
         _, label, name = format_read(seqs[i])
 
@@ -34,6 +54,7 @@ def load_meta_reads(filename, type='fasta'):
             inf["number"] = 0
             inf["code"] = label
             inf["name"] = name
+            inf["color"] = palette[label_index]
             result.append(inf)
 
             label_list[label] = label_index
@@ -54,6 +75,3 @@ def load_meta_reads(filename, type='fasta'):
 def convert2json(data, save_path):
     with open(save_path+'reads_summary.json', 'w+', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
-
-data = load_meta_reads(DATA_PATH)
-#convert2json(data, SAVE_PATH) 

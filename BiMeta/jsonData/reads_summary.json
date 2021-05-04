@@ -1,14 +1,16 @@
 [
     {
         "species": 1,
-        "number": 16447,
+        "number": 500,
         "code": "15668172",
-        "name": "\"Methanocaldococcus jannaschii DSM 2661 chromosome\" (392b1054a4bf536ea1cc349545ace50120973c3a)"
+        "name": "\"Methanocaldococcus jannaschii DSM 2661 chromosome\" (392b1054a4bf536ea1cc349545ace50120973c3a)",
+        "color": "#1f77b4"
     },
     {
         "species": 2,
-        "number": 18010,
+        "number": 781,
         "code": "134045046",
-        "name": "\"Methanococcus maripaludis C5 chromosome\" (6c8ee4fd8ba70ca081406766eff61a612fc74b49)"
+        "name": "\"Methanococcus maripaludis C5 chromosome\" (6c8ee4fd8ba70ca081406766eff61a612fc74b49)",
+        "color": "#ff7f0e"
     }
 ]

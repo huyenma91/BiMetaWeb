@@ -143,9 +143,13 @@ def download_file(request, filename=''):
         return response
 
 def generateStreamingLog(rc):
+    start_time = time.time()
     for line in rc.stderr:
         data =  line.decode("utf-8")
         yield data
+    time_process = (time.time() - start_time)
+    # print("--- %s seconds ---" % time_process)
+    yield "Precessing time: "+  str(time_process) + " seconds."
     return 'dead'    
     # for x in range(6):
     #     time.sleep(0.5)
