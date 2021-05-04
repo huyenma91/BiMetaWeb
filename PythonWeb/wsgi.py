@@ -15,30 +15,30 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'PythonWeb.settings')
 
 application = get_wsgi_application()
 
-import socketio
-import eventlet
+# import socketio
+# import eventlet
 
-static_files = {
-    '/static': './BiMeta/static',
-}
+# static_files = {
+#     '/static': './BiMeta/static',
+# }
 
-sio = socketio.Server(async_mode='eventlet')
-app = socketio.WSGIApp(sio, application, static_files=static_files)
+# sio = socketio.Server(async_mode='eventlet')
+# app = socketio.WSGIApp(sio, application, static_files=static_files)
 
 
-# print('loz')
+# # print('loz')
 
-@sio.event
-def connect(sid, environ):
-    print("connect ", sid)
+# @sio.event
+# def connect(sid, environ):
+#     print("connect ", sid)
 
-@sio.event
-def chat(sid, data):
-    print("message ", data)
-    sio.emit("abc", 'TIEN')
+# @sio.event
+# def chat(sid, data):
+#     print("message ", data)
+#     sio.emit("abc", 'TIEN')
 
-@sio.event
-def disconnect(sid):
-    print('disconnect ', sid)
+# @sio.event
+# def disconnect(sid):
+#     print('disconnect ', sid)
 
-# eventlet.wsgi.server(eventlet.listen(('', 5000)), app)
+# # eventlet.wsgi.server(eventlet.listen(('', 5000)), app)
