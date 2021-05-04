@@ -280,6 +280,21 @@ td{
     height: 80%;
     /* margin-top: 5vh; */
 }
+.lollipopdiv{
+    width: 100%;
+    height: 500px;
+    background-color: #30303d; 
+    color: #fff;
+}
+
+/* #continent{
+    background-color:  #30303d;
+    color: white;
+}
+.option_continent{
+    background-color:  #30303d;
+    color: white;
+} */
 
 .overviewdiv {
     width: 100%;
@@ -362,3 +377,4 @@ td{
 /* .styleBox{
     padding: 20px;
 } */
+

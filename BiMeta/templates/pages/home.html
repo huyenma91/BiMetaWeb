@@ -7,8 +7,11 @@
             <li data-bg-image="{% static 'images/slider-1.jpg' %}">
                 <div class="container">
                     <div class="slide-content">
-                        <h2 class="slide-title">BIMETA-CLUSTERING</h2>
-                        <p>The best clustering system for large dataset of genomic</p>
+                        <div >
+                            <h2 class="slide-title">BIMETA-CLUSTERING</h2>
+                            <p>The best clustering system for large dataset of genomic</p>
+                        </div>
+                       
                         <a href="{% url 'system' %}" class="button" style="font-weight: bold;">Start system</a>
                     </div>
                 </div>
@@ -16,8 +19,10 @@
             <li data-bg-image="{% static 'images/slider-2.jpg' %}">
                 <div class="container">
                     <div class="slide-content">
-                        <h2 class="slide-title">BIMETA-CLUSTERING</h2>
-                        <p>Based on BiMeta method</p>
+                        <div >
+                            <h2 class="slide-title">BIMETA-CLUSTERING</h2>
+                            <p>The best clustering system for large dataset of genomic</p>
+                        </div>
                         <a href="{% url 'system' %}" class="button" style="font-weight: bold;">Start system</a>
                     </div>
                 </div>
@@ -25,8 +30,10 @@
             <li data-bg-image="{% static 'images/slider-3.jpg' %}">
                 <div class="container">
                     <div class="slide-content">
-                        <h2 class="slide-title">BIMETA-CLUSTERING</h2>
-                        <p>Applying Hadoop MapReduce distribute system</p>
+                        <div >
+                            <h2 class="slide-title">BIMETA-CLUSTERING</h2>
+                            <p>The best clustering system for large dataset of genomic</p>
+                        </div>
                         <a href="{% url 'system' %}" class="button" style="font-weight: bold;">Start system</a>
                     </div>
                 </div>
@@ -74,6 +81,25 @@
             </div>
         </div>
 
+</div>
+<div class="page-head" data-bg-image="{% static 'images/corona.jpg' %}" style="background-position-y: center;" id="system">
+    <div class="container" style="background-color: rgba(120, 120, 120,0.5);">
+        <h2 class="page-title">Corona-virus Impact</h2>
+        <small>The below coronavirus statistic show the current case of having covid of each country! </small>
+    </div>
+</div>
+
+<div>
+    <select id="continent" class="form-select" aria-label="Default select example">
+        <option selected class="option_continent" value="Asia">Asia</option>
+        <option class="option_continent" value="Africa">Africa</option>
+        <option class="option_continent" value="Europe">Europe</option>
+        <option class="option_continent" value="North America">North America</option>
+        <option class="option_continent" value="South America">South America</option>
+        <option class="option_continent" value="Australia">Australia</option>
+        <!-- <option value="Antarctica">Antarctica</option> -->
+    </select>
+    <div class="lollipopdiv"></div>
 </div>
 
 <div class="fullwidth-block" data-bg-color="#edf2f4">
@@ -150,6 +176,14 @@
 <script src="../../static/jsCode/jquery-1.11.1.min.js"></script>
 <script src="../../static/jsCode/plugins.js"></script>
 <script src="../../static/jsCode/app.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/dark.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+<script type="text/javascript" src="../../static/WebUI.js/continent.js"></script>
 <script type="text/javascript" src="../../static/WebUI.js/home.js"></script>
+
+<script type="text/javascript" src="../../static/WebUI.js/lollipopChart.js"></script>
+
 
 {% endblock %}

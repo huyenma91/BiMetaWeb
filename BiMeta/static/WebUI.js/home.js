@@ -1,15 +1,27 @@
-// const settings = {
-// 	"async": true,
-// 	"crossDomain": true,
-// 	"url": "https://covid-19-data.p.rapidapi.com/report/country/all?date=2020-04-01",
-// 	"method": "GET",
-// 	"headers": {
-// 		"x-rapidapi-key": "SIGN-UP-FOR-KEY",
-// 		"x-rapidapi-host": "covid-19-data.p.rapidapi.com"
-// 	}
-// };
+var continent = document.getElementById("continent").value;
+console.log(continent)
 
-// $.ajax(settings).done(function (response) {
-//     console.log("day la virus :")
-// 	console.log(response);
-// });
+$('#continent').change( async function(){
+    continent = $('#continent').val();
+    console.log(continent)
+    await lollipopChart(globalData,Object.values(Region[continent]));
+})
+
+console.log("region :",Region[continent])
+
+var globalData;
+// async function getData() {
+//     let data = (await fetch('https://api.covid19api.com/summary')).json()
+//     return data;
+// }
+fetch('https://api.covid19api.com/summary')
+  .then(response => response.json())
+  .then(data => {
+    globalData = data  
+    lollipopChart(data,Object.values(Region[continent]));
+  }
+);
+// getData().then(data => globalData = data).then(console.log('asdasd', globalData))
+
+
+console.log('asdasd', globalData)
