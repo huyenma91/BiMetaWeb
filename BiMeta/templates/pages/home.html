@@ -12,7 +12,7 @@
                             <p>The best clustering system for large dataset of genomic</p>
                         </div>
                        
-                        <a href="{% url 'system' %}" class="button" style="font-weight: bold;">Start system</a>
+                        <a id="link1" href="{% url 'login' %}" class="redirectSystemButton button" style="font-weight: bold;">Login</a>
                     </div>
                 </div>
             </li>
@@ -23,7 +23,7 @@
                             <h2 class="slide-title">BIMETA-CLUSTERING</h2>
                             <p>The best clustering system for large dataset of genomic</p>
                         </div>
-                        <a href="{% url 'system' %}" class="button" style="font-weight: bold;">Start system</a>
+                        <a id="link2" href="{% url 'login' %}" class="redirectSystemButton button" style="font-weight: bold;">Login</a>
                     </div>
                 </div>
             </li>
@@ -34,7 +34,7 @@
                             <h2 class="slide-title">BIMETA-CLUSTERING</h2>
                             <p>The best clustering system for large dataset of genomic</p>
                         </div>
-                        <a href="{% url 'system' %}" class="button" style="font-weight: bold;">Start system</a>
+                        <a id="link3" href="{% url 'login' %}" class="redirectSystemButton button" style="font-weight: bold;">Login</a>
                     </div>
                 </div>
             </li>
@@ -174,6 +174,8 @@
 </footer>
 </div>
 <script src="../../static/jsCode/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../static/WebUI.js/navSession.js"></script>
+
 <script src="../../static/jsCode/plugins.js"></script>
 <script src="../../static/jsCode/app.js"></script>
 <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
@@ -182,8 +184,6 @@
 <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
 <script type="text/javascript" src="../../static/WebUI.js/continent.js"></script>
 <script type="text/javascript" src="../../static/WebUI.js/home.js"></script>
-
 <script type="text/javascript" src="../../static/WebUI.js/lollipopChart.js"></script>
-
 
 {% endblock %}

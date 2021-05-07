@@ -3,55 +3,63 @@ from os import listdir
 from os.path import isfile, join
 import os
 import socket
+# from datetime import datetime
+# from time import localtime, strftime
+import datetime 
+import pytz
+import json
+import uuid
 
-def getFiles():
-     list_file = [f for f in listdir("./media/t") if isfile(join("./media/t", f))]
+def getFiles(session):
+     list_file = [f for f in listdir('BiMeta/userFolder/'+session+'/input/') if isfile(join('BiMeta/userFolder/'+session+'/input/', f))]
      # print("File co trong folder",list_file)
      return list_file
 
 
-def removeFiles(filename):
-     myfile="./media/t/" + filename
+def removeFiles(session,filename):
+     myfile='BiMeta/userFolder/'+session+'/input/' + filename
      if os.path.isfile(myfile):
           os.remove(myfile)
      else:
           print('Error, file not found')
      
-def getOutputFiles():
-     return [k for k in listdir("./Output") if isfile(join("./Output", k))]
+def getOutputFiles(session):
+     return [k for k in listdir('BiMeta/userFolder/'+session+'/output') if isfile(join('BiMeta/userFolder/'+session+'/output', k))]
 
-def removeOutputFiles():
-     dir ="./Output"
+def removeOutputFiles(session):
+     dir ='BiMeta/userFolder/'+session+'/output'
      for f in os.listdir(dir):
           os.remove(os.path.join(dir,f))
 
-# def getIP():
-#      try: 
-#           s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
-#           print("Socket successfully created")
-#      except socket.error as err: 
-#           print("socket creation failed with error %s" %(err))
-#      port = 80
-#      try: 
-#           host_ip = socket.gethostbyname('www.google.com') 
-#      except socket.gaierror: 
-#           # this means could not resolve the host 
-#           print ("there was an error resolving the host")
-#           sys.exit()
-#      s.connect((host_ip, port)) 
-#      print ("the socket has successfully connected to google") 
+def UUIDgenerator():
+     myuuid = uuid.uuid4()
+     UUID=str(myuuid)
+     print('Your UUID is: ' + UUID)
+     return UUID
+   
 
+def getCurrentTime():
+    current_time = datetime.datetime.now(pytz.timezone('Asia/Ho_Chi_Minh'))
+    current_time = current_time.strftime('%y%m%d%H%M%S')
+    return current_time
 
-# def client():
-#      s = socket.socket()         
+# def convert2json(data,session, save_path):
+#      with open(save_path+session+'.json', 'r+', encoding='utf-8') as f:
+#           graphJson={'graph':data}
+#           newData = json.load(f)
+#           newData.update(graphJson)
+#           f.seek(0)
+#           json.dump(newData, f, ensure_ascii=False, indent=4)
 
-#      # Define the port on which you want to connect 
-#      port = 12345                
-     
-#      # connect to the server on local computer 
-#      s.connect(('127.0.0.1', port)) 
-     
-#      # receive data from the server 
-#      print (s.recv(1024) )
-#      # close the connection 
-#      s.close()     
+# def createHistoryJson():
+#      data = {}
+#      data['people'] = []
+#      data['people'].append({
+#      'name': 'Scott',
+#      'website': 'stackabuse.com',
+#      'from': 'Nebraska'
+#      })
+#      print(data)
+#      with open('BiMeta/jsonHistory/'+getCurrentTime()+'.json', 'w') as outfile:
+#           json.dump(data, outfile)
+#           print("create success")

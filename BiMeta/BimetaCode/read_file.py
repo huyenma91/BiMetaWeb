@@ -71,7 +71,13 @@ def load_meta_reads(filename, type='fasta'):
     del seqs
 
     return result
-
-def convert2json(data, save_path):
-    with open(save_path+'reads_summary.json', 'w+', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=4)
+# def convert2json(data, save_path, fileJsonName):
+#     with open(save_path+'output.json', 'w+', encoding='utf-8') as f:
+#         json.dump(data, f, ensure_ascii=False, indent=4)
+# def convert2json(data, save_path, fileJsonName):
+#     with open(save_path+fileJsonName+'.json', 'w+', encoding='utf-8') as f:
+#         json.dump(data, f, ensure_ascii=False, indent=4)
+# def convert2json(data, save_path):
+#     with open(save_path+'reads_summary.json', 'w+', encoding='utf-8') as f:
+#         graphJson={'graph':data}
+#         json.dump(graphJson, f, ensure_ascii=False, indent=4)

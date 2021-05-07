@@ -14,10 +14,14 @@ from django import http
 #          ]))
 urlpatterns =[
     path('',views.index,name ='index'),
+    path('register/',views.register,name='register'),
+    path('logout/', views.logout, name='logout'),
+    path('login/',views.login,name='login'),
     path('system/',views.system,name='system'),
-    path('aboutUs/',views.aboutUs,name='aboutUs'),
     path('download/<str:filename>',views.download_file),
-    # path('register/',views.register,name='register'),
+    path('project/',views.project,name='project'),
+    path('aboutUs/',views.aboutUs,name='aboutUs'),
+    # path('header/',views.login,name='header'),
 ]
 # patterns('',
 #         (r'^session-test/$', session_test_1),

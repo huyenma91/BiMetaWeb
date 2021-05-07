@@ -1,13 +1,38 @@
-var continent = document.getElementById("continent").value;
-console.log(continent)
+function changeSystemButton(flag){
+  console.log('da vo thay doi nut')
+  if (flag == 'Logined'){
+      document.getElementById("link1").innerHTML="Start System";
+      document.getElementById("link2").innerHTML="Start System";
+      document.getElementById("link3").innerHTML="Start System";
+      $(".redirectSystemButton").attr("href","system/")
+  }
 
-$('#continent').change( async function(){
+  else{
+      document.getElementById("link1").innerHTML="Login";
+      document.getElementById("link2").innerHTML="Login";
+      document.getElementById("link3").innerHTML="Login";
+      $(".redirectSystemButton").attr("href","login/")
+  }
+}
+
+$.ajax({
+  url: "/",
+  type: "POST",
+  data: {
+      method:'checkSession'
+  },
+  success: function (result) {
+      changeSystemButton(result)
+  }
+})
+
+var continent = document.getElementById("continent").value;
+
+$('#continent').change(async function(){
     continent = $('#continent').val();
     console.log(continent)
     await lollipopChart(globalData,Object.values(Region[continent]));
 })
-
-console.log("region :",Region[continent])
 
 var globalData;
 // async function getData() {
@@ -23,5 +48,3 @@ fetch('https://api.covid19api.com/summary')
 );
 // getData().then(data => globalData = data).then(console.log('asdasd', globalData))
 
-
-console.log('asdasd', globalData)

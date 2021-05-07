@@ -2,17 +2,76 @@
 <html lang="en">
 
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'register.css' %}">
+
+    <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,700|" rel="stylesheet" type="text/css">
+    <link href="{% static 'fonts/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
 </head>
 
-<body>
-    <form method='POST'>
-        {% csrf_token %} {{form.as_p}}
-        <input type="submit" value="Register"/>
-    </form>
+<body id="login_bg">
+        <div class="wrapper fadeInDown">
+            <div id="formContent">
+                <img class="fadeIn first" src="{% static 'images/NPH' %}" alt="logo">
+                <form method="post" enctype="multipart/form-data" style="padding-top: 5%;">
+                    <input type="text" id="username" class="fadeIn second" name="username" placeholder="Username">
+                    <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password">
+                    <span id="error_registration" style="display: none;color: red;">"User name existed, registration again"</span>
+                    <span id="not_registration" style="display: none;color: red;">"Please fill in the blank"</span>
+                    <input type="button" class="fadeIn fourth" value="Register" onclick="checkAutho()">
+                </form>
+                Already registed? <a href="{% url 'login' %}">Login</a>
+            </div>
+        </div>
 </body>
+<script>
+    var checkFlag;
+    function notice(flag) {
+        if (flag == 'FAILED') {
+            document.getElementById('error_registration').style.display="block"
+            document.getElementById('not_registration').style.display="none"
+        }
+        else if (flag == 'SUCCESS') {
+            document.getElementById('error_registration').style.display="none"
+            document.getElementById('not_registration').style.display="none"
+        }
+        else if (flag == 'UNKNOW') {
+            document.getElementById('not_registration').style.display="block"
+            document.getElementById('error_registration').style.display="none"
+        }
+    }
+    function checkAutho() {
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        var userRegister = 'username=' + username + '&password=' + password;
+        var xhr = new XMLHttpRequest()
+        xhr.open('POST', "",true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function () { //Call a function when the state changes.
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                console.log(xhr.response);         
+                checkFlag = xhr.response;  
+                notice(checkFlag)
+                if (xhr.response == 'SUCCESS') {
+                    alert("Registration successful")
+                    window.location.replace("/login")
+                }
+            }
+        }
+        xhr.send(userRegister);
+    }
+
+</script>
 
 </html>

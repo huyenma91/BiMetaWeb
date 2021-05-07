@@ -101,16 +101,23 @@
                 <div class="area4_1 row">
                     <p class="body_section4_title col bold">Export graph visualize:</p>
                     <select class="col" id="exGraph">
-                    <option>Yes</option>
-                    <option>No</option>
-                </select>
+                        <option>Yes</option>
+                        <option>No</option>
+                    </select>
                 </div>
                 <div class="area4_1 row">
                     <p class="body_section4_title col bold" min="1">Export cluster group files:</p>
                     <select class="col" id="exFile">
-                    <option>Yes</option>
-                    <option>No</option>
-                </select>
+                        <option>Yes</option>
+                        <option>No</option>
+                    </select>
+                </div>
+                <div class="area4_1 row">
+                    <p class="body_section4_title col bold" min="1">Store output information:</p>
+                    <select id="historyStoreOption" class="col" id="exFile">
+                        <option>Yes</option>
+                        <option>No</option>
+                    </select>
                 </div>
             </div>
             <br><br>
@@ -131,7 +138,7 @@
             <div style="height: 100%">
                 <div class="row" style="height: 20%;">
                     <div  class="box col-md-6 col-sm-6" style="height: 100%;font-family: Helvetica, sans-serif" >
-                        <div id="display_output" >
+                        <div id="display_output" class="outputdiv">
                             <span class="title_box" style="display: block ruby">
                                 <h2>Output Files</h2>
                                 <button id="popupOutput" class="zoom_button" type="button" onclick=""><i class="fa fa-search"></i></button>
@@ -272,9 +279,11 @@
 <script type="text/javascript" src="../../static/WebUI.js/overview.js"></script>
 <script type="text/javascript" src="../../static/WebUI.js/barChart.js"></script>
 <script type="text/javascript" src="../../static/WebUI.js/pieChart.js"></script>
+<script type="text/javascript" src="../../static/WebUI.js/history.js"></script>
 <script type="text/javascript" src="../../static/WebUI.js/system.js"></script>
 <script type="text/javascript" src="../../static/WebUI.js/regex.js"></script>
-<script src="https://cdn.socket.io/4.0.1/socket.io.min.js" integrity="sha384-LzhRnpGmQP+lOvWruF/lgkcqD+WDVt9fU3H4BWmwP5u5LTmkUGafMcpZKNObVMLU" crossorigin="anonymous"></script>
+<script type="text/javascript" src="../../static/WebUI.js/navSession.js"></script>
+<!-- <script src="https://cdn.socket.io/4.0.1/socket.io.min.js" integrity="sha384-LzhRnpGmQP+lOvWruF/lgkcqD+WDVt9fU3H4BWmwP5u5LTmkUGafMcpZKNObVMLU" crossorigin="anonymous"></script> -->
 <script>
 </script>
 <script>
