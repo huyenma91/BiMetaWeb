@@ -28,7 +28,7 @@
         <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password">
         <span id="error_login" style="display: none;color: red;">"Wrong username or password"</span>
         <span id="not_login" style="display: none;color: red;">"Please fill in the blank"</span>
-        <input type="button" class="fadeIn fourth" value="Login" onclick="checkLogin()">
+        <input id="login" type="button" class="fadeIn fourth" value="Login" onclick="checkLogin(event)">
       </form>
       Not registed? <a href="{% url 'register' %}">Click here</a>
     </div>
@@ -51,7 +51,17 @@
     }
   }
 
-  function checkLogin() {
+  $("#password").keyup(function(event) {
+    if (event.keyCode === 13) {
+        $("#login").click(checkLogin(event));
+    }
+  });
+  $("#username").keyup(function(event) {
+    if (event.keyCode === 13) {
+        $("#login").click(checkLogin(event));
+    }
+  });
+  function checkLogin(event) {
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
     var userLogin = 'username=' + username + '&password=' + password;

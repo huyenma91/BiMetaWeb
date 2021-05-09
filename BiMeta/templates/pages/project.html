@@ -1,0 +1,42 @@
+{% extends "pages/base.html" %} {% load static %}
+{% block title%}BiMeta Project{% endblock %} {% block content %}
+{% include 'pages/header.html' %}
+<div class="page-head" data-bg-image="{% static 'images/projectDNA.jpg' %}" id="aboutUs">
+  <div class="container">
+    <!-- <h2 class="page-title">About us</h2>
+        <small>Let's take a review of our wonderful team members and our purpose! </small> -->
+  </div>
+</div>
+
+<div class="fullwidth-block">
+  <div class="container">
+    <div class="row">
+      <div class="container mt-3">
+        <h2>History table of recent running</h2>
+        <p>Type number of date and time in the input field to search for fast ressult :</p>
+        <input class="form-control" id="myInput" type="text"
+          placeholder="Year_Month_Day_Hours_Minutes_Seconds (Example: 21_05_09_18_26_18)">
+        <br>
+        <table class="table table-bordered">
+          <thead>
+            <td>No.</td>
+            <td>Your history files</td>
+            <td colspan="2">Options</td>
+            </thead>
+          <tbody id="myTable">
+          </tbody>
+        </table>
+        <p id="nodata">No data file in system's folder</p>
+      </div>
+    </div>
+    <!-- .row -->
+  </div>
+  <!-- .container -->
+</div>
+<script src="../../static/jsCode/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../static/WebUI.js/navSession.js"></script>
+<script src="../../static/jsCode/plugins.js"></script>
+<script src="../../static/jsCode/app.js"></script>
+<script type="text/javascript" src="../../static/WebUI.js/project.js"></script>
+
+{% endblock %}

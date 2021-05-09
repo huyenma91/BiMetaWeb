@@ -36,6 +36,18 @@
         </div>
 </body>
 <script>
+    $("#password").keyup(function(event) {
+    if (event.keyCode === 13) {
+        $("#login").click(checkAutho(event));
+    }
+  });
+  $("#username").keyup(function(event) {
+    if (event.keyCode === 13) {
+        $("#login").click(checkAutho(event));
+    }
+  });
+
+
     var checkFlag;
     function notice(flag) {
         if (flag == 'FAILED') {

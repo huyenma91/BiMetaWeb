@@ -1620,11 +1620,16 @@ form input.white[type="reset"] {
     line-height: normal;
 }
 
-.main-navigation .menu .menu-item.current-menu-item a,
+/* .main-navigation .menu .menu-item.current-menu-item a,
 .main-navigation .menu .menu-item:hover a {
     color: #69acc7;
     border-bottom: 2px solid #69acc7;
+} */
+.menu-item:hover{
+    color: #69acc7;
+    border-bottom: 2px solid #69acc7;
 }
+
 
 .mobile-navigation {
     padding: 30px;
@@ -1634,7 +1639,7 @@ form input.white[type="reset"] {
 
 @media screen and (min-width: 991px) {
     .mobile-navigation {
-        display: none !important;
+        /* display: none !important; */
     }
 }
 

@@ -1,5 +1,4 @@
 function readyOverview(overviewData){
-    console.log('day la json overview :',overviewData[0])
     document.getElementById('overview').style.padding="20px"
     document.getElementById('overview').innerHTML="";
     document.getElementById('overview').innerHTML+=`<p>File name : ${processedFile}</p>`;
