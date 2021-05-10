@@ -17,11 +17,11 @@
                         <li class="home menu-item current-menu-item">
                             <a href="{% url 'index' %}"><img src="{% static 'images/home-icon.png' %}" alt="Home"></a>
                         </li>
-                        <li id="hiddenSystem" style="display: none;" class="menu-item"><a href="{% url 'system' %}">System</a></li>
-                        <li id="hiddenProject" style="display: none;" class="menu-item"><a href="{% url 'project' %}">Your project</a></li>
+                        <li id="hiddenSystem" class="menu-item"><a href="{% url 'system' %}">System</a></li>
+                        <li id="hiddenProject" class="menu-item"><a href="{% url 'project' %}">Your project</a></li>
                         <li class="menu-item"><a href="{% url 'aboutUs' %}">About</a></li>
-                        <li id="hiddenLogout" style="display: none;" class="menu-item"><a href="{% url 'logout' %}">Logout</a></li>
-                        <li id="hiddenLogin" style="display: block;" class="menu-item"><a href="{% url 'login' %}">Login</a></li>
+                        <li id="hiddenLogout" class="menu-item"><a href="{% url 'logout' %}">Logout</a></li>
+                        <li id="hiddenLogin" class="menu-item"><a href="{% url 'login' %}">Login</a></li>
                     </ul>
                 </nav>
 
