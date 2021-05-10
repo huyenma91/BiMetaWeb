@@ -271,6 +271,29 @@ def project(request):
     if request.method == 'POST' and 'method' in request.POST:
         if request.POST.get('method') == 'showdata':
             resultObject = {}
+            fileName = request.POST.get('xml')
+            try:
+                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
+                    dataBar = json.load(json_file)["graph"]
+            except Exception as e:
+                dataBar = []
+            try:
+                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
+                    overview = json.load(json_file)["overview"]
+            except Exception as e:
+                overview = []
+            try:
+                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
+                    fileXml = json.load(json_file)["file"]
+            except Exception as e:
+                fileXml = []    
+            print('bat dau show data')
+            resultObject['barGraphData'] = dataBar
+            print( resultObject['barGraphData'])
+            resultObject['overviewData'] = overview
+            print( resultObject['overviewData'])
+            resultObject['fileXml'] = fileXml
+            print( resultObject['fileXml'])
             resultObject['listOfXmlFile'] = getXmlFiles(request.session['user'])
             return HttpResponse(dumps(resultObject, indent=2), content_type='application/json')
         elif request.POST.get('method') == 'removeXmlFiles':

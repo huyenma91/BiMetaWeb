@@ -378,6 +378,12 @@ td{
     padding: 20px;
 }
 
+.project_box{
+    text-align: center;
+    background-color: white;
+    border: 1px solid #ced4da;
+}
+
 /* .styleBox{
     padding: 20px;
 } */

@@ -8,7 +8,7 @@
   </div>
 </div>
 
-<div class="fullwidth-block">
+<div class="fullwidth-block" style="background-color: #e7edf1;">
   <div class="container">
     <div class="row">
       <div class="container mt-3">
@@ -17,7 +17,7 @@
         <input class="form-control" id="myInput" type="text"
           placeholder="Year_Month_Day_Hours_Minutes_Seconds (Example: 21_05_09_18_26_18)">
         <br>
-        <table class="table table-bordered">
+        <table class="table table-bordered" style="background-color: white;">
           <thead>
             <td>No.</td>
             <td>Your history files</td>
@@ -30,13 +30,59 @@
       </div>
     </div>
     <!-- .row -->
+    <h2>Information of history files :</h2>
+    <div class="row">
+        <div class="col-md-6">
+          <div class="project_box">
+            <h3>Overview Info:</h3>
+            <div id="overview">
+
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="project_box">
+            <h3>Output files:</h3>
+            <div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <br>
+    <!-- .row -->
+    <div class="row">
+      <div class="col-md-3">
+        <div class="project_box">
+          <h3> Species ratio:</h3>
+          <div id="piediv">
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="project_box">
+          <h3>Node graph:</h3>
+          <div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <!-- .row -->
   </div>
   <!-- .container -->
 </div>
 <script src="../../static/jsCode/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="../../static/WebUI.js/navSession.js"></script>
 <script src="../../static/jsCode/plugins.js"></script>
 <script src="../../static/jsCode/app.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/dataviz.js"></script>
+<script type="text/javascript" src="../../static/WebUI.js/overviewProject.js"></script>
+<script type="text/javascript" src="../../static/WebUI.js/barChart.js"></script>
+<script type="text/javascript" src="../../static/WebUI.js/pieChart.js"></script>
+<script type="text/javascript" src="../../static/WebUI.js/history.js"></script>
 <script type="text/javascript" src="../../static/WebUI.js/project.js"></script>
+<script type="text/javascript" src="../../static/WebUI.js/navSession.js"></script>
 
 {% endblock %}

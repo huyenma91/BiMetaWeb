@@ -31,9 +31,7 @@ function listFiles(dataFiles) {
                 dataFiles[x] +
                 '"  onclick="removeXmlFiles(id)">Delete</button</td><td><button type="button" class="showFileButton" choosefile="' +
                 dataFiles[x] +
-                '" onclick="chooseFileForProcess(this.getAttribute(' +
-                "'choosefile'" +
-                '))">Show</button></td></tr>';
+                '" onclick="review(this.getAttribute(' +"'choosefile'" +'))">Show</button></td></tr>';
         }
     }
 }
@@ -66,6 +64,25 @@ function removeXmlFiles(id) {
             dataNode.innerHTML =""
             listFiles(result);
             console.log(result);
+        },
+    });
+}
+
+function review(filename) {
+    console.log('day la xml file :',filename)
+    $.ajax({
+        url: "",
+        type: "POST",
+        data: {
+            method: "showdata",
+            xml: filename,
+        },
+        success: function (result) {
+            // console.log('day la result',result)
+            // console.log('day la result.xml',result.fileXml)
+            readyOverview(result.overviewData,result.fileXml);
+            // console.log('day la result.xml',result.xml)
+            pieChart(result.barGraphData);
         },
     });
 }
