@@ -22,7 +22,7 @@ from django.contrib import messages
 from bs4 import BeautifulSoup
 import os
 
-# sys.path.append("/home/phuong")
+# sys.path.append("/home/tnhan")
 @csrf_exempt
 def index(request):
     # print('home session :', request.session['user'])
@@ -66,7 +66,7 @@ def system(request):
             try:
                 request.session['time'] = getCurrentTime()
                 print(f'1st: {request.session["time"]}')
-                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+request.session['time']+'.json','w+',encoding='utf-8') as json_file:
+                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+request.session['time']+'.json','w+',encoding='utf-8') as json_file:
                     # json.dump(data, f, ensure_ascii=False, indent=4)
                     json.dump(paramData,json_file,ensure_ascii=False, indent=4)
             except Exception as e:   
@@ -75,7 +75,7 @@ def system(request):
         elif request.POST.get('method') == 'showdata':
             resultObject = {}
             try:
-                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+request.session["time"]+'.json') as json_file:
+                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+request.session["time"]+'.json') as json_file:
                     dataBar = json.load(json_file)["graph"]
             except Exception as e:
                 dataBar = []
@@ -90,7 +90,7 @@ def system(request):
             #     "Training": "00:00:00"
             # }, ]
             try:
-                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+request.session["time"]+'.json') as json_file:
+                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+request.session["time"]+'.json') as json_file:
                     overview = json.load(json_file)["overview"]
             except Exception as e:
                 overview = []
@@ -122,9 +122,9 @@ def system(request):
             }, ]
             data = load_meta_reads(
                 'BiMeta/userFolder/'+request.session['user']+'/input/'+fileChoose)
-            addFileJson(fileChoose, '/home/phuong/ServerWeb/BiMeta/userFolder/'+ request.session['user']+'/history/'+request.session['time'])    
-            addGraphJson(data, '/home/phuong/ServerWeb/BiMeta/userFolder/'+ request.session['user']+'/history/'+request.session['time']) 
-            addOverviewJson(overview, '/home/phuong/ServerWeb/BiMeta/userFolder/'+ request.session['user'] +'/history/'+request.session['time'])  
+            addFileJson(fileChoose, '/home/tnhan/ServerWeb/BiMeta/userFolder/'+ request.session['user']+'/history/'+request.session['time'])    
+            addGraphJson(data, '/home/tnhan/ServerWeb/BiMeta/userFolder/'+ request.session['user']+'/history/'+request.session['time']) 
+            addOverviewJson(overview, '/home/tnhan/ServerWeb/BiMeta/userFolder/'+ request.session['user'] +'/history/'+request.session['time'])  
             print(f'2st: {request.session["time"]}')      
             rc = subprocess.Popen("cd $HOME/ServerWeb/BiMeta/BimetaCode && bash run.sh" +
                                   " "+fileChoose+" "+request.session['user'], shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
@@ -150,7 +150,7 @@ def system(request):
         overviewFile = {"File":fileName}
         print(overviewFile)
         fs = FileSystemStorage('BiMeta/userFolder/'+request.session['user']+'/input/',)
-        # with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/output/'+fileName,'w+',encoding='utf-8') as fna_file:
+        # with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/output/'+fileName,'w+',encoding='utf-8') as fna_file:
         #         json.dump(paramData,json_file,ensure_ascii=False, indent=4)
         fs_path = fs.save(upload_file.name, upload_file)
         overview = [{
@@ -161,9 +161,9 @@ def system(request):
             "Training": "00:00:00"
         }, ]
         data = load_meta_reads('BiMeta/userFolder/'+request.session['user']+'/input/'+fileName)
-        addFileJson(fileName, '/home/phuong/ServerWeb/BiMeta/userFolder/'+ request.session['user']+'/history/'+request.session['time'])   
-        addGraphJson(data, '/home/phuong/ServerWeb/BiMeta/userFolder/'+ request.session['user'] +'/history/'+request.session['time']) 
-        addOverviewJson(overview, '/home/phuong/ServerWeb/BiMeta/userFolder/'+ request.session['user'] +'/history/'+request.session['time']) 
+        addFileJson(fileName, '/home/tnhan/ServerWeb/BiMeta/userFolder/'+ request.session['user']+'/history/'+request.session['time'])   
+        addGraphJson(data, '/home/tnhan/ServerWeb/BiMeta/userFolder/'+ request.session['user'] +'/history/'+request.session['time']) 
+        addOverviewJson(overview, '/home/tnhan/ServerWeb/BiMeta/userFolder/'+ request.session['user'] +'/history/'+request.session['time']) 
         rc = subprocess.Popen("cd $HOME/ServerWeb/BiMeta/BimetaCode && bash run.sh" +
                               " "+fileName+" "+request.session['user'], shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
         # rc = None
@@ -273,17 +273,17 @@ def project(request):
             resultObject = {}
             fileName = request.POST.get('xml')
             try:
-                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
+                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
                     dataBar = json.load(json_file)["graph"]
             except Exception as e:
                 dataBar = []
             try:
-                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
+                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
                     overview = json.load(json_file)["overview"]
             except Exception as e:
                 overview = []
             try:
-                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
+                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
                     fileXml = json.load(json_file)["file"]
             except Exception as e:
                 fileXml = []    
