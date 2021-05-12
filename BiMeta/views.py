@@ -15,17 +15,14 @@ import sys
 import mimetypes
 import time
 from django.utils.encoding import smart_str
-# import signal
 from .BimetaCode.read_file import load_meta_reads
 import base64
 from django.contrib import messages
 from bs4 import BeautifulSoup
 import os
 
-# sys.path.append("/home/tnhan")
 @csrf_exempt
 def index(request):
-    # print('home session :', request.session['user'])
     print('check session trong index')
     if request.method == 'POST':
         try:
@@ -41,7 +38,6 @@ def index(request):
 @csrf_exempt
 def system(request):
     try:
-        # print('system session :',request.session['user'])
         if request.session['user'] is not None:
             print('good session')
         elif request.method ==  'POST':
@@ -62,12 +58,17 @@ def system(request):
             lofqmer=request.POST.get('lofqmer')
             sharereads=request.POST.get('sharereads')
             maxcomp=request.POST.get('maxcomp')
-            paramData={'params':{'kmer':kmer,'lofqmer':lofqmer,'sharereads':sharereads,'maxcomp':maxcomp}}
             try:
-                request.session['time'] = getCurrentTime()
+                kNumber = request.POST.get('kNumber')
+                if kNumber =="":
+                    kNumber = "not set value"
+            except Exception as e:   
+                print(e)
+            paramData={'params':{'kmer':kmer,'lofqmer':lofqmer,'sharereads':sharereads,'maxcomp':maxcomp,'kNumber':kNumber}}
+            try:
+                request.session['time'] = getCurrentTime()[0]
                 print(f'1st: {request.session["time"]}')
-                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+request.session['time']+'.json','w+',encoding='utf-8') as json_file:
-                    # json.dump(data, f, ensure_ascii=False, indent=4)
+                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+request.session['time']+'.json','w+',encoding='utf-8') as json_file:
                     json.dump(paramData,json_file,ensure_ascii=False, indent=4)
             except Exception as e:   
                 print(e)
@@ -75,22 +76,15 @@ def system(request):
         elif request.POST.get('method') == 'showdata':
             resultObject = {}
             try:
-                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+request.session["time"]+'.json') as json_file:
+                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+request.session["time"]+'.json') as json_file:
                     dataBar = json.load(json_file)["graph"]
             except Exception as e:
                 dataBar = []
             resultObject['listOfInputFile'] = getFiles(request.session['user'])
             resultObject['listOfOutputFile'] = getOutputFiles(request.session['user'])
             resultObject['barGraphData'] = dataBar
-            # overview = [{
-            #     "Fmeasure": "32.0",
-            #     "Recall": "32.3",
-            #     "Precision": "12.1",
-            #     "Time": "21-01-1999",
-            #     "Training": "00:00:00"
-            # }, ]
             try:
-                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+request.session["time"]+'.json') as json_file:
+                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+request.session["time"]+'.json') as json_file:
                     overview = json.load(json_file)["overview"]
             except Exception as e:
                 overview = []
@@ -101,7 +95,6 @@ def system(request):
                         img_file.read()).decode('utf-8')
             except Exception as e:
                 print(e)
-            # print('Day la graph data :',resultObject['barGraphData'])
             return HttpResponse(dumps(resultObject, indent=2), content_type='application/json')
         elif request.POST.get('method') == 'removeFilename':
             removeFiles(request.session['user'],request.POST.get('removeFilename'))
@@ -111,20 +104,18 @@ def system(request):
             return HttpResponse('asdasd')
         elif request.POST.get('method') == 'chooseFile':
             fileChoose = request.POST.get('fileChoose')
-            # overviewFile = {"File": fileChoose}
-            # print(overviewFile)
-            overview = [{
+            overview = {
                 "Fmeasure": "32.0",
                 "Recall": "32.3",
                 "Precision": "12.1",
-                "Time": "21-01-1999",
+                "Time": getCurrentTime()[1],
                 "Training": "00:00:00"
-            }, ]
+            }
             data = load_meta_reads(
                 'BiMeta/userFolder/'+request.session['user']+'/input/'+fileChoose)
-            addFileJson(fileChoose, '/home/tnhan/ServerWeb/BiMeta/userFolder/'+ request.session['user']+'/history/'+request.session['time'])    
-            addGraphJson(data, '/home/tnhan/ServerWeb/BiMeta/userFolder/'+ request.session['user']+'/history/'+request.session['time']) 
-            addOverviewJson(overview, '/home/tnhan/ServerWeb/BiMeta/userFolder/'+ request.session['user'] +'/history/'+request.session['time'])  
+            addFileJson(fileChoose, '/home/phuong/ServerWeb/BiMeta/userFolder/'+ request.session['user']+'/history/'+request.session['time'])    
+            addGraphJson(data, '/home/phuong/ServerWeb/BiMeta/userFolder/'+ request.session['user']+'/history/'+request.session['time']) 
+            addOverviewJson(overview, '/home/phuong/ServerWeb/BiMeta/userFolder/'+ request.session['user'] +'/history/'+request.session['time'])  
             print(f'2st: {request.session["time"]}')      
             rc = subprocess.Popen("cd $HOME/ServerWeb/BiMeta/BimetaCode && bash run.sh" +
                                   " "+fileChoose+" "+request.session['user'], shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
@@ -134,13 +125,13 @@ def system(request):
             #     myString = line.decode("utf-8")
             #     print(myString + 'asdasdasd  s')
             stream = generateStreamingLog(rc)
+            response = StreamingHttpResponse(stream, status=200, content_type='text/plain')
+            response['Cache-Control'] = 'no-cache'
             # rc.close()
             # rc.communicate()[0]
             # A = rc.returncode
            
-            response = StreamingHttpResponse(
-                stream, status=200, content_type='text/plain')
-            response['Cache-Control'] = 'no-cache'
+           
             print('done')
             return response
 
@@ -150,20 +141,18 @@ def system(request):
         overviewFile = {"File":fileName}
         print(overviewFile)
         fs = FileSystemStorage('BiMeta/userFolder/'+request.session['user']+'/input/',)
-        # with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/output/'+fileName,'w+',encoding='utf-8') as fna_file:
-        #         json.dump(paramData,json_file,ensure_ascii=False, indent=4)
         fs_path = fs.save(upload_file.name, upload_file)
-        overview = [{
+        overview = {
             "Fmeasure": "32.0",
             "Recall": "32.3",
             "Precision": "12.1",
-            "Time": "21-01-1999",
+            "Time": getCurrentTime()[1],
             "Training": "00:00:00"
-        }, ]
+        }
         data = load_meta_reads('BiMeta/userFolder/'+request.session['user']+'/input/'+fileName)
-        addFileJson(fileName, '/home/tnhan/ServerWeb/BiMeta/userFolder/'+ request.session['user']+'/history/'+request.session['time'])   
-        addGraphJson(data, '/home/tnhan/ServerWeb/BiMeta/userFolder/'+ request.session['user'] +'/history/'+request.session['time']) 
-        addOverviewJson(overview, '/home/tnhan/ServerWeb/BiMeta/userFolder/'+ request.session['user'] +'/history/'+request.session['time']) 
+        addFileJson(fileName, '/home/phuong/ServerWeb/BiMeta/userFolder/'+ request.session['user']+'/history/'+request.session['time'])   
+        addGraphJson(data, '/home/phuong/ServerWeb/BiMeta/userFolder/'+ request.session['user'] +'/history/'+request.session['time']) 
+        addOverviewJson(overview, '/home/phuong/ServerWeb/BiMeta/userFolder/'+ request.session['user'] +'/history/'+request.session['time']) 
         rc = subprocess.Popen("cd $HOME/ServerWeb/BiMeta/BimetaCode && bash run.sh" +
                               " "+fileName+" "+request.session['user'], shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
         # rc = None
@@ -176,9 +165,7 @@ def system(request):
         response['Cache-Control'] = 'no-cache'
         print('done')
         return response
-
     else:
-        # return render(request, 'pages/system.html',{"data":dumps(getFiles()),"outputdata":dumps(getOutputFiles())})
         return render(request, 'pages/system.html')
     return
 
@@ -229,7 +216,6 @@ def register(request):
             if not os.path.exists(dirInput):
                 os.makedirs(dirInput)    
             return HttpResponse('SUCCESS')
-            # return HttpResponseRedirect('/login')
     return render(request, 'pages/register.html')
 
 
@@ -271,35 +257,46 @@ def project(request):
     if request.method == 'POST' and 'method' in request.POST:
         if request.POST.get('method') == 'showdata':
             resultObject = {}
-            fileName = request.POST.get('xml')
+            fileName = request.POST.get('json')
             try:
-                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
+                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
                     dataBar = json.load(json_file)["graph"]
             except Exception as e:
                 dataBar = []
             try:
-                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
+                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
                     overview = json.load(json_file)["overview"]
+                    fmeasure = overview["Fmeasure"]
+                    recall = overview["Recall"]
+                    precision = overview["Precision"]
             except Exception as e:
                 overview = []
+                fmeasure = None
+                recall = None
+                precision = None
             try:
-                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
-                    fileXml = json.load(json_file)["file"]
+                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
+                    params = json.load(json_file)["params"]
             except Exception as e:
-                fileXml = []    
-            print('bat dau show data')
+                params = []  
+            try:
+                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
+                    fileJson = json.load(json_file)["file"]
+            except Exception as e:
+                fileJson = []    
+
             resultObject['barGraphData'] = dataBar
-            print( resultObject['barGraphData'])
             resultObject['overviewData'] = overview
-            print( resultObject['overviewData'])
-            resultObject['fileXml'] = fileXml
-            print( resultObject['fileXml'])
-            resultObject['listOfXmlFile'] = getXmlFiles(request.session['user'])
+            resultObject['fmeasure'] = fmeasure
+            resultObject['recall'] = recall
+            resultObject['precision'] = precision
+            resultObject['fileJson'] = fileJson
+            resultObject['params'] = params
+            resultObject['listOfJsonFile'] = getJsonFiles(request.session['user'])
             return HttpResponse(dumps(resultObject, indent=2), content_type='application/json')
-        elif request.POST.get('method') == 'removeXmlFiles':
-            removeXmlFiles(request.session['user'],request.POST.get('removeXmlFile'))
-            return HttpResponse(dumps(getXmlFiles(request.session['user'])), content_type='application/json')
-            # return render(request, 'pages/project.html',{'dataXml':dumps(getXmlFiles(request.session['user']))})
+        elif request.POST.get('method') == 'removeJsonFiles':
+            removeJsonFiles(request.session['user'],request.POST.get('removeJsonFile'))
+            return HttpResponse(dumps(getJsonFiles(request.session['user'])), content_type='application/json')
     else:
         return render(request, 'pages/project.html')
     return
@@ -337,7 +334,7 @@ def generateStreamingLog(rc):
         yield data
     time_process = (time.time() - start_time)
     yield "Processing time: " + str(time_process) + " seconds."
-    return 'dead'
+    # return time_process
     # for x in range(6):
     #     time.sleep(0.5)
     #     yield x

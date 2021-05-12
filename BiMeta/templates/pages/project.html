@@ -22,7 +22,7 @@
             <td>No.</td>
             <td>Your history files</td>
             <td colspan="2">Options</td>
-            </thead>
+          </thead>
           <tbody id="myTable">
           </tbody>
         </table>
@@ -32,42 +32,80 @@
     <!-- .row -->
     <h2>Information of history files :</h2>
     <div class="row">
-        <div class="col-md-6">
-          <div class="project_box">
-            <h3>Overview Info:</h3>
-            <div id="overview">
+      <div class="col-md-4">
+        <div class="project_box" style=" overflow: auto;
+          height: 213.45px;">
+          <h3 style="position: sticky;
+            top: 0;">Overview Info:</h3>
+          <div id="overview" style="text-align: initial;">
 
-            </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="project_box">
-            <h3>Output files:</h3>
-            <div>
-            </div>
+      </div>
+      <div class="col-md-3">
+        <div class="project_box" style=" overflow: auto;height: 213.45px;">
+          <h3>File's parameters:</h3>
+          <table style="margin: auto;">
+            <tr>
+              <th style="text-align: left;">K-mer size :</th>
+              <td id="kmer_cell" style="text-align: center;"><i class="fa fa-question"></i></td>
+            </tr>
+            <tr>
+              <th style="text-align: left;">Length of Q-mer :</th>
+              <td id="lofqmer_cell" style="text-align: center;"><i class="fa fa-question"></i></td>
+            </tr>
+            <tr>
+              <th style="text-align: left;">Number of share reads :</th>
+              <td id="sharereads_cell" style="text-align: center;"><i class="fa fa-question"></i></td>
+            </tr>
+            <tr>
+              <th style="text-align: left;">Maximum component size :</th>
+              <td id="maxcomp_cell" style="text-align: center;"><i class="fa fa-question"></i></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="project_box">
+          <h3>Perform Evaluation:</h3>
+          <div id="evaldiv">
           </div>
         </div>
+      </div>
     </div>
     <br>
     <!-- .row -->
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-md-4">
         <div class="project_box">
-          <h3> Species ratio:</h3>
+          <h3> Species Ratio:</h3>
           <div id="piediv">
 
           </div>
         </div>
       </div>
-      <div class="col-md-9">
+      <div class="col-md-8">
         <div class="project_box">
-          <h3>Node graph:</h3>
-          <div>
+          <h3> Species Reads Number:</h3>
+          <div id="bardiv">
           </div>
         </div>
       </div>
-  </div>
-  <!-- .row -->
+    </div>
+    <br>
+    <!-- .row -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="project_box">
+
+          <h3>Node Graph:</h3>
+          <div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- .row -->
   </div>
   <!-- .container -->
 </div>
@@ -79,6 +117,7 @@
 <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
 <script src="https://cdn.amcharts.com/lib/4/themes/dataviz.js"></script>
 <script type="text/javascript" src="../../static/WebUI.js/overviewProject.js"></script>
+<script type="text/javascript" src="../../static/WebUI.js/evaluationChart.js"></script>
 <script type="text/javascript" src="../../static/WebUI.js/barChart.js"></script>
 <script type="text/javascript" src="../../static/WebUI.js/pieChart.js"></script>
 <script type="text/javascript" src="../../static/WebUI.js/history.js"></script>

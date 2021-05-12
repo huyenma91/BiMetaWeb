@@ -1,9 +1,9 @@
 #!/bin/bash
 
-START_TIME=`date +%s`
-echo "\n\n\n Start time is : \n\n"
-echo $START_TIME
-echo "\n\n\n"
+# START_TIME=`date +%s`
+# echo "\n\n\n Start time is : \n\n"
+# echo $START_TIME
+# echo "\n\n\n"
 
 source $HOME/thesisEnv/bin/activate # Activate Virtual Environment
 
@@ -37,15 +37,15 @@ python $HOME/ServerWeb/BiMeta/BimetaCode/bimeta/load_meta_reads/load_read.py $IN
 -r hadoop \
 --conf-path $CONF_FILE
 
-END_TIME=`date +%s`
-echo "\n\n\n End time is : \n\n"
-echo $END_TIME
-echo "\n\n\n"
+# END_TIME=`date +%s`
+# echo "\n\n\n End time is : \n\n"
+# echo $END_TIME
+# echo "\n\n\n"
 
-RUN_TIME=`expr $END_TIME - $START_TIME`
-echo "\n\n\n Run time is : \n\n"
-echo $RUN_TIME
-echo "\n\n\n"
+# RUN_TIME=`expr $END_TIME - $START_TIME`
+# echo "\n\n\n Run time is : \n\n"
+# echo $RUN_TIME
+# echo "\n\n\n"
 
 # hdfs dfs -get $OUT_HDFS/output_1_1/part-00000 $OUT_FLR_WEB
 # mv $OUT_FLR_WEB/part-00000 $OUT_FLR_WEB/OutStep_1_1

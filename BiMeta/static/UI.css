@@ -248,9 +248,6 @@ td{
 .box{
     border: black 1px solid;
 }
-/* .box:hover{
-    cursor: pointer;
-} */
 
 .title_box{
     text-align: center;
@@ -264,7 +261,6 @@ td{
 .title_box_graph{
     text-align: center;
     top: 0;
-    /* background-color: rgb(255 255 255 / 80%); */
     padding-top: 15px;
 }
 .boxed-icon{
@@ -278,7 +274,6 @@ td{
 
 .piediv {
     height: 80%;
-    /* margin-top: 5vh; */
 }
 .lollipopdiv{
     width: 100%;
@@ -287,14 +282,6 @@ td{
     color: #fff;
 }
 
-/* #continent{
-    background-color:  #30303d;
-    color: white;
-}
-.option_continent{
-    background-color:  #30303d;
-    color: white;
-} */
 
 .overviewdiv {
     width: 100%;
@@ -347,7 +334,6 @@ td{
 }
 
 .error-message{
-    /* position: absolute; */
     color: red;
     display: none;
     font-size: 13px;
@@ -369,11 +355,6 @@ td{
     overflow: auto;
 }
 
-/* #streamDivLog pre{
-    width: 40vw;
-    overflow: auto;
-} */
-
 #pie_note,#bar_note,#graph_note,#overview_note,#output_note{
     padding: 20px;
 }
@@ -382,9 +363,19 @@ td{
     text-align: center;
     background-color: white;
     border: 1px solid #ced4da;
+    padding: 10px;
 }
 
-/* .styleBox{
-    padding: 20px;
-} */
-
+.project_box table,.project_box th,.project_box td {
+    border: 1px solid #ced4da;
+  }
+  
+#kOption{
+    width: 100%;
+}
+#kNumber{
+    width: 100%;
+}
+#historyStoreOption{
+    width: 100%;
+}

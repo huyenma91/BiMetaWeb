@@ -80,8 +80,8 @@ var kmer,
     sharereads,
     maxcomp,
     numtasks,
+    kNumber,
     getFile = null;
-var exGraph, exFile;
 var getFileFlag = false;
 var outputFlag = false;
 
@@ -91,8 +91,8 @@ function getValue(event) {
     lofqmer = document.getElementById("lofqmer").value;
     sharereads = document.getElementById("sharereads").value;
     maxcomp = document.getElementById("maxcomp").value;
-    exGraph = document.getElementById("exGraph").value;
-    exFile = document.getElementById("exFile").value;
+    kNumber = document.getElementById("kNumber").value;
+    console.log('gia tri kNumber :',kNumber)
     var getFile = document.getElementById("file").files[0];
     if (
         kmer != undefined &&
@@ -128,6 +128,8 @@ function getValue(event) {
         alert("Fill sharereads");
     } else if (!maxcomp) {
         alert("Fill maxcomp");
+    } else if (!kNumber) {
+        alert("Fill kNumber");
     } else if (!getFile && getFileFlag == false) {
         alert("Please upload a file");
     } else {
@@ -291,19 +293,7 @@ function onFormSubmit(event) {
 
 
     var paramsForHadoop =
-        "method=passParamters" +
-        "&kmer=" +
-        kmer +
-        "&lofqmer=" +
-        lofqmer +
-        "&sharereads=" +
-        sharereads +
-        "&maxcomp=" +
-        maxcomp +
-        "&exGraph=" +
-        exGraph +
-        "&exFile=" +
-        exFile;
+        "method=passParamters" +"&kmer=" +kmer +"&lofqmer=" +lofqmer +"&sharereads=" +sharereads +"&maxcomp=" +maxcomp+"&kNumber=" +kNumber;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "", true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -315,6 +305,7 @@ function onFormSubmit(event) {
     };
     console.log("1111111111111");
     xhr.send(paramsForHadoop);
+    console.log('day la params :',paramsForHadoop)
 
     document.getElementById("stop_button").addEventListener("click", function () {
         xhr.abort();
@@ -379,7 +370,16 @@ function appendStreamLog(appendDataLog) {
     messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
 }
 
-//   function
+function check(){
+    checkK = $('#kOption').val()
+    if (checkK == "Yes"){
+        $('#kNumber').prop('disabled', false);
+    }
+    else{
+        $('#kNumber').prop('disabled', true);
+        $('#kNumber').val("");
+    }
+}
 
 $("#popupBar").click(function () {
     $("#display_bar").css("z-index", "-99999");
@@ -426,7 +426,7 @@ $("#popupGraph").click(function () {
     }, 100);
 });
 
-console.log(
-    "day la history :",
-    document.getElementById("historyStoreOption").value
-);
+// console.log(
+//     "day la history :",
+//     document.getElementById("historyStoreOption").value
+// );

@@ -29,7 +29,7 @@ function listFiles(dataFiles) {
                 dataFiles[x] +
                 '</td><td><button type="button" class="showFileButton" id="' +
                 dataFiles[x] +
-                '"  onclick="removeXmlFiles(id)">Delete</button</td><td><button type="button" class="showFileButton" choosefile="' +
+                '"  onclick="removeJsonFiles(id)">Delete</button</td><td><button type="button" class="showFileButton" choosefile="' +
                 dataFiles[x] +
                 '" onclick="review(this.getAttribute(' +"'choosefile'" +'))">Show</button></td></tr>';
         }
@@ -44,21 +44,19 @@ $(document).ready(function () {
             method: "showdata",
         },
         success: function (result) {
-            listFiles(result.listOfXmlFile);
-            // console.log('BBB')
-            // console.log(result.listOfXmlFile)
+            listFiles(result.listOfJsonFile);
         },
     });
 });
 
-function removeXmlFiles(id) {
+function removeJsonFiles(id) {
     console.log(id);
     $.ajax({
         url: "",
         type: "POST",
         data: {
-            method: "removeXmlFiles",
-            removeXmlFile: id,
+            method: "removeJsonFiles",
+            removeJsonFile: id,
         },
         success: function (result) {
             dataNode.innerHTML =""
@@ -69,19 +67,18 @@ function removeXmlFiles(id) {
 }
 
 function review(filename) {
-    console.log('day la xml file :',filename)
     $.ajax({
         url: "",
         type: "POST",
         data: {
             method: "showdata",
-            xml: filename,
+            json: filename,
         },
         success: function (result) {
-            // console.log('day la result',result)
-            // console.log('day la result.xml',result.fileXml)
-            readyOverview(result.overviewData,result.fileXml);
-            // console.log('day la result.xml',result.xml)
+            readyOverview(result.overviewData,result.fileJson,result.params);
+            paramtable(result.params)
+            evalChart(result.fmeasure,result.recall,result.precision)
+            readyChart(result.barGraphData);
             pieChart(result.barGraphData);
         },
     });

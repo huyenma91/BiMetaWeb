@@ -11,13 +11,13 @@ import json
 import uuid
 
 
-def getXmlFiles(session):
+def getJsonFiles(session):
      list_file = [f for f in listdir('BiMeta/userFolder/'+session+'/history/') if isfile(join('BiMeta/userFolder/'+session+'/history/', f))]
      print("File co trong folder",list_file)
      return list_file
 
 
-def removeXmlFiles(session,filename):
+def removeJsonFiles(session,filename):
      myfile='BiMeta/userFolder/'+session+'/history/' + filename
      if os.path.isfile(myfile):
           os.remove(myfile)
@@ -53,9 +53,14 @@ def UUIDgenerator():
    
 
 def getCurrentTime():
-    current_time = datetime.datetime.now(pytz.timezone('Asia/Ho_Chi_Minh'))
-    current_time = current_time.strftime('%y_%m_%d_%H_%M_%S')
-    return current_time
+    current= datetime.datetime.now(pytz.timezone('Asia/Ho_Chi_Minh'))
+    current_1st = current.strftime('%y_%m_%d_%H_%M_%S')
+    current_2nd = current.strftime('%y-%m-%d %H:%M:%S')
+#     currentY=current_time.strftime('%y')
+#     currentM=current_time.strftime('%m')
+#     currentD=current_time.strftime('%d')
+#     print('xem :',current_time,currentY,currentM,currentD,current)
+    return current_1st,current_2nd
 
 def addGraphJson(data, save_path):
      with open(save_path+'.json', 'r+', encoding='utf-8') as f:
