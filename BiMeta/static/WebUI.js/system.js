@@ -144,15 +144,15 @@ function getValue(event) {
       success: function (result) {},
     });
   } else if (!kmer) {
-    alert("Fill kmer");
+    alert("Fill kmer/Incorrect type");
   } else if (!lofqmer) {
-    alert("Fill length of Q-mer");
+    alert("Fill length of Q-mer/Incorrect type");
   } else if (!sharereads) {
-    alert("Fill sharereads");
+    alert("Fill sharereads/Incorrect type");
   } else if (!maxcomp) {
-    alert("Fill maxcomp");
+    alert("Fill maxcomp/Incorrect type");
   } else if (!kNumber) {
-    alert("Fill kNumber");
+    alert("Fill kNumber/Incorrect type");
   } else if (!getFile && getFileFlag == false) {
     alert("Please upload a file");
   } else {
@@ -478,3 +478,5 @@ $("#popupGraph").click(function () {
     $("#display_graph").css("z-index", "1000");
   }, 100);
 });
+
+

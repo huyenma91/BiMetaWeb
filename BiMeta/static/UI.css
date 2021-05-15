@@ -332,6 +332,10 @@ td {
   display: initial !important;
 }
 
+.kNumber.invalid + .error-message {
+  display: initial !important;
+}
+
 .error-message {
   color: red;
   display: none;
@@ -387,8 +391,6 @@ td {
 
 #button1 {
   font-weight: bold;
-  /* position: sticky;
-  z-index: 11; */
   transform: rotate(90deg) translateX(-10.9%);
   transform-origin: bottom left;
   background-color: rgba(105, 172, 199, 0.25);

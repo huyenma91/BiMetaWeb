@@ -13,8 +13,18 @@ function readyOverview(overviewData,fileXml,params){
     document.getElementById('overview').innerHTML+=`<li>Length of Q-mer : ${params.lofqmer}</li>`;
     document.getElementById('overview').innerHTML+=`<li>Number of share reads : ${params.sharereads}</li>`;
     document.getElementById('overview').innerHTML+=`<li>Maximum component size : ${params.maxcomp}</li></ul>`;
-    document.getElementById('overview').innerHTML+=`<b>K-clusters : </b>`;
-    document.getElementById('overview').innerHTML+=`<p>Number of cluster : ${params.kNumber}</p>`;
+    document.getElementById('overview').innerHTML+=`<b>K-clusters : </b>`; 
+    var kNumber= `${params.kNumber}`;
+    console.log('kNumber :',kNumber)
+    if (kNumber!='null'){
+        console.log('vao')
+        document.getElementById('overview').innerHTML+=`<p>Number of cluster : ${params.kNumber}</p>`;
+    }
+    else{
+        console.log('ko vao')
+        document.getElementById('overview').innerHTML+=`<p>Number of cluster : Not set</p>`;
+    }
+    
 }
 
 function paramtable(params){
