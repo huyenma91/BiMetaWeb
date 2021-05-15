@@ -42,5 +42,5 @@ function pieChart(pieGraphData) {
     // chart.hiddenState.properties.radius = am4core.percent(0);
     chart.responsive.enabled = true;
     
-    
+    return chart;
     }; // end am4core.ready()

@@ -74,4 +74,5 @@ chart.zoomOutButton.disabled = true;
 
 categoryAxis.sortBySeries = series;
 // chart.responsive.enabled = true;
+return chart;
 }; // end am4core.ready()

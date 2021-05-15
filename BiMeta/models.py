@@ -27,7 +27,6 @@ def removeJsonFiles(session,filename):
 
 def getFiles(session):
      list_file = [f for f in listdir('BiMeta/userFolder/'+session+'/input/') if isfile(join('BiMeta/userFolder/'+session+'/input/', f))]
-     # print("File co trong folder",list_file)
      return list_file
 
 def removeFiles(session,filename):
@@ -56,10 +55,6 @@ def getCurrentTime():
     current= datetime.datetime.now(pytz.timezone('Asia/Ho_Chi_Minh'))
     current_1st = current.strftime('%y_%m_%d_%H_%M_%S')
     current_2nd = current.strftime('%y-%m-%d %H:%M:%S')
-#     currentY=current_time.strftime('%y')
-#     currentM=current_time.strftime('%m')
-#     currentD=current_time.strftime('%d')
-#     print('xem :',current_time,currentY,currentM,currentD,current)
     return current_1st,current_2nd
 
 def addGraphJson(data, save_path):
@@ -85,21 +80,14 @@ def addFileJson(data, save_path):
           newData.update(fileJson)
           print(newData)
           f.seek(0)
-          json.dump(newData, f,ensure_ascii=False, indent=4)
-          # f.seek(0)
-          # json.dump(newData, f, ensure_ascii=False, indent=4)        
+          json.dump(newData, f,ensure_ascii=False, indent=4)      
 
+def addStepJson(data, save_path):
+     with open(save_path+'.json', 'r+', encoding='utf-8') as f:
+          stepJson={'steps':data}
+          newData = json.load(f)
+          newData.update(stepJson)
+          print(newData)
+          f.seek(0)
+          json.dump(newData, f,ensure_ascii=False, indent=4)      
 
-
-# def createHistoryJson():
-#      data = {}
-#      data['people'] = []
-#      data['people'].append({
-#      'name': 'Scott',
-#      'website': 'stackabuse.com',
-#      'from': 'Nebraska'
-#      })
-#      print(data)
-#      with open('BiMeta/jsonHistory/'+getCurrentTime()+'.json', 'w') as outfile:
-#           json.dump(data, outfile)
-#           print("create success")

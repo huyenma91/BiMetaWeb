@@ -55,23 +55,38 @@ def system(request):
     if request.method == 'POST' and 'method' in request.POST:
         if request.POST.get('method') == 'passParamters':
             kmer = request.POST.get('kmer')
-            lofqmer=request.POST.get('lofqmer')
-            sharereads=request.POST.get('sharereads')
-            maxcomp=request.POST.get('maxcomp')
+            lofqmer = request.POST.get('lofqmer')
+            sharereads = request.POST.get('sharereads')
+            maxcomp = request.POST.get('maxcomp')
+            step1 = request.POST.get('step1')
+            step2 = request.POST.get('step2')
+            step3 = request.POST.get('step3')
+            step4 = request.POST.get('step4')
+            step5 = request.POST.get('step5')
+            step6 = request.POST.get('step6')
+            steps = {
+                "Step1": step1,
+                "Step2": step2,
+                "Step3": step3,
+                "Step4": step4,
+                "Step5": step5,
+                "Step6": step6,
+            }
             try:
                 kNumber = request.POST.get('kNumber')
                 if kNumber =="":
-                    kNumber = "not set value"
+                    kNumber = None
             except Exception as e:   
                 print(e)
             paramData={'params':{'kmer':kmer,'lofqmer':lofqmer,'sharereads':sharereads,'maxcomp':maxcomp,'kNumber':kNumber}}
+            request.session['time'] = getCurrentTime()[0]    
             try:
-                request.session['time'] = getCurrentTime()[0]
                 print(f'1st: {request.session["time"]}')
                 with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+request.session['time']+'.json','w+',encoding='utf-8') as json_file:
                     json.dump(paramData,json_file,ensure_ascii=False, indent=4)
             except Exception as e:   
                 print(e)
+            addStepJson(steps, '/home/phuong/ServerWeb/BiMeta/userFolder/'+ request.session['user']+'/history/'+request.session['time'])   
             return HttpResponse('yeah')
         elif request.POST.get('method') == 'showdata':
             resultObject = {}

@@ -1,3 +1,5 @@
+let charts = {};
+
 $(document).ready(function(){
   $("#myInput").on("keyup", function() {
     var value = $(this).val().toLowerCase();
@@ -77,9 +79,13 @@ function review(filename) {
         success: function (result) {
             readyOverview(result.overviewData,result.fileJson,result.params);
             paramtable(result.params)
-            evalChart(result.fmeasure,result.recall,result.precision)
-            readyChart(result.barGraphData);
-            pieChart(result.barGraphData);
+            let keys = Object.keys(charts);
+            for (let i = 0; i < keys.length; i++ ) {
+                if (charts[keys[i]]) charts[keys[i]].dispose();
+            }
+            charts['eval'] = evalChart(result.fmeasure,result.recall,result.precision)
+            charts['ready'] = readyChart(result.barGraphData);
+            charts['pie'] = pieChart(result.barGraphData);
         },
     });
 }
