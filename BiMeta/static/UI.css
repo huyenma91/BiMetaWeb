@@ -370,7 +370,7 @@ td {
   text-align: center;
   background-color: white;
   border: 1px solid #ced4da;
-  padding: 10px;
+  /* padding: 10px; */
 }
 
 .project_box table,
@@ -468,7 +468,7 @@ td {
 #saveButton:hover {
   box-shadow: inset 0 0 100px #69acc7;
   color: white;
-  border:none;
+  border: none;
   transition: 0.3s ease;
 }
 
@@ -531,4 +531,11 @@ td {
 }
 .noloadingStep6 {
   height: 25px;
+}
+
+.titleProjectBox {
+  position: sticky;
+  background-color: white;
+  top: 0;
+  padding-top: 10px;
 }

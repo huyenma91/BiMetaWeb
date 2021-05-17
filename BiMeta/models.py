@@ -57,6 +57,14 @@ def getCurrentTime():
     current_2nd = current.strftime('%y-%m-%d %H:%M:%S')
     return current_1st,current_2nd
 
+def addTimeJson(data, save_path):
+     with open(save_path+'.json', 'r+', encoding='utf-8') as f:
+          time={'time':data}
+          newData = json.load(f)
+          newData.update(time)
+          f.seek(0)
+          json.dump(newData, f, ensure_ascii=False, indent=4)
+
 def addGraphJson(data, save_path):
      with open(save_path+'.json', 'r+', encoding='utf-8') as f:
           graphJson={'graph':data}
@@ -90,4 +98,13 @@ def addStepJson(data, save_path):
           print(newData)
           f.seek(0)
           json.dump(newData, f,ensure_ascii=False, indent=4)      
+
+def addNodeGraphJson(data, save_path):
+     with open(save_path+'.json', 'r+', encoding='utf-8') as f:
+          nodeGraphJson={'nodeGraph':data}
+          newData = json.load(f)
+          newData.update(nodeGraphJson)
+          print(newData)
+          f.seek(0)
+          json.dump(newData, f,ensure_ascii=False, indent=4)   
 

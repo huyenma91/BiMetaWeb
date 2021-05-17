@@ -240,7 +240,7 @@ function onFormSubmit(event) {
             listOutputFiles(result.listOfOutputFile);
             readyChart(result.barGraphData);
             pieChart(result.barGraphData);
-            readyOverview(result.overviewData);
+            readyOverview(result.overviewData,result.time);
             $("#nodeGraph").attr(
               "src",
               "data:image/png;base64," + result.graphImage
@@ -298,7 +298,7 @@ function onFormSubmit(event) {
               listOutputFiles(result.listOfOutputFile);
               readyChart(result.barGraphData);
               pieChart(result.barGraphData);
-              readyOverview(result.overviewData);
+              readyOverview(result.overviewData,result.time);
               $("#nodeGraph").attr(
                 "src",
                 "data:image/png;base64," + result.graphImage

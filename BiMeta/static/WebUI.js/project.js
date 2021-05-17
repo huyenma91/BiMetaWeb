@@ -77,7 +77,7 @@ function review(filename) {
             json: filename,
         },
         success: function (result) {
-            readyOverview(result.overviewData,result.fileJson,result.params);
+            readyOverview(result.overviewData,result.fileJson,result.params,result.time);
             paramtable(result.params)
             let keys = Object.keys(charts);
             for (let i = 0; i < keys.length; i++ ) {
