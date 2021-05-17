@@ -3,7 +3,7 @@ function readyOverview(overviewData,fileXml,params){
     document.getElementById('overview').innerHTML="";
     document.getElementById('overview').innerHTML+=`<p><b>File name : </b><u>${fileXml}</u></p>`;
     document.getElementById('overview').innerHTML+=`<p>Date&Time : ${overviewData.Time}</p>`;
-    document.getElementById('overview').innerHTML+=`<p>Time estimate: ${overviewData.Training}</p>`;
+    document.getElementById('overview').innerHTML+=`<p>Time estimate: ${overviewData.Execution}</p>`;
     document.getElementById('overview').innerHTML+=`<b>Perform evaluation : </b>`;
     document.getElementById('overview').innerHTML+=`<ul><li>F-measure : ${overviewData.Fmeasure}</li>`;
     document.getElementById('overview').innerHTML+=`<li>Recall : ${overviewData.Recall}</li>`;
