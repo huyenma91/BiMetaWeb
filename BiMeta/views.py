@@ -15,7 +15,7 @@ import sys
 import mimetypes
 import time
 from django.utils.encoding import smart_str
-from .BimetaCode.read_file import load_meta_reads
+from .BimetaCode.read_file import load_meta_reads, readjson
 import base64
 from django.contrib import messages
 from bs4 import BeautifulSoup
@@ -82,16 +82,16 @@ def system(request):
             request.session['time'] = getCurrentTime()[0]    
             try:
                 print(f'1st: {request.session["time"]}')
-                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+request.session['time']+'.json','w+',encoding='utf-8') as json_file:
+                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+request.session['time']+'.json','w+',encoding='utf-8') as json_file:
                     json.dump(paramData,json_file,ensure_ascii=False, indent=4)
             except Exception as e:   
                 print(e)
-            addStepJson(steps, '/home/phuong/ServerWeb/BiMeta/userFolder/'+ request.session['user']+'/history/'+request.session['time'])   
+            addStepJson(steps, '/home/tnhan/ServerWeb/BiMeta/userFolder/'+ request.session['user']+'/history/'+request.session['time'])   
             return HttpResponse('yeah')
         elif request.POST.get('method') == 'showdata':
             resultObject = {}
             try:
-                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+request.session["time"]+'.json') as json_file:
+                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+request.session["time"]+'.json') as json_file:
                     dataBar = json.load(json_file)["graph"]
             except Exception as e:
                 dataBar = []
@@ -99,7 +99,7 @@ def system(request):
             resultObject['listOfOutputFile'] = getOutputFiles(request.session['user'])
             resultObject['barGraphData'] = dataBar
             try:
-                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+request.session["time"]+'.json') as json_file:
+                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+request.session["time"]+'.json') as json_file:
                     overview = json.load(json_file)["overview"]
             except Exception as e:
                 overview = []
@@ -119,21 +119,17 @@ def system(request):
             return HttpResponse('asdasd')
         elif request.POST.get('method') == 'chooseFile':
             fileChoose = request.POST.get('fileChoose')
-            overview = {
-                "Fmeasure": "32.0",
-                "Recall": "32.3",
-                "Precision": "12.1",
-                "Time": getCurrentTime()[1],
-                "Training": "00:00:00"
-            }
+            
             data = load_meta_reads(
                 'BiMeta/userFolder/'+request.session['user']+'/input/'+fileChoose)
-            addFileJson(fileChoose, '/home/phuong/ServerWeb/BiMeta/userFolder/'+ request.session['user']+'/history/'+request.session['time'])    
-            addGraphJson(data, '/home/phuong/ServerWeb/BiMeta/userFolder/'+ request.session['user']+'/history/'+request.session['time']) 
-            addOverviewJson(overview, '/home/phuong/ServerWeb/BiMeta/userFolder/'+ request.session['user'] +'/history/'+request.session['time'])  
+            addFileJson(fileChoose, '/home/tnhan/ServerWeb/BiMeta/userFolder/'+ request.session['user']+'/history/'+request.session['time'])    
+            addGraphJson(data, '/home/tnhan/ServerWeb/BiMeta/userFolder/'+ request.session['user']+'/history/'+request.session['time']) 
+              
             print(f'2st: {request.session["time"]}')      
             rc = subprocess.Popen("cd $HOME/ServerWeb/BiMeta/BimetaCode && bash run.sh" +
                                   " "+fileChoose+" "+request.session['user'], shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+            
+            
             # rc = None
             # output = rc.stderr.read()
             # for line in rc.stderr:
@@ -145,9 +141,13 @@ def system(request):
             # rc.close()
             # rc.communicate()[0]
             # A = rc.returncode
-           
-           
+                    
+  
             print('done')
+            # if A is not None:
+            #     print('rc tra ve')
+            #     overview = readjson("/home/tnhan/ServerWeb/BiMeta/jsonData")
+            #     addOverviewJson(overview, '/home/tnhan/ServerWeb/BiMeta/userFolder/'+ request.session['user'] +'/history/'+request.session['time'])
             return response
 
     elif request.method == 'POST' and 'file' in request.FILES:
@@ -157,21 +157,16 @@ def system(request):
         print(overviewFile)
         fs = FileSystemStorage('BiMeta/userFolder/'+request.session['user']+'/input/',)
         fs_path = fs.save(upload_file.name, upload_file)
-        overview = {
-            "Fmeasure": "32.0",
-            "Recall": "32.3",
-            "Precision": "12.1",
-            "Time": getCurrentTime()[1],
-            "Training": "00:00:00"
-        }
+        
         data = load_meta_reads('BiMeta/userFolder/'+request.session['user']+'/input/'+fileName)
-        addFileJson(fileName, '/home/phuong/ServerWeb/BiMeta/userFolder/'+ request.session['user']+'/history/'+request.session['time'])   
-        addGraphJson(data, '/home/phuong/ServerWeb/BiMeta/userFolder/'+ request.session['user'] +'/history/'+request.session['time']) 
-        addOverviewJson(overview, '/home/phuong/ServerWeb/BiMeta/userFolder/'+ request.session['user'] +'/history/'+request.session['time']) 
+        addFileJson(fileName, '/home/tnhan/ServerWeb/BiMeta/userFolder/'+ request.session['user']+'/history/'+request.session['time'])   
+        addGraphJson(data, '/home/tnhan/ServerWeb/BiMeta/userFolder/'+ request.session['user'] +'/history/'+request.session['time']) 
         rc = subprocess.Popen("cd $HOME/ServerWeb/BiMeta/BimetaCode && bash run.sh" +
                               " "+fileName+" "+request.session['user'], shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+
+        
         # rc = None
-        stream = generateStreamingLog(rc)
+        # stream = generateStreamingLog(rc)
         # rc.communicate()[0]
         # A = rc.returncode
         # return HttpResponse(A)
@@ -179,6 +174,10 @@ def system(request):
             stream, status=200, content_type='text/plain')
         response['Cache-Control'] = 'no-cache'
         print('done')
+        # if A is not None:
+        #     print('rc tra ve')
+        #     overview = readjson("/home/tnhan/ServerWeb/BiMeta/jsonData")
+        #     addOverviewJson(overview, '/home/tnhan/ServerWeb/BiMeta/userFolder/'+ request.session['user'] +'/history/'+request.session['time']) 
         return response
     else:
         return render(request, 'pages/system.html')
@@ -274,12 +273,12 @@ def project(request):
             resultObject = {}
             fileName = request.POST.get('json')
             try:
-                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
+                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
                     dataBar = json.load(json_file)["graph"]
             except Exception as e:
                 dataBar = []
             try:
-                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
+                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
                     overview = json.load(json_file)["overview"]
                     fmeasure = overview["Fmeasure"]
                     recall = overview["Recall"]
@@ -290,12 +289,12 @@ def project(request):
                 recall = None
                 precision = None
             try:
-                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
+                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
                     params = json.load(json_file)["params"]
             except Exception as e:
                 params = []  
             try:
-                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
+                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
                     fileJson = json.load(json_file)["file"]
             except Exception as e:
                 fileJson = []    
@@ -349,7 +348,3 @@ def generateStreamingLog(rc):
         yield data
     time_process = (time.time() - start_time)
     yield "Processing time: " + str(time_process) + " seconds."
-    # return time_process
-    # for x in range(6):
-    #     time.sleep(0.5)
-    #     yield x

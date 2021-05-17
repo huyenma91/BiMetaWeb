@@ -81,3 +81,7 @@ def load_meta_reads(filename, type='fasta'):
 #     with open(save_path+'reads_summary.json', 'w+', encoding='utf-8') as f:
 #         graphJson={'graph':data}
 #         json.dump(graphJson, f, ensure_ascii=False, indent=4)
+def readjson(data_path):
+    with open(data_path+'/overview.json', 'r') as outfile:
+        data = json.load(outfile)   
+        return data

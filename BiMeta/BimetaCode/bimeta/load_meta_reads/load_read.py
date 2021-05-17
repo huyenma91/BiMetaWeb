@@ -1,13 +1,14 @@
-#!./venv/bin/python
-
-from mrjob.job import MRJob
-from mrjob.protocol import RawValueProtocol
-from mrjob.protocol import TextProtocol
-from mrjob.protocol import RawProtocol
-
 from Bio import SeqIO
 from Bio.Seq import Seq
 import re
+import argparse
+import json
+import os
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-i", "--input", help = "Input file")
+parser.add_argument("-o", "--output", help = "Output file")
+args = parser.parse_args()
 
 
 def format_read(read):
@@ -15,18 +16,14 @@ def format_read(read):
     return read.seq, z[3]
 
 
-class LoadMetaRead(MRJob):
+def load_meta_reads(filename, type='fasta'):
+    try:
+        seqs = list(SeqIO.parse(filename, type))
+        reads = []
+        labels = []
 
-    # INPUT_PROTOCOL = RawValueProtocol # RawValueProtocol: Default in python3
-    # INTERNAL_PROTOCOL = RawValueProtocol
-    # OUTPUT_PROTOCOL = RawProtocol
-
-    def mapper_raw(self, file_path, file_uri):
-        from Bio import SeqIO
-        from Bio.Seq import Seq
-
-        seqs = list(SeqIO.parse(file_path, "fasta"))
-
+        # Detect for paired-end or single-end reads
+        # If the id of two first reads are different (e.g.: .1 and .2), they are paired-end reads
         is_paired_end = False
         if len(seqs) > 2 and seqs[0].id[-1:] != seqs[1].id[-1:]:
             is_paired_end = True
@@ -37,21 +34,39 @@ class LoadMetaRead(MRJob):
         for i in range(0, len(seqs), 2 if is_paired_end else 1):
             read, label = format_read(seqs[i])
             if is_paired_end:
-                read2, _ = format_read(seqs[i + 1])
+                read2, label2 = format_read(seqs[i + 1])
                 read += read2
+            reads += [str(read)]
 
+            # Create labels
             if label not in label_list:
                 label_list[label] = label_index
                 label_index += 1
+            labels.append(label_list[label])
 
-            yield None, (str(read), str(label_list[label]))
+        del seqs
 
-    def reducer(self, key, values):
-        for i, value in enumerate(values):
-            # yield i to know their line position in the dataset
-            yield key, (i, value)
-
-    # combiner = reducer
+        return reads, labels
+    except:
+        print('Error when loading file {} '.format(filename))
+        return []
 
 
-LoadMetaRead.run()
+def convert2json(reads, labels):
+    result = []
+    for i, item in enumerate(reads):
+        result.append([i, [item, str(labels[i])]])
+    return result
+
+    
+def save_file(result, output_path):
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    with open(output_path, 'w+') as f:
+        for item in result:
+            f.write("null\t%s\n" % json.dumps(item))
+
+
+reads, labels = load_meta_reads(args.input)
+result = convert2json(reads, labels)
+save_file(result, args.output)
+

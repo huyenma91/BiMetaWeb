@@ -6,5 +6,5 @@ function readyOverview(overviewData){
     document.getElementById('overview').innerHTML+=`<p>Recall : ${overviewData.Recall}</p>`;
     document.getElementById('overview').innerHTML+=`<p>Precision : ${overviewData.Precision}</p>`;
     document.getElementById('overview').innerHTML+=`<p>Date start : ${overviewData.Time}</p>`;
-    document.getElementById('overview').innerHTML+=`<p>Time : ${overviewData.Training}</p>`;
+    document.getElementById('overview').innerHTML+=`<p>Time : ${overviewData.Execution}</p>`;
 }
