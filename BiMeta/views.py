@@ -112,12 +112,13 @@ def system(request):
                     time = json.load(json_file)["time"]
             except Exception as e:
                 time = []
+            #find nodeGrpah name
             try:
                 with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+request.session["time"]+'.json') as json_file:
                     nodeGraphFile = json.load(json_file)["nodeGraph"]
-                    print('day la file graph :',nodeGraphFile)
             except Exception as e:
                 nodeGraphFile = ""
+            #send nodeGraph base64 to system.js
             try:
                 with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/graph/'+nodeGraphFile, 'rb') as img_file:
                     nodeGraph = base64.b64encode(img_file.read()).decode('utf-8')
@@ -318,7 +319,7 @@ def project(request):
                     recall = None
                     precision = None
             except Exception as e:
-                print('eo lay dc')
+                print('cannot get value')
                 overview = []
                 fmeasure = None
                 recall = None
@@ -338,6 +339,18 @@ def project(request):
                     time = json.load(json_file)["time"]
             except Exception as e:
                 time = []
+             #find nodeGrpah name
+            try:
+                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
+                    nodeGraphFile = json.load(json_file)["nodeGraph"]
+            except Exception as e:
+                nodeGraphFile = ""
+            #send nodeGraph base64 to system.js
+            try:
+                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/graph/'+nodeGraphFile, 'rb') as img_file:
+                    nodeGraph = base64.b64encode(img_file.read()).decode('utf-8')
+            except Exception as e:
+                nodeGraph=[]
 
             resultObject['barGraphData'] = dataBar
             resultObject['overviewData'] = overview
@@ -347,8 +360,8 @@ def project(request):
             resultObject['fileJson'] = fileJson
             resultObject['params'] = params
             resultObject['time'] = time
-            resultObject['listOfJsonFile'] = getJsonFiles(
-                request.session['user'])
+            resultObject['listOfJsonFile'] = getJsonFiles(request.session['user'])
+            resultObject['graphImage'] = nodeGraph
             return HttpResponse(dumps(resultObject, indent=2), content_type='application/json')
         elif request.POST.get('method') == 'removeJsonFiles':
             removeJsonFiles(

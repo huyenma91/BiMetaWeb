@@ -13,7 +13,6 @@ import uuid
 
 def getJsonFiles(session):
      list_file = [f for f in listdir('BiMeta/userFolder/'+session+'/history/') if isfile(join('BiMeta/userFolder/'+session+'/history/', f))]
-     print("File co trong folder",list_file)
      return list_file
 
 
@@ -108,3 +107,5 @@ def addNodeGraphJson(data, save_path):
           f.seek(0)
           json.dump(newData, f,ensure_ascii=False, indent=4)   
 
+# def getNodeGraphFiles(fileName):
+#      return [k for k in listdir('BiMeta/userFolder/'+session+'/output') if isfile(join('BiMeta/userFolder/'+session+'/output', k))]

@@ -79,6 +79,10 @@ function review(filename) {
         success: function (result) {
             readyOverview(result.overviewData,result.fileJson,result.params,result.time);
             paramtable(result.params)
+            $("#nodeGraph").attr(
+                "src",
+                "data:image/png;base64," + result.graphImage
+              );
             let keys = Object.keys(charts);
             for (let i = 0; i < keys.length; i++ ) {
                 if (charts[keys[i]]) charts[keys[i]].dispose();
