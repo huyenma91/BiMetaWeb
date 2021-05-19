@@ -3,13 +3,9 @@ from pyspark.sql import SparkSession
 from graphframes import GraphFrame
 
 import json
-import networkx as nx
 import re
-from matplotlib import pyplot as plt
-from igraph import Graph, plot
 import pandas as pd
 from pandas.core.common import flatten
-import sys
 import argparse
 import seaborn as sns
 import json
@@ -33,7 +29,6 @@ parser.add_argument("-v", "--vertices", help = "Input vertices file")
 parser.add_argument("-e", "--edges", help = "Input edges file")
 parser.add_argument("-c", "--checkpoint", help = "Checkpoint directory")
 parser.add_argument("-o", "--output", help = "Output file")
-parser.add_argument("-g", "--output_graph", help = "Output graph file")
 parser.add_argument("-r", "--num_reads", help = "Number of shared reads", default=45, type=int)
 args = parser.parse_args()
 
@@ -135,25 +130,7 @@ def save_file_hdfs(GL, session, path):
     rdd_list.coalesce(1).map(lambda row: str(row)).saveAsTextFile(path)
 
 
-def visualize_graph(color_dict, graphframes, output_path):
-    # Create iGraph from graphframes edges
-    ig = Graph.TupleList(graphframes.edges.collect(), directed=False)
-
-    # Get label from graphframe vertices
-    label = graphframes.vertices.select("label").rdd.flatMap(lambda x: x).collect()
-
-    # Create "color" attribute for vertex label
-    ig.vs["color"] = [color_dict[label[int(name)]] for name in ig.vs["name"]]
-
-    # Save plot as .png
-    out = plot(ig, target=output_path+"/graph.png", vertex_size=10, bbox=(0, 0, 500, 500))
-    # out.save(output_path+"/graph.png")
-
-palette = sns.color_palette(None, MAXIMUM_SPECIES).as_hex()
-color_dict = {str(i):palette[i] for i in range(MAXIMUM_SPECIES)}
-
 GL, spark, g = get_connected_components(args.vertices, args.edges, args.checkpoint, args.num_reads)
 
 # save_file_local(GL, args.output)
 save_file_hdfs(GL, spark, args.output)
-visualize_graph(color_dict, g, args.output_graph)

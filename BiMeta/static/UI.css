@@ -391,11 +391,11 @@ td {
 
 #button1 {
   font-weight: bold;
-  transform: rotate(90deg) translateX(-10.9%);
+  transform: rotate(90deg) translateX(-40px);
   transform-origin: bottom left;
   background-color: rgba(105, 172, 199, 0.25);
   color: black;
-  width: 50vh;
+  width: 400px;
   padding: 12.8px;
   text-align: center;
   border: none;
@@ -403,6 +403,7 @@ td {
   border-top-right-radius: 50px;
   border: black solid;
   border-bottom: none;
+  height: 40px;
 }
 #button1:hover {
   transition: 0.3s ease;
