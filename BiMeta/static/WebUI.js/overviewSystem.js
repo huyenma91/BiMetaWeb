@@ -4,9 +4,6 @@ function readyOverview(overviewData,time){
     document.getElementById('overview').innerHTML+=`<p>File name : ${processedFile}</p>`;
     document.getElementById('overview').innerHTML+=`<p>Run at : ${time}</p>`;
     document.getElementById('overview').innerHTML+=`<b>Perform evaluation : </b>`;
-    // document.getElementById('overview').innerHTML+=`<p>F-measure : ${overviewData.Fmeasure}</p>`;
-    // document.getElementById('overview').innerHTML+=`<p>Recall : ${overviewData.Recall}</p>`;
-    // document.getElementById('overview').innerHTML+=`<p>Precision : ${overviewData.Precision}</p>`;
     document.getElementById('overview').innerHTML+=`<ul><li>F-measure : ${overviewData.Fmeasure}</li>`;
     document.getElementById('overview').innerHTML+=`<li>Recall : ${overviewData.Recall}</li>`;
     document.getElementById('overview').innerHTML+=`<li>Precision : ${overviewData.Precision}</li></ul>`;

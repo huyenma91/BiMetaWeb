@@ -23,7 +23,7 @@ function readyOverview(overviewData,fileXml,params,time){
     document.getElementById('overview').innerHTML+=`<b>K-clusters : </b>`; 
     var kNumber= `${params.kNumber}`;
     console.log('kNumber :',kNumber)
-    if (kNumber!='null'){
+    if (kNumber!='false'){
         console.log('vao')
         document.getElementById('overview').innerHTML+=`<p>Number of cluster : ${params.kNumber}</p>`;
     }

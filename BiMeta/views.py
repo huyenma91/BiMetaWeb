@@ -76,7 +76,7 @@ def system(request):
             try:
                 kNumber = request.POST.get('kNumber')
                 if kNumber == "":
-                    kNumber = None
+                    kNumber = "false"
             except Exception as e:
                 print(e)
             paramData = {'params': {'kmer': kmer, 'lofqmer': lofqmer,
@@ -149,6 +149,7 @@ def system(request):
                          request.session['user']+'/history/'+request.session['time'])
 
             print(f'2st: {request.session["time"]}')
+            history_path='/home/phuong/ServerWeb/BiMeta/userFolder/' + request.session['user'] + '/history/'+request.session['time']
             rc = subprocess.Popen("cd $HOME/ServerWeb/BiMeta/BimetaCode && bash run.sh" +
                                   " "+fileChoose+" "+request.session['user'], shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
 
@@ -187,6 +188,7 @@ def system(request):
                     request.session['user']+'/history/'+request.session['time'])
         addGraphJson(data, '/home/phuong/ServerWeb/BiMeta/userFolder/' +
                      request.session['user'] + '/history/'+request.session['time'])
+        history_path='/home/phuong/ServerWeb/BiMeta/userFolder/' + request.session['user'] + '/history/'+request.session['time']
         rc = subprocess.Popen("cd $HOME/ServerWeb/BiMeta/BimetaCode && bash run.sh" +
                               " "+fileName+" "+request.session['user'], shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
 
