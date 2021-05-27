@@ -85,42 +85,45 @@ def system(request):
             time = getCurrentTime()[1]
             try:
                 print(f'1st: {request.session["time"]}')
-                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+request.session['time']+'.json', 'w+', encoding='utf-8') as json_file:
+                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+request.session['time']+'.json', 'w+', encoding='utf-8') as json_file:
                     json.dump(paramData, json_file,
                               ensure_ascii=False, indent=4)
             except Exception as e:
                 print(e)
-            addStepJson(steps, '/home/phuong/ServerWeb/BiMeta/userFolder/' +
+            addStepJson(steps, '/home/tnhan/ServerWeb/BiMeta/userFolder/' +
                         request.session['user']+'/history/'+request.session['time'])
-            addTimeJson(time, '/home/phuong/ServerWeb/BiMeta/userFolder/' +
+            addTimeJson(time, '/home/tnhan/ServerWeb/BiMeta/userFolder/' +
                         request.session['user']+'/history/'+request.session['time'])
+            nodeGraph=request.session['time']+'.png'
+            addNodeGraphJson(nodeGraph, '/home/tnhan/ServerWeb/BiMeta/userFolder/' +
+                        request.session['user']+ '/history/'+request.session['time'])
             return HttpResponse('yeah')
         elif request.POST.get('method') == 'showdata':
             resultObject = {}
             try:
-                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+request.session["time"]+'.json') as json_file:
+                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+request.session["time"]+'.json') as json_file:
                     dataBar = json.load(json_file)["graph"]
             except Exception as e:
                 dataBar = []
             try:
-                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+request.session["time"]+'.json') as json_file:
+                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+request.session["time"]+'.json') as json_file:
                     overview = json.load(json_file)["overview"]
             except Exception as e:
                 overview = []
             try:
-                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+request.session["time"]+'.json') as json_file:
+                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+request.session["time"]+'.json') as json_file:
                     time = json.load(json_file)["time"]
             except Exception as e:
                 time = []
             #find nodeGrpah name
             try:
-                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+request.session["time"]+'.json') as json_file:
+                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+request.session["time"]+'.json') as json_file:
                     nodeGraphFile = json.load(json_file)["nodeGraph"]
             except Exception as e:
                 nodeGraphFile = ""
             #send nodeGraph base64 to system.js
             try:
-                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/graph/'+nodeGraphFile, 'rb') as img_file:
+                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/graph/'+nodeGraphFile, 'rb') as img_file:
                     nodeGraph = base64.b64encode(img_file.read()).decode('utf-8')
             except Exception as e:
                 nodeGraph=[]
@@ -143,15 +146,14 @@ def system(request):
 
             data = load_meta_reads(
                 'BiMeta/userFolder/'+request.session['user']+'/input/'+fileChoose)
-            addFileJson(fileChoose, '/home/phuong/ServerWeb/BiMeta/userFolder/' +
+            addFileJson(fileChoose, '/home/tnhan/ServerWeb/BiMeta/userFolder/' +
                         request.session['user']+'/history/'+request.session['time'])
-            addGraphJson(data, '/home/phuong/ServerWeb/BiMeta/userFolder/' +
+            addGraphJson(data, '/home/tnhan/ServerWeb/BiMeta/userFolder/' +
                          request.session['user']+'/history/'+request.session['time'])
 
             print(f'2st: {request.session["time"]}')
-            history_path='/home/phuong/ServerWeb/BiMeta/userFolder/' + request.session['user'] + '/history/'+request.session['time']
-            rc = subprocess.Popen("cd $HOME/ServerWeb/BiMeta/BimetaCode && bash run.sh" +
-                                  " "+fileChoose+" "+request.session['user'], shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+            history_path='/home/tnhan/ServerWeb/BiMeta/userFolder/' + request.session['user'] + '/history/'+request.session['time']+'.json'
+            rc = subprocess.Popen("cd $HOME/ServerWeb/BiMeta/BimetaCode && bash run.sh" + " "+history_path + " "+request.session['user'] + " " + str(len(data)), shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
 
             # rc = None
             # output = rc.stderr.read()
@@ -170,8 +172,8 @@ def system(request):
             print('done')
             # if A is not None:
             #     print('rc tra ve')
-            #     overview = readjson("/home/phuong/ServerWeb/BiMeta/jsonData")
-            #     addOverviewJson(overview, '/home/phuong/ServerWeb/BiMeta/userFolder/'+ request.session['user'] +'/history/'+request.session['time'])
+            #     overview = readjson("/home/tnhan/ServerWeb/BiMeta/jsonData")
+            #     addOverviewJson(overview, '/home/tnhan/ServerWeb/BiMeta/userFolder/'+ request.session['user'] +'/history/'+request.session['time'])
             return response
 
     elif request.method == 'POST' and 'file' in request.FILES:
@@ -184,13 +186,12 @@ def system(request):
 
         data = load_meta_reads('BiMeta/userFolder/' +
                                request.session['user']+'/input/'+fileName)
-        addFileJson(fileName, '/home/phuong/ServerWeb/BiMeta/userFolder/' +
+        addFileJson(fileName, '/home/tnhan/ServerWeb/BiMeta/userFolder/' +
                     request.session['user']+'/history/'+request.session['time'])
-        addGraphJson(data, '/home/phuong/ServerWeb/BiMeta/userFolder/' +
+        addGraphJson(data, '/home/tnhan/ServerWeb/BiMeta/userFolder/' +
                      request.session['user'] + '/history/'+request.session['time'])
-        history_path='/home/phuong/ServerWeb/BiMeta/userFolder/' + request.session['user'] + '/history/'+request.session['time']
-        rc = subprocess.Popen("cd $HOME/ServerWeb/BiMeta/BimetaCode && bash run.sh" +
-                              " "+fileName+" "+request.session['user'], shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+        history_path='/home/tnhan/ServerWeb/BiMeta/userFolder/' + request.session['user'] + '/history/'+request.session['time']+'.json'
+        rc = subprocess.Popen("cd $HOME/ServerWeb/BiMeta/BimetaCode && bash run.sh" + " "+history_path + " "+request.session['user'] + " " + str(len(data)), shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
 
         # rc = None
 
@@ -205,8 +206,8 @@ def system(request):
         print('done')
         # if A is not None:
         #     print('rc tra ve')
-        #     overview = readjson("/home/phuong/ServerWeb/BiMeta/jsonData")
-        #     addOverviewJson(overview, '/home/phuong/ServerWeb/BiMeta/userFolder/'+ request.session['user'] +'/history/'+request.session['time'])
+        #     overview = readjson("/home/tnhan/ServerWeb/BiMeta/jsonData")
+        #     addOverviewJson(overview, '/home/tnhan/ServerWeb/BiMeta/userFolder/'+ request.session['user'] +'/history/'+request.session['time'])
         return response
     else:
         return render(request, 'pages/system.html')
@@ -306,20 +307,20 @@ def project(request):
             resultObject = {}
             fileName = request.POST.get('json')
             try:
-                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
+                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
                     dataBar = json.load(json_file)["graph"]
             except Exception as e:
                 dataBar = []
             try:
-                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
+                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
                     overview = json.load(json_file)["overview"]
                     print('day overview ;', overview)
-                    # fmeasure = overview["Fmeasure"]
-                    # recall = overview["Recall"]
-                    # precision = overview["Precision"]
-                    fmeasure = None
-                    recall = None
-                    precision = None
+                    fmeasure = overview["Fmeasure"]
+                    recall = overview["Recall"]
+                    precision = overview["Precision"]
+                    # fmeasure = None
+                    # recall = None
+                    # precision = None
             except Exception as e:
                 print('cannot get value')
                 overview = []
@@ -327,29 +328,29 @@ def project(request):
                 recall = None
                 precision = None
             try:
-                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
+                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
                     params = json.load(json_file)["params"]
             except Exception as e:
                 params = []
             try:
-                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
+                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
                     fileJson = json.load(json_file)["file"]
             except Exception as e:
                 fileJson = []
             try:
-                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
+                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
                     time = json.load(json_file)["time"]
             except Exception as e:
                 time = []
              #find nodeGrpah name
             try:
-                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
+                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/history/'+fileName) as json_file:
                     nodeGraphFile = json.load(json_file)["nodeGraph"]
             except Exception as e:
                 nodeGraphFile = ""
             #send nodeGraph base64 to system.js
             try:
-                with open('/home/phuong/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/graph/'+nodeGraphFile, 'rb') as img_file:
+                with open('/home/tnhan/ServerWeb/BiMeta/userFolder/'+request.session['user']+'/graph/'+nodeGraphFile, 'rb') as img_file:
                     nodeGraph = base64.b64encode(img_file.read()).decode('utf-8')
             except Exception as e:
                 nodeGraph=[]
@@ -407,12 +408,11 @@ def generateStreamingLog(rc, usersession, timesession, _callback=None):
         data = line.decode("utf-8")
         yield data
     time_process = (time.time() - start_time)
+    yield "\n"
     yield "Processing time: " + str(time_process) + " seconds."
     if _callback:
         print('ghi de vao Jsonnnnnnnnn')
-        overview = readjson("/home/phuong/ServerWeb/BiMeta/jsonData")
-        addOverviewJson(overview, '/home/phuong/ServerWeb/BiMeta/userFolder/' +
+        overview = readjson("/home/tnhan/ServerWeb/BiMeta/jsonData")
+        addOverviewJson(overview, '/home/tnhan/ServerWeb/BiMeta/userFolder/' +
                         usersession + '/history/'+timesession)
-        nodeGraph="12_02_45_78_67_00.png"
-        addNodeGraphJson(nodeGraph, '/home/phuong/ServerWeb/BiMeta/userFolder/' +
-                        usersession + '/history/'+timesession)
+       

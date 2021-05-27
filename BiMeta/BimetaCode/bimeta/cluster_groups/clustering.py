@@ -157,7 +157,7 @@ def assign_cluster_2_reads( groups, y_grp_cl ):
     return y_cl
 
 
-def evalQuality(y_true, y_pred, n_clusters=args.species):
+def evalQuality(y_true, y_pred, n_clusters=int(args.species)):
     A = confusion_matrix(y_pred, y_true)
     if len(A) == 1:
       return 1, 1
@@ -173,7 +173,7 @@ execute_time = (datetime.now() - start_time).total_seconds()
 
 labels = read_labels(args.labels)
 prec, rcal = evalQuality(labels, kmer_clustering, n_clusters = int(args.species))
-print('K-mer (group): Prec = %.4f, Recall = %.4f, F1 = %.4f' % (prec, rcal, 2.0/(1.0/prec+1.0/rcal)))
+sys.stderr.write('K-mer (group): Prec = %.4f, Recall = %.4f, F1 = %.4f' % (prec, rcal, 2.0/(1.0/prec+1.0/rcal)))
 
 F1 = 2 * (prec * rcal) / (prec + rcal)
 
