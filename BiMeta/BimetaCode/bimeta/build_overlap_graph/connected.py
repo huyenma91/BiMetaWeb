@@ -9,6 +9,7 @@ from pandas.core.common import flatten
 import argparse
 import seaborn as sns
 import json
+from random import randint
 
 # sys.path.append("../")  # Add "../" to utils folder path
 # from utils import globals
@@ -127,7 +128,7 @@ def save_file_hdfs(GL, session, path):
     rdd_list = session.sparkContext.parallelize(GL)
 
     # Use the map function to write one element per line and write all elements to a single file (coalesce)
-    rdd_list.coalesce(1).map(lambda row: str(row)).saveAsTextFile(path)
+    rdd_list.coalesce(1).map(lambda row: str(row)).saveAsTextFile(path)#+"/"+str(randint(1, 50)))
 
 
 GL, spark, g = get_connected_components(args.vertices, args.edges, args.checkpoint, args.num_reads)

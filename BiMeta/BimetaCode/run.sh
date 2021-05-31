@@ -214,13 +214,28 @@ bimeta/build_overlap_graph/visualize_graph.py \
 
 if [ "$STEP_2_2" = "true" ]
 then
+    # spark-submit --packages graphframes:graphframes:0.8.1-spark3.0-s_2.12 \
+    # bimeta/build_overlap_graph/connected.py \
+    # --vertices $OUT_FLR_WEB/OutStep_1_1 \
+    # --edges $OUT_FLR_WEB/OutStep_2_1 \
+    # --checkpoint $OUT_HDFS/graphframes_cps \
+    # --output $OUT_HDFS/graphframes_cps/2 \
+    # --num_reads $NUM_SHARED_READS
+
     spark-submit --packages graphframes:graphframes:0.8.1-spark3.0-s_2.12 \
-    bimeta/build_overlap_graph/connected.py \
-    --vertices $OUT_FLR_WEB/OutStep_1_1 \
-    --edges $OUT_FLR_WEB/OutStep_2_1 \
+    --master yarn \
+    --deploy-mode cluster \
+    --conf spark.pyspark.virtualenv.enabled=true \
+    --conf spark.pyspark.virtualenv.type=native \
+    --conf spark.pyspark.virtualenv.bin.path=$HOME/thesisEnv/bin \
+    --conf spark.pyspark.python=$HOME/thesisEnv/bin/python3 \
+    --files $HOME/ServerWeb/BiMeta/userFolder/$USR_SESSION/output/OutStep_1_1,$HOME/ServerWeb/BiMeta/userFolder/$USR_SESSION/output/OutStep_2_1 \
+    /home/tnhan/ServerWeb/BiMeta/BimetaCode/bimeta/build_overlap_graph/connected.py \
+    --vertices OutStep_1_1 \
+    --edges OutStep_2_1 \
     --checkpoint $OUT_HDFS/graphframes_cps \
     --output $OUT_HDFS/graphframes_cps/2 \
-    --num_reads $NUM_SHARED_READS
+    --num_reads 45
 
     hdfs dfs -get $OUT_HDFS/graphframes_cps/2/part-00000 $OUT_FLR_WEB
     mv $OUT_FLR_WEB/part-00000 $OUT_FLR_WEB/OutStep_2_2
@@ -252,13 +267,33 @@ echo "" >&2
 
 if [ "$STEP_3" = "true" ]
 then
-    spark-submit bimeta/cluster_groups/kmeans.py \
-    --group $OUT_FLR_WEB/OutStep_2_2 \
-    --corpus $OUT_FLR_WEB/OutStep_1_3 \
-    --dictionary $FOL_LCL_PATH/dictionary.pkl \
+    # spark-submit bimeta/cluster_groups/kmeans.py \
+    # --group $OUT_FLR_WEB/OutStep_2_2 \
+    # --corpus $OUT_FLR_WEB/OutStep_1_3 \
+    # --dictionary $FOL_LCL_PATH/dictionary.pkl \
+    # --species $NUM_OF_SPECIES \
+    # --labels $OUT_FLR_WEB/OutStep_1_1 \
+    # --time $JSON_FLR_WEB/$OVERVIEW
+
+    spark-submit \
+    --master yarn \
+    --deploy-mode cluster \
+    --conf spark.pyspark.virtualenv.enabled=true \
+    --conf spark.pyspark.virtualenv.type=native \
+    --conf spark.pyspark.virtualenv.bin.path=$HOME/thesisEnv/bin \
+    --conf spark.pyspark.python=$HOME/thesisEnv/bin/python3 \
+    --files $OUT_FLR_WEB/OutStep_1_1,$OUT_FLR_WEB/OutStep_1_3,$OUT_FLR_WEB/OutStep_2_2,$HOME/Documents/dictionary.pkl \
+    /home/tnhan/ServerWeb/BiMeta/BimetaCode/bimeta/cluster_groups/kmeans.py \
+    --group OutStep_2_2 \
+    --corpus OutStep_1_3 \
+    --dictionary dictionary.pkl \
     --species $NUM_OF_SPECIES \
-    --labels $OUT_FLR_WEB/OutStep_1_1 \
-    --time $JSON_FLR_WEB/$OVERVIEW
+    --labels OutStep_1_1 \
+    --time $OUT_HDFS/output_3
+
+    hdfs dfs -get $OUT_HDFS/output_3/part-00000 $OUT_FLR_WEB
+    mv $OUT_FLR_WEB/part-00000 $OUT_FLR_WEB/OutStep_3
+
 else
     python bimeta/cluster_groups/clustering.py \
     --group $OUT_FLR_WEB/OutStep_2_2 \
@@ -269,6 +304,10 @@ else
     --time $JSON_FLR_WEB/$OVERVIEW
 fi
 # End----------------------------------------------------------------------
+
+python bimeta/utils/read_json.py \
+--overview $OUT_FLR_WEB/OutStep_3 \
+--time $JSON_FLR_WEB/$OVERVIEW
 
 # Clean HDFS
 hdfs dfs -rm /user/$IN_FILE_NAME
