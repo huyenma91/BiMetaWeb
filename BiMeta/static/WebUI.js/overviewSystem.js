@@ -12,6 +12,7 @@ function readyOverview(overviewData,time){
     document.getElementById('overview').innerHTML+=`<li>Step_1_2 : ${overviewData.Step_1_2} sec</li>`;
     document.getElementById('overview').innerHTML+=`<li>Step_1_3 : ${overviewData.Step_1_3} sec</li>`;
     document.getElementById('overview').innerHTML+=`<li>Step_2_1 : ${overviewData.Step_2_1} sec</li>`;
-    document.getElementById('overview').innerHTML+=`<li>Step_2_2 : ${overviewData.Step_2_2} sec</li></ul>`;
+    document.getElementById('overview').innerHTML+=`<li>Step_2_2 : ${overviewData.Step_2_2} sec</li>`;
+    document.getElementById('overview').innerHTML+=`<li>Step_3 : ${overviewData.Step_3} sec</li></ul>`;
     document.getElementById('overview').innerHTML+=`<p>Time estimate: ${overviewData.Execution}</p>`;
 }
