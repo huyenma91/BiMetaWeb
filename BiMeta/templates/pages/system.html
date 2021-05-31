@@ -109,7 +109,10 @@
                         <p class="body_section3_title bold">Output</p>
                     </div>
                     <div class="area4_1 row">
-                        <p class="body_section4_title col bold" min="1">Number of cluster k:</p>
+                        <div class="col" style="display: flex;">
+                            <p class="body_section4_title bold" min="1">Number of cluster k:</p>
+                        <button id="button_kcluster" class="show-info" type="button"><i class="fa fa-info"></i></button>
+                        </div>
                         <div class="col">
                             <select id="kOption" onchange="check()">
                                 <option>Yes</option>
@@ -117,9 +120,8 @@
                             </select>
                             <input id="kNumber" class="kNumber" type="number" min="1" disabled>
                         </div>
-
                     </div>
-                    <div class="area4_1 row">
+                    <!-- <div class="area4_1 row">
                         <p class="body_section4_title col bold" min="1">Store output information:</p>
                         <div class="col">
                             <select id="historyStoreOption">
@@ -127,7 +129,20 @@
                                 <option>No</option>
                             </select>
                         </div>
-
+                    </div> -->
+                    <div class="area4_1 row">
+                        <div class="col" style="display: flex;">
+                            <p class="body_section4_title bold" min="1">Graph visualize layout:</p>
+                            <button id="button_layout" class="show-info" type="button"><i class="fa fa-info"></i></button>
+                        </div>     
+                        <div class="col">
+                            <select id="graphLayout">
+                                <option value="circle" selected>Layout_circle</option>
+                                <option value="drl">Layout_drl</option>
+                                <option value="fr">Layout_fruchterman_reingold</option>
+                                <option value="fr3d">Layout_fruchterman_reingold_3d</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <br><br>
@@ -304,6 +319,18 @@
                         system.
                     </p>
                 </div>
+                <div id="info_kcluster" class="boxed-icon">
+                    <img src="{% static 'images/kcluster.jpeg' %}" style="width: 80px;height: 50px;" alt="" class="icon">
+                    <h2 style="color: #8e9ca5;">Number of cluster k</h2>
+                    <p style="color: #8e9ca5;">Define the number of clusters that you want to separate from the dataset file.
+                    </p>
+                </div>
+                <div id="info_layout" class="boxed-icon">
+                    <img src="{% static 'images/node_graph_example.png' %}" style="width: 50px;height: 50px;" alt="" class="icon">
+                    <h2 style="color: #8e9ca5;">Graph Visualize Layout</h2>
+                    <p style="color: #8e9ca5;">Choose the graph visualize style.
+                    </p>
+                </div>
             </div>
         </div>
 
@@ -316,7 +343,7 @@
                     <li class="step step_main">
                         <div class="node green"></div>
                         <p style="font-size: 15px;">Step 1.1 (MR): load_read</p>
-                        <div class="loadingStep1"></div>
+                        <!-- <div class="loadingStep1"></div> -->
                         <div style="display: inline; float: inline-end;">
                             <input type="radio" name="step1" id="sequence1" value="false" />
                             <label style="font-size: 15px;" for="sequence1" >Sequence</label>
@@ -332,7 +359,7 @@
                     <li class="step step_main">
                         <div class="node grey"></div>
                         <p style="font-size: 15px;">Step 1.2: create_dictionary & create_document</p>
-                        <div class="loadingStep2"></div>
+                        <!-- <div class="loadingStep2"></div> -->
                         <div style="display: inline; float: inline-end;">
                             <input type="radio" name="step2" id="sequence2" value="false" />
                             <label style="font-size: 15px;" for="sequence2">Sequence</label>
@@ -347,7 +374,7 @@
                     <li class="step step_main">
                         <div class="node grey"></div>
                         <p style="font-size: 15px;">Step 1.3 (local): create_corpus</p>
-                        <div class="loadingStep3"></div>
+                        <!-- <div class="loadingStep3"></div> -->
                         <div style="display: inline; float: inline-end;">
                             <input type="radio" name="step3" id="sequence3" value="false" />
                             <label style="font-size: 15px;" for="sequence3">Sequence</label>
@@ -362,7 +389,7 @@
                     <li class="step step_main">
                         <div class="node grey"></div>
                         <p style="font-size: 15px;">Step 2.1 (MR): build_over_lap</p>
-                        <div class="loadingStep4"></div>
+                        <!-- <div class="loadingStep4"></div> -->
                         <div style="display: inline; float: inline-end;">
                             <input type="radio" name="step4" id="sequence4" value="false" />
                             <label style="font-size: 15px;" for="sequence">Sequence</label>
@@ -377,7 +404,7 @@
                     <li class="step step_main">
                         <div class="node grey"></div>
                         <p style="font-size: 15px;">Step 2.2 (MR): Connect Nodes</p>
-                        <div class="loadingStep5"></div>
+                        <!-- <div class="loadingStep5"></div> -->
                         <div style="display: inline; float: inline-end;">
                             <input type="radio" name="step5" id="sequence5" value="false" />
                             <label style="font-size: 15px;" for="sequence">Sequence</label>
@@ -392,7 +419,7 @@
                     <li class="step step_main">
                         <div class="node grey"></div>
                         <p style="font-size: 15px;">Step 3 (Spark): K-means</p>
-                        <div class="loadingStep6"></div>
+                        <!-- <div class="loadingStep6"></div> -->
                         <div style="display: inline; float: inline-end;">
                             <input type="radio" name="step6" id="sequence6" value="false" />
                             <label style="font-size: 15px;" for="sequence6">Sequence</label>
@@ -410,7 +437,7 @@
                 <!-- <input type="button" value="Next" id="next" onclick="greenOn()" /> -->
                 <!-- <input type="button" value="Clear" id="clear" /> -->
             </div>
-            <div id="settingBtn" style="width: 20%;height: 400px;">
+            <div id="settingBtn" style="width: 10%;height: 400px;">
                 <button id="button1" class="" onclick="settingClick()">Open Setting Panel</button>
             </div>
 
@@ -467,6 +494,16 @@
     const info_maxcomp = document.getElementById('info_maxcomp');
     tippy('#button_maxcomp', {
         content: info_maxcomp,
+        trigger: 'click',
+    });
+    const info_kcluster = document.getElementById('info_kcluster');
+    tippy('#button_kcluster', {
+        content: info_kcluster,
+        trigger: 'click',
+    });
+    const info_layout = document.getElementById('info_layout');
+    tippy('#button_layout', {
+        content: info_layout,
         trigger: 'click',
     });
 </script>

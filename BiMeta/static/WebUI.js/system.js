@@ -19,6 +19,7 @@ function save() {
   console.log("step5 :", step5);
   console.log("step6 :", step6);
   console.log("--------------");
+  alert('Saved')
 }
 
 dataNode = document.getElementById("neatdata");
@@ -104,6 +105,7 @@ var kmer,
   maxcomp,
   numtasks,
   kNumber,
+  graphLayout,
   getFile = null;
 var getFileFlag = false;
 var outputFlag = false;
@@ -115,7 +117,7 @@ function getValue(event) {
   sharereads = document.getElementById("sharereads").value;
   maxcomp = document.getElementById("maxcomp").value;
   kNumber = document.getElementById("kNumber").value;
-  console.log("gia tri kNumber :", kNumber);
+  graphLayout = document.getElementById("graphLayout").value;
   var getFile = document.getElementById("file").files[0];
   if (
     kmer != undefined &&
@@ -325,6 +327,8 @@ function onFormSubmit(event) {
     maxcomp +
     "&kNumber=" +
     kNumber +
+    "&graphLayout=" +
+    graphLayout +
     "&step1=" +
     step1 +
     "&step2=" +
