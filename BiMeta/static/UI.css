@@ -247,7 +247,7 @@ td {
   height: 80%;
 }
 .box {
-  border: black 1px solid;
+  border: rgb(105, 172, 199) 5px solid;
 }
 
 .title_box {
@@ -303,7 +303,8 @@ td {
   height: 80vh;
   width: 70vw;
   left: 15vw;
-  border-radius: 10%;
+  border-radius: 20px;
+  border: rgb(105, 172, 199) 10px solid;
 }
 
 .toggleOutput_Overview {
@@ -313,7 +314,8 @@ td {
   height: 50vh;
   width: 40vw;
   left: 30vw;
-  border-radius: 10%;
+  border-radius: 20px;
+  border: rgb(105, 172, 199) 10px solid;
 }
 
 .kmer.invalid + .error-message {
@@ -386,6 +388,9 @@ td {
   width: 100%;
 }
 #historyStoreOption {
+  width: 100%;
+}
+#graphLayout{
   width: 100%;
 }
 
