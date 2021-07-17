@@ -2,6 +2,8 @@
 {% include 'pages/header.html' %}
 
 <div class="site-content">
+    <div id="niceBG">
+    </div>
     <div class="hero">
         <ul class="slides">
             <li data-bg-image="{% static 'images/slider-1.jpg' %}">
@@ -49,15 +51,15 @@
                             <img src="static/images/icon-research-small.png" alt="" class="feature-image">
                             <h2 class="feature-title">BiMeta</h2>
                             <p> An unsupervised algorithm, called BiMeta, for binning of reads from different species in a metagenomic dataset...</p>
-                            <a href="" class="button">Learn more</a>
+                            <a href="https://almob.biomedcentral.com/articles/10.1186/s13015-014-0030-4" class="button">Learn more</a>
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <div class="feature" style="background-color: white;">
                             <img src="static/images/icon-energy-small.png" alt="" class="feature-image">
                             <h2 class="feature-title">Hadoop</h2>
-                            <p>Laborum et dolorum fuga harum quidem rerum facilis et expedita distinctio nam libero tempore.</p>
-                            <a href="" class="button">Learn more</a>
+                            <p>The Apache Hadoop software library is a framework that allows for the distributed processing of large data sets...</p>
+                            <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwj4icCz0urxAhUUw4sBHe-0BXUQFjAAegQIBxAD&url=http%3A%2F%2Fgrut-computing.com%2FHadoopBook.pdf&usg=AOvVaw0Ix82ls7HS37apdO5_tPD3" class="button">Learn more</a>
                         </div>
                     </div>
                 </div>
@@ -65,14 +67,14 @@
         </div>
 
 </div>
-<div class="page-head" data-bg-image="{% static 'images/corona.jpg' %}" style="background-position-y: center;" id="system">
+<div class="page-head" data-bg-image="{% static 'images/corona.jpg' %}" style="position: relative;background-position-y: center;z-index: 1;" id="system">
     <div class="container" style="background-color: rgba(120, 120, 120,0.5);">
         <h2 class="page-title">Corona-virus Impact</h2>
-        <small>The below coronavirus statistic show the current case of having covid of each country! </small>
+        <small>The below coronavirus statistic show the current case of having covid of VIETNAM. </small>
     </div>
 </div>
 
-<div>
+<!-- <div>
     <select id="continent" class="form-select" aria-label="Default select example">
         <option selected class="option_continent" value="Asia">Asia</option>
         <option class="option_continent" value="Africa">Africa</option>
@@ -80,12 +82,12 @@
         <option class="option_continent" value="North America">North America</option>
         <option class="option_continent" value="South America">South America</option>
         <option class="option_continent" value="Australia">Australia</option>
-        <!-- <option value="Antarctica">Antarctica</option> -->
     </select>
     <div class="lollipopdiv"></div>
-</div>
+</div> -->
 
-<div class="fullwidth-block" data-bg-color="#edf2f4">
+<div class="lollipopdiv" style="position: relative;"></div>
+<div class="fullwidth-block" data-bg-color="#edf2f4" style="position: relative;">
     <div class="container">
         <div class="subscribe-form">
             <h2>Join our newsletter</h2>
@@ -100,7 +102,7 @@
 </main>
 <!-- .main-content -->
 
-<footer class="site-footer">
+<footer class="site-footer" style="position: relative;background-color: white;" >
     <div class="container">
         <div class="row">
             <div class="col-md-4">
@@ -112,18 +114,6 @@
                     <a href="mailto:NPH@gmail.com">NPH@gmail.com</a>
                 </div>
             </div>
-            <!-- <div class="col-md-3">
-                <div class="widget">
-                    <h3 class="widget-title">Press room</h3>
-                    <ul class="arrow-list">
-                        <li><a href="#">Accusantium doloremque</a></li>
-                        <li><a href="#">Laudantium totam aperiam</a></li>
-                        <li><a href="#">Eaque ipsa quae illo inventore</a></li>
-                        <li><a href="#">Veritatis et quasi architecto</a></li>
-                        <li><a href="#">Vitae dicta sunt explicabo</a></li>
-                    </ul>
-                </div>
-            </div> -->
             <div class="col-md-4">
                 <div class="widget">
                     <h3 class="widget-title">Research summary</h3>

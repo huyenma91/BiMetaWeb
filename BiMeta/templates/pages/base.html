@@ -10,9 +10,11 @@
     <link rel="stylesheet" href="{% static 'stepBar.css' %}">
     <link rel="stylesheet" href="{% static 'UI.css' %}">
     <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'wrapper.css' %}">
+    <link rel="stylesheet" href="{% static 'loaderPage.css' %}">
     <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,700|" rel="stylesheet" type="text/css">
     <link href="{% static 'fonts/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
-    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" />
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
     <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
 
@@ -26,6 +28,88 @@
 </head>
 
 <body>
+    <div id="loading">
+
+        <div class="covid-wrapper">
+            <div class="viruses">
+                <div class="virus"></div>
+                <div class="virus"></div>
+                <div class="virus"></div>
+                <div class="virus"></div>
+                <div class="virus"></div>
+                <div class="virus"></div>
+                <div class="virus"></div>
+                <div class="virus"></div>
+                <div class="virus"></div>
+                <div class="virus"></div>
+            </div>
+            <div class="covid-arms"></div>
+            <div class="covid-arms right"></div>
+            <div class="earth-wrapper">
+                <div class="earth-detail"></div>
+                <div class="earth">
+                    <div class="covid-eyes earth-eyes"></div>
+                    <div class="covid-eyes earth-eyes left"></div>
+                    <div class="mask"></div>
+                    <div class="mask-wrapper"></div>
+                    <div class="mask-detail"></div>
+                    <div class="mask-back"></div>
+                    <div class="earth-green">
+                        <div class="earth-greens"></div>
+                        <div class="earth-greens"></div>
+                        <div class="earth-greens"></div>
+                        <div class="earth-greens"></div>
+                        <div class="earth-greens"></div>
+                        <div class="earth-greens"></div>
+                        <div class="earth-greens"></div>
+                        <div class="earth-greens"></div>
+                        <div class="earth-greens"></div>
+                        <div class="earth-greens"></div>
+                        <div class="earth-greens"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="covid">
+                <div class="covid-spots">
+                    <div class="covid-spot"></div>
+                    <div class="covid-spot"></div>
+                    <div class="covid-spot"></div>
+                    <div class="covid-spot"></div>
+                    <div class="covid-spot"></div>
+                    <div class="covid-spot"></div>
+                    <div class="covid-spot"></div>
+                    <div class="covid-spot"></div>
+                    <div class="covid-spot"></div>
+                    <div class="covid-spot"></div>
+                    <div class="covid-spot"></div>
+                </div>
+                <div class="covid-eyes"> </div>
+                <div class="covid-eyes left"></div>
+                <div class="covid-eyebrow"></div>
+                <div class="covid-eyebrow right"></div>
+                <div class="covid-mouth"></div>
+                <div class="covid-cheek"></div>
+                <div class="covid-cheek right"></div>
+            </div>
+        </div>
+        <div class="covid-pulse">
+            <div class="covid-sticks">
+                <div class="covid-stick"></div>
+                <div class="covid-stick"></div>
+                <div class="covid-stick"></div>
+                <div class="covid-stick"></div>
+                <div class="covid-stick"></div>
+                <div class="covid-stick"></div>
+                <div class="covid-stick"></div>
+                <div class="covid-stick"></div>
+                <div class="covid-stick"></div>
+                <div class="covid-stick"></div>
+                <div class="covid-stick"></div>
+                <div class="covid-stick"></div>
+                <div class="covid-stick"></div>
+            </div>
+        </div>
+    </div>
     <div class="body_background">
         {% comment %}
         <div class="container-fluid">
@@ -34,10 +118,18 @@
                     <img src="{% static 'images/LogoBK.png' %}" class="reponsive-img" style="height:150px">
                 </div>
             </div>
-        </div> {% endcomment %} 
+        </div> {% endcomment %}
         {% block content %} {% endblock %}
     </div>
-
+    <script>
+        // $(window).load(function () {
+        //     $('#loading').hide();
+        // });
+        $(window).on('load', function (event) {
+            $('#loading').delay(100).fadeOut(2000);
+        });
+    </script>
 </body>
+
 
 </html>
