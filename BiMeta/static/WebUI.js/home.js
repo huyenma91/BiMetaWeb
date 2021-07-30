@@ -26,24 +26,25 @@ $.ajax({
   }
 })
 
-var continent = document.getElementById("continent").value;
+// var continent = document.getElementById("continent").value;
 
-$('#continent').change(async function(){
-    continent = $('#continent').val();
-    console.log(continent)
-    await lollipopChart(globalData,Object.values(Region[continent]));
-})
+// $('#continent').change(async function(){
+//     continent = $('#continent').val();
+//     console.log(continent)
+//     await lollipopChart(globalData,Object.values(Region[continent]));
+// })
 
 var globalData;
 // async function getData() {
 //     let data = (await fetch('https://api.covid19api.com/summary')).json()
 //     return data;
 // }
-fetch('https://api.covid19api.com/summary')
+fetch('https://corona.lmao.ninja/v2/countries/vn')
   .then(response => response.json())
   .then(data => {
     globalData = data  
-    lollipopChart(data,Object.values(Region[continent]));
+    // lollipopChart(data,Object.values(Region[continent]));
+    lollipopChart(data);
   }
 );
 // getData().then(data => globalData = data).then(console.log('asdasd', globalData))

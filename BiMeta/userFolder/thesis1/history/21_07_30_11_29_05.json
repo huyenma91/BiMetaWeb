@@ -1,0 +1,48 @@
+{
+    "params": {
+        "kmer": "4",
+        "lofqmer": "30",
+        "sharereads": "45",
+        "maxcomp": "400",
+        "kNumber": "false"
+    },
+    "steps": {
+        "Step1": "false",
+        "Step2": "false",
+        "Step3": "false",
+        "Step4": "false",
+        "Step5": "false",
+        "Step6": "false"
+    },
+    "time": "21-07-30 11:29:05",
+    "nodeGraph": "21_07_30_11_29_05.png",
+    "file": "R4_test_overlap.fna",
+    "graph": [
+        {
+            "species": 1,
+            "number": 5,
+            "code": "15668172",
+            "name": "\"Methanocaldococcus jannaschii DSM 2661 chromosome\"",
+            "color": "#1f77b4"
+        },
+        {
+            "species": 2,
+            "number": 2,
+            "code": "134045046",
+            "name": "\"Methanococcus maripaludis C5 chromosome\"",
+            "color": "#ff7f0e"
+        }
+    ],
+    "overview": {
+        "Step_1_1": "15.432",
+        "Step_1_2": "17.980",
+        "Step_1_3": "18.216",
+        "Step_2_1": "15.996",
+        "Step_2_2": "67.746",
+        "Step_3": "0.150866",
+        "Precision": 0.8571428571428571,
+        "Recall": 0.8571428571428571,
+        "Fmeasure": 0.8571428571428571,
+        "Execution": 135.520866
+    }
+}

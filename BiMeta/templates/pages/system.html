@@ -8,7 +8,11 @@
             <small>The left column below is the place for dataset uploading and running Hadoop system and the right column for parameters explanation. </small> -->
         </div>
     </div>
-
+    <div class="wrapper_system">
+        <div class="typing-demo_system">
+            Welcome to our system page where you can convert your DNA data files to cluster BiMeta files ^__^
+        </div>
+    </div>
     <div id="display_files" style="font-family: Helvetica, sans-serif;">
         <form>
             <p id="nodata">No data file in system's folder</p>
@@ -121,15 +125,6 @@
                             <input id="kNumber" class="kNumber" type="number" min="1" disabled>
                         </div>
                     </div>
-                    <!-- <div class="area4_1 row">
-                        <p class="body_section4_title col bold" min="1">Store output information:</p>
-                        <div class="col">
-                            <select id="historyStoreOption">
-                                <option>Yes</option>
-                                <option>No</option>
-                            </select>
-                        </div>
-                    </div> -->
                     <div class="area4_1 row">
                         <div class="col" style="display: flex;">
                             <p class="body_section4_title bold" min="1">Graph visualize layout:</p>
@@ -175,11 +170,19 @@
                                 </span>
 
                                 <div id="outputData">
-                                    <div id="output_note">
+                                    <div id="output_note" class="wrapper">
+                                        <div class="typing-demo">
+                                            This is where you can see and download the cluster files which includes reads
+                                            of
+                                            each cluster group species.
+                                        </div>
+                                    </div>
+                                    <!-- <div id="output_note">
                                         <p>This is where you can see and download the cluster files which includes reads
                                             of
                                             each cluster group species.</p>
-                                    </div>
+                                            
+                                    </div> -->
 
                                 </div>
                             </div>
@@ -194,11 +197,16 @@
                                 </span>
 
                                 <div id="overview">
-                                    <div id="overview_note">
+                                    <!-- <div id="overview_note">
                                         <p>This is where you can see the overview information of the input dataset which
                                             included file name, F-measure, Recall, Precision, Date Start, Time,... </p>
+                                    </div> -->
+                                    <div class="wrapper">
+                                        <div id="overview_note" class="typing-demo">
+                                            This is where you can see the overview information of the input dataset which
+                                            included file name, F-measure, Recall, Precision, Date Start, Time,...
+                                        </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -217,12 +225,21 @@
                                             <img id="nodeGraphExample"
                                                 src="{% static 'images/node_graph_example.png' %}" style="width: 80%;">
                                         </div>
-                                        <div class="col-md-6">
+                                        <!-- <div class="col-md-6">
                                             <p>This is where you can get the overview graph of you dataset files. The
                                                 graph
                                                 contains the nodes(reads) and the edges (overlap atribute) between two
                                                 nodes.</p>
+                                        </div> -->
+                                        <div class="col-md-6">
+                                            <div class="wrapper">
+                                                <div class="typing-demo">
+                                                    This is where you can see the overview information of the input dataset which
+                                                    included file name, F-measure, Recall, Precision, Date Start, Time,...
+                                                </div>
+                                            </div>
                                         </div>
+                                        
                                     </div>
 
                                 </div>
@@ -245,11 +262,18 @@
                                 </span>
 
                                 <div id="bardiv" class="bardiv">
-                                    <div id="bar_note">
+                                    <!-- <div id="bar_note">
                                         <p>This is where you can get the overview graph of you dataset files. The graph
                                             contains the nodes(reads) and the edges (overlap atribute) between two
                                             nodes.
                                         </p>
+                                    </div> -->
+                                    <div id="bar_note" class="wrapper">
+                                        <div class="typing-demo">
+                                            This is where you can get the overview graph of you dataset files. The graph
+                                            contains the nodes(reads) and the edges (overlap atribute) between two
+                                            nodes.
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -263,11 +287,18 @@
                                             class="fa fa-search"></i></button>
                                 </span>
                                 <div id="piediv" class="piediv">
-                                    <div id="pie_note">
+                                    <!-- <div id="pie_note">
                                         <p>This is where you can get the overview graph of you dataset files. The graph
                                             contains the nodes(reads) and the edges (overlap atribute) between two
                                             nodes.
                                         </p>
+                                    </div> -->
+                                    <div id="pie_note" class="wrapper">
+                                        <div class="typing-demo">
+                                            This is where you can get the overview graph of you dataset files. The graph
+                                            contains the nodes(reads) and the edges (overlap atribute) between two
+                                            nodes.
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -1,5 +1,5 @@
-function lollipopChart(lollipopData,arrayCode) {
-
+// function lollipopChart(lollipopData,arrayCode) {
+  function lollipopChart(lollipopData) {
     // Themes begin
     am4core.useTheme(am4themes_dark);
     am4core.useTheme(am4themes_animated);
@@ -9,15 +9,28 @@ function lollipopChart(lollipopData,arrayCode) {
     
     var data = [];
     // var value = 120;
+    console.log(lollipopData)
+    var names = ["cases",
+  "todayCases",
+  "deaths",
+  "todayDeaths",
+  "recovered",
+  "todayRecovered"
+  ]
+  var value = [lollipopData["cases"],lollipopData["todayCases"],lollipopData["todayDeaths"],lollipopData["recovered"],lollipopData["todayRecovered"]]
+  // console.log(valueTest)
+
+  for (var i = 0; i < names.length; i++) {
+    // value += Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 5);
+    data.push({ category: names[i], value: value[i] });
+  }
+    // var names = lollipopData["Countries"];
     
-    var names = lollipopData["Countries"];
-    
-    for (var i = 0; i < names.length; i++) {
-    //   value += Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 5);
-      if (arrayCode.includes(names[i]["CountryCode"])) {
-        data.push({ category: names[i]["Country"], value: names[i]["TotalConfirmed"] });
-      }
-    }
+    // for (var i = 0; i < names.length; i++) {
+    //   if (arrayCode.includes(names[i]["CountryCode"])) {
+    //     data.push({ category: names[i]["Country"], value: names[i]["TotalConfirmed"] });
+    //   }
+    // }
     
     // console.log("da vao lollipop")
     // console.log("data :", data)

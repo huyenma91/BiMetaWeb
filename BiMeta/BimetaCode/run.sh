@@ -305,9 +305,12 @@ else
 fi
 # End----------------------------------------------------------------------
 
-python bimeta/utils/read_json.py \
---overview $OUT_FLR_WEB/OutStep_3 \
---time $JSON_FLR_WEB/$OVERVIEW
+if [ "$STEP_3" = "true" ]
+then
+    python bimeta/utils/read_json.py \
+    --overview $OUT_FLR_WEB/OutStep_3 \
+    --time $JSON_FLR_WEB/$OVERVIEW
+fi
 
 # Clean HDFS
 hdfs dfs -rm /user/$IN_FILE_NAME
